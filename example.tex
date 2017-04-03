@@ -1,0 +1,355 @@
+
+\documentclass[twocolumn]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage[inkscape={/usr/bin/inkscape -z -C }]{svg}
+\usepackage{import}
+\usepackage{pifont}
+\usepackage{filecontents}
+\usepackage[ngerman]{babel}
+\usepackage{color}
+
+\usepackage{fancyhdr}
+\usepackage[defaultlines=4, all]{nowidow}
+\definecolor{darkblue}{rgb}{0, 0,.4}
+\usepackage[colorlinks=true, urlcolor=darkblue, linkcolor=blue]{hyperref}
+\usepackage[hyphens]{url}
+\urlstyle{same}
+\parindent0cm
+\setlength{\columnsep}{30 pt}
+\clubpenalty = 10000
+\widowpenalty = 10000
+\displaywidowpenalty = 10000
+\tolerance=500
+\let\mypdfximage\pdfximage
+\protected\def\pdfximage{\immediate\mypdfximage}
+\pagestyle{fancy}
+\fancyhead[C]{\small Répertoire International des Sources Musicales}
+\renewcommand{\headrulewidth}{0.4pt}
+\begin{titlepage}
+\title{RISM Musical Sources}
+\author{\copyright \ 2017 by \ RISM}
+\date{\today}
+\end{titlepage}
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\cleardoublepage
+\setlength{\columnseprule}{0.5pt}
+
+\newcommand\hfillplus[1]{{\unskip\nobreak\hfill\penalty50\
+  \mbox{}\nobreak\hfill#1}}
+
+\newline \textcolor{darkblue}{\textbf{Witt, Christian Friedrich (1665-1717)
+}}\hfillplus{1}
+\newline Da aber Johannes im Gefängnis die Werk' Christi hörete
+\newline V (4), strings, org
+\newline \itshape [title page, org:] Dominica 3. Advent. | Da aber Johannes in[!] Gefängnis | Choral | Für uns ein Mensch gebohren | ab. 8. Voc. | C. F. Witt \normalfont 
+\newline \textcolor{darkblue}{\ding{182}} Manuscript copy 1697-1730 [Kettlinienabstand ca. 2,1 cm] [State of preservation: bc: Doppelblatt am Falz durchtrennt]
+\newline	
+1.1.1 vl 1
+\newline
+\begin{filecontents*}{1-1.txt}
+@clef:G-2
+@keysig:xFC
+@timesig:3/4
+@data:''E4.E8E/4CCE/D--/''C'4.B8B/{A''ECDEC}/
+\end{filecontents*}
+\immediate\write18{ verovio --spacing-non-linear=0.50 --adjust-page-height -b 0 1-1.txt }
+\includesvg[width=350pt]{1-1}%
+\newline	
+1.2.1 T, Da aber Johannes im Gefängnis die Werk' Christi hörete
+\newline
+\begin{filecontents*}{1-2.txt}
+@clef:C-4
+@keysig:xFC
+@timesig:3/4
+@data:8-,A'C,6BA'8EE,8.B6'C/8DDDE4.C8C/,8.B6B4B
+\end{filecontents*}
+\immediate\write18{ verovio --spacing-non-linear=0.50 --adjust-page-height -b 0 1-2.txt }
+\includesvg[width=350pt]{1-2}%
+\newline	
+1.3.1 S, Für uns eine Mensch geboren
+\newline
+\begin{filecontents*}{1-3.txt}
+@clef:C-1
+@keysig:xFC
+@timesig:c
+@data:4-AA''C/'BA2xG/4F--''C/
+\end{filecontents*}
+\immediate\write18{ verovio --spacing-non-linear=0.50 --adjust-page-height -b 0 1-3.txt }
+\includesvg[width=350pt]{1-3}%
+\newline	
+1.4.1 B, Siehe ich sende meinen Engel
+\newline
+\begin{filecontents*}{1-4.txt}
+@clef:F-4
+@keysig:xFC
+@timesig:c
+@data:,,8{AB},{CD}{EF}xGE/AA8.xG6F8EE4-/
+\end{filecontents*}
+\immediate\write18{ verovio --spacing-non-linear=0.50 --adjust-page-height -b 0 1-4.txt }
+\includesvg[width=350pt]{1-4}%
+\newline	
+1.5.1
+\newline bc dient als Umschlag für die übrigen Stimmen.
+\newline Wasserzeichen D-Nla 2: Papiermühle am Galgenrain Schleusingen, Johann Melchior Scheidemantel (Tätigkeitszeitraum:1690-1704).
+\newline Comment on scoring: org: "Basso Continuo"
+\newline S, A, T, B, vl (2), vla (2), b, org
+\newline A/II: 450119745
+\newline D-Nla Musikaliensammlung Rentweinsdorf 1:3
+\newline 
+
+\newline \textcolor{darkblue}{\textbf{Witt, Christian Friedrich (1665-1717)
+}}\hfillplus{2}
+\newline Es werden Zeichen und Wunder geschehen
+\newline V (4), strings, org
+\newline \itshape [title page, org:] Dominica 2. Advent. | Es werden Zeichen und Wund. p | Choral | Die Liebe Sonne kan nicht mehr | ab: 8. Voc. | C. F. Witt: \normalfont 
+\newline \textcolor{darkblue}{\ding{182}} Manuscript copy 1697-1730 [Kettlinienabstand ca. 2,1 cm]
+\newline	
+1.1.1 vl 1
+\newline
+\begin{filecontents*}{2-1.txt}
+@clef:G-2
+@keysig:bBE
+@timesig:c
+@data:''8{DDDD}4D-/8{CCCC}4C-/8'{BBBB}{BBBB}/
+\end{filecontents*}
+\immediate\write18{ verovio --spacing-non-linear=0.50 --adjust-page-height -b 0 2-1.txt }
+\includesvg[width=350pt]{2-1}%
+\newline	
+1.2.1 T, Es werden Zeichen und Wunder geschehen
+\newline
+\begin{filecontents*}{2-2.txt}
+@clef:C-4
+@keysig:bB
+@timesig:c
+@data:8-'DD6{bEF},4A8A6{AB}/4B8B-4'C8CC/4D8.D6C8CCCC/
+\end{filecontents*}
+\immediate\write18{ verovio --spacing-non-linear=0.50 --adjust-page-height -b 0 2-2.txt }
+\includesvg[width=350pt]{2-2}%
+\newline	
+1.3.1 S, Die liebe Sonne kann nicht mehr
+\newline
+\begin{filecontents*}{2-3.txt}
+@clef:C-1
+@keysig:bB
+@timesig:c
+@data:''8-DDbE{FC}{CD}/{bE'B}{B''C}4D8{C'B}/4B''DDD/
+\end{filecontents*}
+\immediate\write18{ verovio --spacing-non-linear=0.50 --adjust-page-height -b 0 2-3.txt }
+\includesvg[width=350pt]{2-3}%
+\newline	
+1.4.1 T, Und alsdenn werden sie sehen des Menschen Sohn kommen
+\newline
+\begin{filecontents*}{2-4.txt}
+@clef:C-4
+@keysig:bB
+@timesig:c
+@data:4-8,BB4'bE,8B6AG/4'C8CC8.D6D4D/8bED
+\end{filecontents*}
+\immediate\write18{ verovio --spacing-non-linear=0.50 --adjust-page-height -b 0 2-4.txt }
+\includesvg[width=350pt]{2-4}%
+\newline	
+1.5.1
+\newline bc dient als Umschlag für die übrigen Stimmen.
+\newline Wasserzeichen D-Nla 2: Papiermühle am Galgenrain Schleusingen, Johann Melchior Scheidemantel (Tätigkeitszeitraum:1690-1704).
+\newline Digital Object Link: http://dl.rism.info/DO/17077.jpg
+\newline Comment on scoring: org: "Basso Continuo"
+\newline S, A, T, B, vl (2), vla (2), b, org
+\newline A/II: 450119744
+\newline D-Nla Musikaliensammlung Rentweinsdorf 1:2
+\newline 
+
+\newline \textcolor{darkblue}{\textbf{Witt, Christian Friedrich (1665-1717)
+}}\hfillplus{3}
+\newline Saget der Tochter Zion siehe dein König kommt
+\newline V (4), strings, org
+\newline \itshape [title page, org:] Dominica 1. Advent. | Saget der Tochter Zion | Choral | Nun kom[m] der Heÿden Heÿl: | ab: 8. Voc. | C. F. Witt \normalfont 
+\newline \textcolor{darkblue}{\ding{182}} Manuscript copy 1697-1730
+\newline	
+1.1.1 vl 1
+\newline
+\begin{filecontents*}{3-1.txt}
+@clef:G-2
+@keysig:bB
+@timesig:c
+@data:''2D4D8{DD}/4D8-D4bE8.C6C/4DD4.D8D/4D8{GF}{bEDCD}/
+\end{filecontents*}
+\immediate\write18{ verovio --spacing-non-linear=0.50 --adjust-page-height -b 0 3-1.txt }
+\includesvg[width=350pt]{3-1}%
+\newline	
+1.1.2 T, Saget der Tochter Zion siehe dein König kommt
+\newline
+\begin{filecontents*}{3-2.txt}
+@clef:C-4
+@keysig:bB
+@timesig:c
+@data:=4/2-4-8,BG/'D6DD8CD,BG'DG/4bE8DDD6{DC}8.C6C/4D
+\end{filecontents*}
+\immediate\write18{ verovio --spacing-non-linear=0.50 --adjust-page-height -b 0 3-2.txt }
+\includesvg[width=350pt]{3-2}%
+\newline	
+1.2.1 S, Nun komm der Heiden Heiland
+\newline
+\begin{filecontents*}{3-3.txt}
+@clef:C-1
+@keysig:bB
+@timesig:c
+@data:4-GGF/B8{AG}2A/4G--G/B''C'B''C/''D'B2-/
+\end{filecontents*}
+\immediate\write18{ verovio --spacing-non-linear=0.50 --adjust-page-height -b 0 3-3.txt }
+\includesvg[width=350pt]{3-3}%
+\newline	
+1.3.1 T, Das Volk aber das vorging
+\newline
+\begin{filecontents*}{3-4.txt}
+@clef:C-4
+@keysig:bB
+@timesig:c
+@data:4-8-,A4'D,8A6B'C/8,BG-'D4bE8CC/
+\end{filecontents*}
+\immediate\write18{ verovio --spacing-non-linear=0.50 --adjust-page-height -b 0 3-4.txt }
+\includesvg[width=350pt]{3-4}%
+\newline	
+1.3.2 S, Hosianna dem Sohne David
+\newline
+\begin{filecontents*}{3-5.txt}
+@clef:C-1
+@keysig:bB
+@timesig:c
+@data:=3/2-8-''6DDDDDC/8DD-8-6DDDDDD/8CC-
+\end{filecontents*}
+\immediate\write18{ verovio --spacing-non-linear=0.50 --adjust-page-height -b 0 3-5.txt }
+\includesvg[width=350pt]{3-5}%
+\newline	
+1.4.1
+\newline bc dient als Umschlag für die übrigen Stimmen.
+\newline Digital Object Link: http://dl.rism.info/DO/17076.jpg
+\newline Comment on scoring: org: "Basso Continuo"
+\newline S, A, T, B, vl (2), vla (2), b, org
+\newline A/II: 450119743
+\newline D-Nla Musikaliensammlung Rentweinsdorf 1:1
+\newline 
+
+\newline \textcolor{darkblue}{\textbf{Witt, Christian Friedrich (1665-1717)
+}}\hfillplus{4}
+\newline Und als sie daselbst waren
+\newline V (4), strings, org
+\newline \itshape [title page, org:] Feria 1 Nativ: Christi. | Und als sie daselbst wahren | Choral | Merck auff mein Hertz | ab: 8. Voc: | C. F. Witt \normalfont 
+\newline \textcolor{darkblue}{\ding{182}} Manuscript copy 1697-1730
+\newline	
+1.1.1 vl 1
+\newline
+\begin{filecontents*}{4-1.txt}
+@clef:G-2
+@keysig:xFC
+@timesig:3/4
+@data:F''8.6{DE}{FG}/4AA-/GG-/{8FG}4.E8E/{8D'AAA''DD}/
+\end{filecontents*}
+\immediate\write18{ verovio --spacing-non-linear=0.50 --adjust-page-height -b 0 4-1.txt }
+\includesvg[width=350pt]{4-1}%
+\newline	
+1.2.1 T, Und als sie daselbst waren
+\newline
+\begin{filecontents*}{4-2.txt}
+@clef:C-4
+@keysig:xFC
+@timesig:c
+@data:8-,AA6B'C4D8DD/-DD6DD4F8FF/
+\end{filecontents*}
+\immediate\write18{ verovio --spacing-non-linear=0.50 --adjust-page-height -b 0 4-2.txt }
+\includesvg[width=350pt]{4-2}%
+\newline	
+1.3.1 S, Merk auf mein Herz und sieh dorthin
+\newline
+\begin{filecontents*}{4-3.txt}
+@clef:C-1
+@keysig:xFC
+@timesig:c
+@data://:''DC'B/''C'AB''C/D--D/
+\end{filecontents*}
+\immediate\write18{ verovio --spacing-non-linear=0.50 --adjust-page-height -b 0 4-3.txt }
+\includesvg[width=350pt]{4-3}%
+\newline	
+1.4.1 S, Fürchtet euch nicht
+\newline
+\begin{filecontents*}{4-4.txt}
+@clef:G-2
+@keysig:xFC
+@timesig:3/4
+@data:8.A6B''4C/D--/4.E8D4E/F--/
+\end{filecontents*}
+\immediate\write18{ verovio --spacing-non-linear=0.50 --adjust-page-height -b 0 4-4.txt }
+\includesvg[width=350pt]{4-4}%
+\newline	
+1.5.1
+\newline bc dient als Umschlag für die übrigen Stimmen.
+\newline Wasserzeichen D-Nla 2: Papiermühle am Galgenrain Schleusingen, Johann Melchior Scheidemantel (Tätigkeitszeitraum:1690-1704).
+\newline Comment on scoring: org: "Basso Continuo"
+\newline S, A, T, B, vl (2), vla (2), b, org
+\newline A/II: 450119747
+\newline D-Nla Musikaliensammlung Rentweinsdorf 1:5
+\newline 
+
+\newline \textcolor{darkblue}{\textbf{Witt, Christian Friedrich (1665-1717)
+}}\hfillplus{5}
+\newline Warum täufest du denn so du nicht Christus
+\newline V (4), strings, org
+\newline \itshape [title page, org:] Dominica 4. Advent. | Warumb Täuffestu den | Choral | Sein Jünger Heist d[er] He[rre] Christ, | ab: 8. Voc: | C. F. Witt \normalfont 
+\newline \textcolor{darkblue}{\ding{182}} Manuscript copy 1697-1730
+\newline	
+1.1.1 vl 1
+\newline
+\begin{filecontents*}{5-1.txt}
+@clef:G-2
+@keysig:
+@timesig:c
+@data:''F{8.E6E}4D8{EA}/4FED8-D/4xC8-E{FFDD}/4EA4.A8G/
+\end{filecontents*}
+\immediate\write18{ verovio --spacing-non-linear=0.50 --adjust-page-height -b 0 5-1.txt }
+\includesvg[width=350pt]{5-1}%
+\newline	
+1.2.1 S, Warum täufest du denn so du nicht Christus
+\newline
+\begin{filecontents*}{5-2.txt}
+@clef:G-2
+@keysig:
+@timesig:c
+@data:4-8AAF6FF4E/8-AB''xC4DD/
+\end{filecontents*}
+\immediate\write18{ verovio --spacing-non-linear=0.50 --adjust-page-height -b 0 5-2.txt }
+\includesvg[width=350pt]{5-2}%
+\newline	
+1.3.1 S, Sein' Jünger heißt der Herre Christ
+\newline
+\begin{filecontents*}{5-3.txt}
+@clef:C-1
+@keysig:
+@timesig:c
+@data:4-DFG/AB''C'B/A--G/
+\end{filecontents*}
+\immediate\write18{ verovio --spacing-non-linear=0.50 --adjust-page-height -b 0 5-3.txt }
+\includesvg[width=350pt]{5-3}%
+\newline	
+1.4.1 T, Ich taufe mit Wasser
+\newline
+\begin{filecontents*}{5-4.txt}
+@clef:C-4
+@keysig:
+@timesig:c
+@data:8-,F6{AbBAB}'{8C6C,AB'C}/{D,A}8A-'D,4nB+{8BGAB}/8'CC4-
+\end{filecontents*}
+\immediate\write18{ verovio --spacing-non-linear=0.50 --adjust-page-height -b 0 5-4.txt }
+\includesvg[width=350pt]{5-4}%
+\newline	
+1.5.1
+\newline bc dient als Umschlag für die übrigen Stimmen.
+\newline Comment on scoring: org: "Basso Continuo"
+\newline S, A, T, B, vl (2), vla (2), b, org
+\newline A/II: 450119746
+\newline D-Nla Musikaliensammlung Rentweinsdorf 1:4
+\newline 
+
+\end{document}

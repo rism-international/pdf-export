@@ -6,10 +6,8 @@
 \documentclass[twocolumn]{book}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-<!-- \graphicspath{{./pae/}} -->
 \usepackage{graphicx}
 \usepackage[inkscape={/usr/bin/inkscape -z -C }]{svg}
-<!-- \setsvg{svgpath=./pae/} -->
 \usepackage{import}
 \usepackage{pifont}
 \usepackage{filecontents}
@@ -34,13 +32,11 @@
 \pagestyle{fancy}
 \fancyhead[C]{\small Répertoire International des Sources Musicales}
 \renewcommand{\headrulewidth}{0.4pt}
-
 \begin{titlepage}
 \title{RISM Musical Sources}
 \author{\copyright \ 2017 by \ RISM}
 \date{\today}
 \end{titlepage}
-
 \begin{document}
 \maketitle
 \thispagestyle{empty}
