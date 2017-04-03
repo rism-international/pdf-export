@@ -2,7 +2,6 @@
 <xsl:stylesheet version="1.0" xmlns:zs="http://www.loc.gov/zing/srw/" xmlns:marc="http://www.loc.gov/MARC21/slim" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" exclude-result-prefixes="marc">
   <xsl:output method="text" indent="yes" encoding="UTF-8" omit-xml-declaration="yes" />
 	<xsl:template match="zs:searchRetrieveResponse">
-<!--LATEX-->
 \documentclass[twocolumn]{book}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -12,9 +11,7 @@
 \usepackage{pifont}
 \usepackage{filecontents}
 \usepackage[ngerman]{babel}
-\usepackage{color}
-<!-- \usepackage{musixtex}
-\usepackage{harmony} -->
+\usepackage{color} <!-- \usepackage{musixtex}\usepackage{harmony} -->
 \usepackage{fancyhdr}
 \usepackage[defaultlines=4, all]{nowidow}
 \definecolor{darkblue}{rgb}{0, 0,.4}
@@ -42,7 +39,6 @@
 \thispagestyle{empty}
 \cleardoublepage
 \setlength{\columnseprule}{0.5pt}
-
 \newcommand\hfillplus[1]{{\unskip\nobreak\hfill\penalty50\
   \mbox{}\nobreak\hfill#1}}
 <!--START CORPUS-->
@@ -50,11 +46,13 @@
 <xsl:sort select="marc:datafield[@tag=100]/marc:subfield[@code='a']" lang="de"/>
 <xsl:sort select="marc:datafield[@tag=240]/marc:subfield[@code='a']" lang="de"/>
 	<xsl:variable name="counter" select="position()" />
+  <xsl:variable name="creator" select="marc:datafield[@tag=100]/marc:subfield[@code='a']"/>
+  <xsl:variable name="creator_date" select="marc:datafield[@tag=100]/marc:subfield[@code='d']"/>
+
 <!--AUTHOR-->
-<xsl:for-each select="marc:datafield[@tag=100]">
-\newline \textcolor{darkblue}{\textbf{<xsl:value-of select="marc:subfield[@code='a']"/>
-<xsl:if test="(marc:subfield[@code='d'])"> (<xsl:value-of select="marc:subfield[@code='d']"/>)</xsl:if>
-}}\hfillplus{<xsl:value-of select="$counter" />}</xsl:for-each>
+%creator
+\newline \textcolor{darkblue}{\textbf{<xsl:value-of select="$creator"/>
+<xsl:if test="$creator_date"> (<xsl:value-of select="$creator_date"/>)</xsl:if>}}\hfillplus{<xsl:value-of select="$counter" />}
 <!--TITLE-->
 <xsl:for-each select="marc:datafield[@tag=240]">
 <xsl:text>
