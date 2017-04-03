@@ -11,11 +11,13 @@ This software works under Ubuntu 16.04
 Packages and required software
 
 1. Latex and all included packages
+```bash
 sudo apt install tex-common texlive-base texlive-binaries texlive-extra-utils texlive-font-utils texlive-fonts-recommended texlive-generic-recommended texlive-latex-base texlive-latex-extra texlive-latex-recommended texlive-pictures texlive-pstricks
-
+```
 2. inkscape
+```bash
 sudo apt install inkscape 
-
+```
 3. verovio (called from commandline)
 see: https://github.com/rism-ch/verovio/wiki/Building-instructions
 
