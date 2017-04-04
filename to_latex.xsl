@@ -43,14 +43,16 @@
   \mbox{}\nobreak\hfill#1}}
 <!--START CORPUS-->
 <xsl:for-each select="zs:records/zs:record/zs:recordData/marc:record">
-<xsl:sort select="marc:datafield[@tag=100]/marc:subfield[@code='a']" lang="de"/>
+  
+  <xsl:sort select="marc:datafield[@tag=100]/marc:subfield[@code='a']" lang="de"/>
 <xsl:sort select="marc:datafield[@tag=240]/marc:subfield[@code='a']" lang="de"/>
-	<xsl:variable name="counter" select="position()" />
-  <xsl:variable name="creator" select="marc:datafield[@tag=100]/marc:subfield[@code='a']"/>
-  <xsl:variable name="creator_date" select="marc:datafield[@tag=100]/marc:subfield[@code='d']"/>
+
+<xsl:variable name="counter" select="position()" />
+<xsl:variable name="creator" select="marc:datafield[@tag=100]/marc:subfield[@code='a']"/>
+<xsl:variable name="creator_date" select="marc:datafield[@tag=100]/marc:subfield[@code='d']"/>
 
 <!--AUTHOR-->
-%creator
+%creator:::<xsl:value-of select="$creator"/>:::<xsl:value-of select="$counter" />
 \newline \textcolor{darkblue}{\textbf{<xsl:value-of select="$creator"/>
 <xsl:if test="$creator_date"> (<xsl:value-of select="$creator_date"/>)</xsl:if>}}\hfillplus{<xsl:value-of select="$counter" />}
 <!--TITLE-->

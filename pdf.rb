@@ -1,7 +1,7 @@
 require 'nokogiri'
 require 'pry'
 ofile=File.new('/tmp/example.tex', 'w')
-doc = File.open("example.xml") { |f| Nokogiri::XML(f)  }
+doc = File.open("dnla.xml") { |f| Nokogiri::XML(f)  }
 doc.encoding = 'utf-8'
 template = Nokogiri::XSLT(File.read('to_latex.xsl'))
 latex = template.transform(doc)

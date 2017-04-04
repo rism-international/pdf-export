@@ -42,5 +42,19 @@ Hint: The pdftex-command MUST be called from within the output-directory (eg. /t
 
 Output
 ------
+Result will be look alike example.pdf in this repository.
 
-Result will be like example.pdf in this repository.
+Indices
+-------
+Indices can be build with the resulting .TEX file. All entries are having the schema:
+@creator:::entry:::number, eg.
+@creator:::Beethoven, Ludwig van:::128
+
+Indices are:
+* Composers
+* Names
+* Title and Text
+* Watermark
+* Shelfmark
+* Literature
+
