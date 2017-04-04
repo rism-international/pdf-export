@@ -26,6 +26,12 @@ see: https://github.com/rism-ch/verovio/wiki/Building-instructions
 
 Basic usage
 -----------
+The transformation of Marcxml to LaTex has two steps:
+* Transforming into template.xml with preproc.rb
+This file contains all information as template for LaTex.
+* Transforming into latex-document with pdf.rb
+This generates the .TEX-file for pdftex
+
 1. XSLT
 
 The process is called from the pdf.rb-script. Main target of the script is the build of a related .TEX-file in prepartion for pdftex.At the current state the XSLT also defines the order of the resulting document.
