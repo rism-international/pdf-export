@@ -61,7 +61,10 @@
                 <xsl:if test="marc:subfield[@code='p']">
                   <verovio-code>
                     <filename><xsl:value-of select="concat($counter,'-',$incno)"/></filename>
-                    <code>@clef:<xsl:value-of select="marc:subfield[@code='g']"/>\n@keysig:<xsl:value-of select="marc:subfield[@code='n']"/>\n@timesig:<xsl:value-of select="marc:subfield[@code='o']"/>\n@data:<xsl:value-of select="marc:subfield[@code='p']"/>
+                    <code>@clef:<xsl:value-of select="marc:subfield[@code='g']"/>
+@keysig:<xsl:value-of select="marc:subfield[@code='n']"/>
+@timesig:<xsl:value-of select="marc:subfield[@code='o']"/>
+@data:<xsl:value-of select="marc:subfield[@code='p']"/>
 </code>
                   </verovio-code>
                 </xsl:if>

@@ -53,10 +53,11 @@
 <xsl:for-each select="./*">
   <xsl:choose>
     <xsl:when test="name(.)='verovio-code'">
-\commandline{ echo "<xsl:value-of select="code" disable-output-escaping="yes"/>" | verovio --spacing-non-linear=0.50 --adjust-page-height -b 0 -o /tmp/<xsl:value-of select="filename"/>.svg - <xsl:text disable-output-escaping="yes">2>/dev/null</xsl:text> }
-<!-- \Verbdef\veroviocommand{  echo "<xsl:value-of select="code" disable-output-escaping="yes"/>" | verovio -spacing-non-linear=0.50 -adjust-page-height -b 0 -o /tmp/<xsl:value-of select="filename"/>.svg - <xsl:text disable-output-escaping="yes">2>/dev/null</xsl:text> }
-\immediate\write18{\veroviocommand}
-           \immediate\write18{\unexpanded{ ( echo "<xsl:value-of select="code" disable-output-escaping="yes"/>" | verovio -spacing-non-linear=0.50 -adjust-page-height -b 0 -o /tmp/<xsl:value-of select="filename"/>.svg - <xsl:text disable-output-escaping="yes">2>/dev/null</xsl:text> ) }} -->
+\begin{filecontents*}{<xsl:value-of select="filename"/>.code}
+<xsl:value-of select="code"/>
+<\end{filecontents*}
+\commandline{ verovio --spacing-non-linear=0.50 --adjust-page-height -b 0 <xsl:value-of select="filename"/>.code }
+\newline
 \includesvg[width=350pt]{<xsl:value-of select="filename"/>}%
     </xsl:when>
     <xsl:when test="not(name(.)='verovio-code')">

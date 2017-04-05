@@ -1,11 +1,20 @@
 require 'nokogiri'
 require 'pry'
-ofile=File.new('/tmp/example.tex', 'w')
+
+template_file=File.new('/tmp/template.xml', 'w')
 doc = File.open("dnla.xml") { |f| Nokogiri::XML(f)  }
 doc.encoding = 'utf-8'
-template = Nokogiri::XSLT(File.read('to_latex.xsl'))
+preproc = Nokogiri::XSLT(File.read('template.xsl'))
+template_xml = preproc.transform(doc)
+template_file.write(template_xml)
+
+ofile=File.new('/tmp/example.tex', 'w')
+doc = File.open("/tmp/template.xml") { |f| Nokogiri::XML(f)  }
+doc.encoding = 'utf-8'
+template = Nokogiri::XSLT(File.read('proc.xsl'))
 latex = template.transform(doc)
 ofile.write(latex.children.to_s)
+
 #It is necessary to call pdflatex from the output directory
 Dir.chdir "/tmp/"
 cmd = 'pdflatex -interaction nonstopmode --enable-write18 -shell-escape -output-directory="." example.tex > /dev/null'
