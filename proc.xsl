@@ -63,6 +63,7 @@
       <xsl:value-of select="."/><xsl:text>  </xsl:text>
     </xsl:when>
 </xsl:choose>
+  <xsl:value-of select="@post"/>
     </xsl:for-each>
 </xsl:for-each>
 \end{document}

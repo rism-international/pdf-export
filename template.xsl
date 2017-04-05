@@ -9,14 +9,14 @@
         <xsl:sort select="marc:datafield[@tag=240]/marc:subfield[@code='a']" lang="de"/>
         <xsl:variable name="counter" select="position()" />
         <record>
-            <composer pre="\newline "><xsl:value-of select="marc:datafield[@tag=100]/marc:subfield[@code='a']"/></composer>
-            <life_date><xsl:value-of select="marc:datafield[@tag=100]/marc:subfield[@code='d']"/></life_date>
-            <id sep="hfill"><xsl:value-of select="position()"/></id>
+          <composer pre="\newline \textcolor{{darkblue}}{{\textbf{{"><xsl:value-of select="marc:datafield[@tag=100]/marc:subfield[@code='a']"/></composer>
+          <life_date post="}}}}"><xsl:value-of select="marc:datafield[@tag=100]/marc:subfield[@code='d']"/></life_date>
+          <id pre="\hfillplus{{" post="}}"><xsl:value-of select="position()"/></id>
             <uniform_title pre="\newline "><xsl:value-of select="marc:datafield[@tag=240]/marc:subfield[@code='a']"/></uniform_title>
             <key sep=" - "><xsl:value-of select="marc:datafield[@tag=240]/marc:subfield[@code='r']"/></key>
             <work_catalog><xsl:value-of select="marc:datafield[@tag=240]/marc:subfield[@code='n']"/></work_catalog>
             <scoring pre="\newline "><xsl:value-of select="marc:datafield[@tag=240]/marc:subfield[@code='m']"/></scoring>
-            <original_title pre="\newline "><xsl:value-of select="marc:datafield[@tag=245]/marc:subfield[@code='a']"/></original_title>
+            <original_title pre="\newline \begin{{itshape}}" post="\end{{itshape}}"><xsl:value-of select="marc:datafield[@tag=245]/marc:subfield[@code='a']"/></original_title>
           <xsl:for-each select="marc:datafield[@tag=300]/marc:subfield[@code=8]">
             <xsl:sort select="." lang="de"/>
               <xsl:variable name="layer" select="."/>
@@ -65,7 +65,6 @@
             <note pre="\newline "><xsl:value-of select="marc:subfield[@code='a']"/></note>
         </xsl:for-each>
           <rism_id pre="\newline "><xsl:value-of select="marc:controlfield[@tag=001]"/></rism_id>
-          <people>
             <xsl:for-each select="marc:datafield[@tag=700]">
               <xsl:if test="not(marc:subfield[@code='8'])">
             <person pre="\newline ">
@@ -74,15 +73,12 @@
             </person>
           </xsl:if>
         </xsl:for-each>
-      </people>
-          <sigla>
             <xsl:for-each select="marc:datafield[@tag=852]">
-              <siglum pre="\newline ">
+              <siglum pre="\newline " post="\newline \newline">
                 <library><xsl:value-of select="marc:subfield[@code='a']"/></library>
                 <shelfmark><xsl:value-of select="marc:subfield[@code='c']"/></shelfmark>
               </siglum>
             </xsl:for-each>
-          </sigla>
           <!--      lyric 700
           watermarks 596$a
           collection_link 773$w
