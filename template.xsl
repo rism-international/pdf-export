@@ -25,12 +25,10 @@
           <para style="it" class="original_title">
             <original_title><xsl:value-of select="marc:datafield[@tag=245]/marc:subfield[@code='a']"/></original_title>
           </para>
-          <materials>
           <xsl:for-each select="marc:datafield[@tag=300]/marc:subfield[@code=8]">
             <xsl:sort select="." lang="de"/>
               <xsl:variable name="layer" select="."/>
               <para class="material">
-                <material>
                   <layer style="bullet"><xsl:value-of select="$layer"/></layer>
                   <xsl:for-each select="../../marc:datafield/marc:subfield[@code=8][.=$layer]">
                     <xsl:if test="../@tag=260">
@@ -47,14 +45,10 @@
                       <copyist><xsl:value-of select="../marc:subfield[@code='a']"/></copyist>
                     </xsl:if>
                   </xsl:for-each>
-                </material>
               </para>
           </xsl:for-each>
-        </materials>
-        <incipits>
           <xsl:for-each select="marc:datafield[@tag=031]"><xsl:variable name="incno" select="position()" />
-            <para class="incipit">
-              <incipit>
+          <para class="incipit">
                 <no>
                   <xsl:value-of select="marc:subfield[@code='a']"/>.<xsl:value-of select="marc:subfield[@code='b']"/>.<xsl:value-of select="marc:subfield[@code='c']"/>
                 </no>
@@ -66,18 +60,16 @@
                 </xsl:if>
                 <xsl:if test="marc:subfield[@code='p']">
                   <verovio-code>
-                    <filename><xsl:value-of select="concat($counter,'-',$incno)"/>.txt</filename>
-                    <code>@clef:<xsl:value-of select="marc:subfield[@code='g']"/>@keysig:<xsl:value-of select="marc:subfield[@code='n']"/>@timesig:<xsl:value-of select="marc:subfield[@code='o']"/>@data:<xsl:value-of select="marc:subfield[@code='p']"/>
+                    <filename><xsl:value-of select="concat($counter,'-',$incno)"/></filename>
+                    <code>@clef:<xsl:value-of select="marc:subfield[@code='g']"/>\n@keysig:<xsl:value-of select="marc:subfield[@code='n']"/>\n@timesig:<xsl:value-of select="marc:subfield[@code='o']"/>\n@data:<xsl:value-of select="marc:subfield[@code='p']"/>
 </code>
                   </verovio-code>
                 </xsl:if>
                 <xsl:if test="marc:subfield[@code='t']"> 
                   <text style="tiny"><xsl:value-of select="marc:subfield[@code='t']"/></text>
                 </xsl:if>
-              </incipit>
             </para>
         </xsl:for-each>
-        </incipits>
         <xsl:for-each select="marc:datafield[@tag=500]">
           <para class="note">
             <note><xsl:value-of select="marc:subfield[@code='a']"/></note>
