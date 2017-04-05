@@ -9,27 +9,18 @@
         <xsl:sort select="marc:datafield[@tag=240]/marc:subfield[@code='a']" lang="de"/>
         <xsl:variable name="counter" select="position()" />
         <record>
-          <para style="bold" class="composer">
-            <composer><xsl:value-of select="marc:datafield[@tag=100]/marc:subfield[@code='a']"/></composer>
+            <composer pre="\newline "><xsl:value-of select="marc:datafield[@tag=100]/marc:subfield[@code='a']"/></composer>
             <life_date><xsl:value-of select="marc:datafield[@tag=100]/marc:subfield[@code='d']"/></life_date>
             <id sep="hfill"><xsl:value-of select="position()"/></id>
-          </para>
-          <para class="title">
-            <uniform_title><xsl:value-of select="marc:datafield[@tag=240]/marc:subfield[@code='a']"/></uniform_title>
+            <uniform_title pre="\newline "><xsl:value-of select="marc:datafield[@tag=240]/marc:subfield[@code='a']"/></uniform_title>
             <key sep=" - "><xsl:value-of select="marc:datafield[@tag=240]/marc:subfield[@code='r']"/></key>
             <work_catalog><xsl:value-of select="marc:datafield[@tag=240]/marc:subfield[@code='n']"/></work_catalog>
-          </para>
-          <para class="scoring">
-            <scoring><xsl:value-of select="marc:datafield[@tag=240]/marc:subfield[@code='m']"/></scoring>
-          </para>
-          <para style="it" class="original_title">
-            <original_title><xsl:value-of select="marc:datafield[@tag=245]/marc:subfield[@code='a']"/></original_title>
-          </para>
+            <scoring pre="\newline "><xsl:value-of select="marc:datafield[@tag=240]/marc:subfield[@code='m']"/></scoring>
+            <original_title pre="\newline "><xsl:value-of select="marc:datafield[@tag=245]/marc:subfield[@code='a']"/></original_title>
           <xsl:for-each select="marc:datafield[@tag=300]/marc:subfield[@code=8]">
             <xsl:sort select="." lang="de"/>
               <xsl:variable name="layer" select="."/>
-              <para class="material">
-                  <layer style="bullet"><xsl:value-of select="$layer"/></layer>
+                  <layer style="bullet" pre="\newline "><xsl:value-of select="$layer"/></layer>
                   <xsl:for-each select="../../marc:datafield/marc:subfield[@code=8][.=$layer]">
                     <xsl:if test="../@tag=260">
                       <date><xsl:value-of select="../marc:subfield[@code='c']"/></date>
@@ -45,11 +36,9 @@
                       <copyist><xsl:value-of select="../marc:subfield[@code='a']"/></copyist>
                     </xsl:if>
                   </xsl:for-each>
-              </para>
           </xsl:for-each>
           <xsl:for-each select="marc:datafield[@tag=031]"><xsl:variable name="incno" select="position()" />
-          <para class="incipit">
-                <no>
+                <no pre="\newline ">
                   <xsl:value-of select="marc:subfield[@code='a']"/>.<xsl:value-of select="marc:subfield[@code='b']"/>.<xsl:value-of select="marc:subfield[@code='c']"/>
                 </no>
                 <xsl:if test="marc:subfield[@code='m']"> 
@@ -71,38 +60,29 @@
                 <xsl:if test="marc:subfield[@code='t']"> 
                   <text style="tiny"><xsl:value-of select="marc:subfield[@code='t']"/></text>
                 </xsl:if>
-            </para>
         </xsl:for-each>
         <xsl:for-each select="marc:datafield[@tag=500]">
-          <para class="note">
-            <note><xsl:value-of select="marc:subfield[@code='a']"/></note>
-          </para>
+            <note pre="\newline "><xsl:value-of select="marc:subfield[@code='a']"/></note>
         </xsl:for-each>
-        <para class="id">
-          <rism_id><xsl:value-of select="marc:controlfield[@tag=001]"/></rism_id>
-        </para>
-        <para class="people">
+          <rism_id pre="\newline "><xsl:value-of select="marc:controlfield[@tag=001]"/></rism_id>
           <people>
             <xsl:for-each select="marc:datafield[@tag=700]">
               <xsl:if test="not(marc:subfield[@code='8'])">
-            <person>
+            <person pre="\newline ">
               <func><xsl:value-of select="marc:subfield[@code='4']"/></func>
               <name><xsl:value-of select="marc:subfield[@code='a']"/></name>
             </person>
           </xsl:if>
         </xsl:for-each>
       </people>
-        </para>
-        <para class="siglum">
           <sigla>
             <xsl:for-each select="marc:datafield[@tag=852]">
-              <siglum>
+              <siglum pre="\newline ">
                 <library><xsl:value-of select="marc:subfield[@code='a']"/></library>
                 <shelfmark><xsl:value-of select="marc:subfield[@code='c']"/></shelfmark>
               </siglum>
             </xsl:for-each>
           </sigla>
-        </para>
           <!--      lyric 700
           watermarks 596$a
           collection_link 773$w

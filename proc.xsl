@@ -48,14 +48,13 @@
   \mbox{}\nobreak\hfill#1}}
 <!--START CORPUS-->
 <xsl:for-each select="document/record">
-  <xsl:for-each select="para">
-\newline
 <xsl:for-each select="./*">
+  <xsl:value-of select="@pre"/>
   <xsl:choose>
     <xsl:when test="name(.)='verovio-code'">
 \begin{filecontents*}{<xsl:value-of select="filename"/>.code}
 <xsl:value-of select="code"/>
-<\end{filecontents*}
+\end{filecontents*}
 \commandline{ verovio --spacing-non-linear=0.50 --adjust-page-height -b 0 <xsl:value-of select="filename"/>.code }
 \newline
 \includesvg[width=350pt]{<xsl:value-of select="filename"/>}%
@@ -65,18 +64,6 @@
     </xsl:when>
 </xsl:choose>
     </xsl:for-each>
-  </xsl:for-each>
-</xsl:for-each>
-\end{document}
-</xsl:template>
-</xsl:stylesheet>
-    </xsl:when>
-    <xsl:when test="not(name(.)='verovio-code')">
-      <xsl:value-of select="."/><xsl:text>  </xsl:text>
-    </xsl:when>
-</xsl:choose>
-    </xsl:for-each>
-  </xsl:for-each>
 </xsl:for-each>
 \end{document}
 </xsl:template>
