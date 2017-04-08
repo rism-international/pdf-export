@@ -24,6 +24,8 @@ see: https://github.com/rism-ch/verovio/wiki/Building-instructions
 
 4. Ruby and Nokogiri
 
+5. Increase the main memory size of texmf.conf
+
 Basic usage
 -----------
 The transformation of Marcxml to LaTex has two steps:

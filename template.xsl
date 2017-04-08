@@ -62,7 +62,7 @@
                 </xsl:if>
         </xsl:for-each>
         <xsl:for-each select="marc:datafield[@tag=500]">
-            <note pre="\newline "><xsl:value-of select="marc:subfield[@code='a']"/></note>
+            <note pre="\par "><xsl:value-of select="marc:subfield[@code='a']"/></note>
         </xsl:for-each>
           <rism_id pre="\newline "><xsl:value-of select="marc:controlfield[@tag=001]"/></rism_id>
             <xsl:for-each select="marc:datafield[@tag=700]">

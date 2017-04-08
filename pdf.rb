@@ -2,7 +2,7 @@ require 'nokogiri'
 require 'pry'
 
 template_file=File.new('/tmp/template.xml', 'w')
-doc = File.open("dnla.xml") { |f| Nokogiri::XML(f)  }
+doc = File.open("meir.xml") { |f| Nokogiri::XML(f)  }
 doc.encoding = 'utf-8'
 preproc = Nokogiri::XSLT(File.read('template.xsl'))
 template_xml = preproc.transform(doc)
@@ -17,6 +17,6 @@ ofile.write(latex.children.to_s)
 
 #It is necessary to call pdflatex from the output directory
 Dir.chdir "/tmp/"
-cmd = 'pdflatex -interaction nonstopmode --enable-write18 -shell-escape -output-directory="." example.tex > /dev/null'
+cmd = 'pdflatex -interaction nonstopmode --enable-write18 --extra-mem-top=10000000 --extra-mem-bot=10000000 -shell-escape -output-directory="." example.tex > /dev/null'
 system( cmd )
 puts "Ready!"

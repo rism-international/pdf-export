@@ -3,8 +3,9 @@
   <xsl:output method="text" indent="no" encoding="UTF-8" omit-xml-declaration="yes" />
   <xsl:template match="/">
 \documentclass[twocolumn]{book}
-\usepackage[utf8]{inputenc}
+\usepackage[utf8x]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage{textcomp}
 \usepackage{xparse}
 \ExplSyntaxOn
 \NewDocumentCommand{\commandline}{v}
