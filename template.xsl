@@ -9,7 +9,7 @@
         <xsl:sort select="marc:datafield[@tag=240]/marc:subfield[@code='a']" lang="de"/>
         <xsl:variable name="counter" select="position()" />
         <record>
-          <composer pre="\newline \textcolor{{darkblue}}{{\textbf{{"><xsl:value-of select="marc:datafield[@tag=100]/marc:subfield[@code='a']"/></composer>
+          <composer pre="\newline \par \textcolor{{darkblue}}{{\textbf{{"><xsl:value-of select="marc:datafield[@tag=100]/marc:subfield[@code='a']"/></composer>
           <life_date post="}}}}"><xsl:value-of select="marc:datafield[@tag=100]/marc:subfield[@code='d']"/></life_date>
           <id pre="\hfillplus{{" post="}}"><xsl:value-of select="position()"/></id>
             <uniform_title pre="\newline "><xsl:value-of select="marc:datafield[@tag=240]/marc:subfield[@code='a']"/></uniform_title>
@@ -58,7 +58,7 @@
                   </verovio-code>
                 </xsl:if>
                 <xsl:if test="marc:subfield[@code='t']"> 
-                  <text style="tiny"><xsl:value-of select="marc:subfield[@code='t']"/></text>
+                  <text pre="\newline "><xsl:value-of select="marc:subfield[@code='t']"/></text>
                 </xsl:if>
         </xsl:for-each>
         <xsl:for-each select="marc:datafield[@tag=500]">
@@ -74,7 +74,7 @@
           </xsl:if>
         </xsl:for-each>
             <xsl:for-each select="marc:datafield[@tag=852]">
-              <siglum pre="\newline " post="\newline \newline">
+              <siglum pre="\newline " post="\newline ">
                 <library><xsl:value-of select="marc:subfield[@code='a']"/></library>
                 <shelfmark><xsl:value-of select="marc:subfield[@code='c']"/></shelfmark>
               </siglum>
