@@ -24,11 +24,25 @@ see: https://github.com/rism-ch/verovio/wiki/Building-instructions
 
 4. Ruby and Nokogiri
 
-5. Increase the main memory size of texmf.conf
+5. Increase the main memory size of texmf.conf:
+* find the correct texmf.conf: 
+```bash
+kpsewhich -a texmf.cnf
+```
+* increase the size:
+```latex
+main_memory = 7999999
+extra_mem_top = 7999999
+extra_mem_bot = 7999999
+```
+* rebuild the configuration files
+```bash
+sudo fmtutil-sys --all
+```
 
 Basic usage
 -----------
-The transformation of Marcxml to LaTex has two steps:
+This transformation of Marcxml to LaTex has two steps using XSLT:
 * Transforming into template.xml with preproc.rb
 This file contains all information as template for LaTex.
 * Transforming into latex-document with pdf.rb
@@ -54,9 +68,7 @@ Result will be look alike example.pdf in this repository.
 
 Indices
 -------
-Indices can be build with the resulting .TEX file. All entries are having the schema:
-@creator:::entry:::number, eg.
-@creator:::Beethoven, Ludwig van:::128
+Indices can be build with the template .TEX file:
 
 Indices are:
 * Composers
