@@ -103,6 +103,7 @@
         </xsl:for-each>
           <rism_id pre="\newline ">RISM-ID: <xsl:value-of select="marc:controlfield[@tag=001]"/></rism_id>
             <xsl:for-each select="marc:datafield[@tag=700]">
+              <xsl:sort select="marc:subfield[@code='a']" lang="de"/>
               <xsl:if test="not(marc:subfield[@code='8'])">
               <name pre="\newline "><xsl:value-of select="marc:subfield[@code='a']"/></name>
               <func>(<xsl:value-of select="marc:subfield[@code='4']"/>)</func>
