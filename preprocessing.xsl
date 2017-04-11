@@ -8,6 +8,7 @@
         <xsl:sort select="marc:datafield[@tag=100]/marc:subfield[@code='a'] = false()"/>
         <xsl:sort select="marc:datafield[@tag=100]/marc:subfield[@code='a']" lang="de"/>
         <xsl:sort select="marc:datafield[@tag=240]/marc:subfield[@code='a']" lang="de"/>
+        <xsl:sort select="marc:datafield[@tag=130]/marc:subfield[@code='a']" lang="de"/>
         <xsl:variable name="counter" select="position()" />
         <record>
           <xsl:attribute name="rismid"><xsl:value-of select="marc:controlfield[@tag=001]"/></xsl:attribute>
@@ -30,8 +31,12 @@
           <composer pre="\newline \par \vspace{{7pt}} \textcolor{{darkblue}}{{\textbf{{"><xsl:value-of select="marc:datafield[@tag=100]/marc:subfield[@code='a']"/></composer>
           <life_date post="}}}}"><xsl:value-of select="marc:datafield[@tag=100]/marc:subfield[@code='d']"/></life_date>
           <id pre="\hfillplus{{" post="}}"><xsl:value-of select="position()"/></id>
-            <uniform_title pre="\newline "><xsl:value-of select="marc:datafield[@tag=240]/marc:subfield[@code='a']"/></uniform_title>
-            <key sep=" - "><xsl:value-of select="marc:datafield[@tag=240]/marc:subfield[@code='r']"/></key>
+          <uniform_title pre="\newline "><xsl:value-of select="marc:datafield[@tag=240]/marc:subfield[@code='a']"/>
+             <xsl:if test="marc:datafield[@tag=240]/marc:subfield[@code='k']">. <xsl:value-of select="marc:datafield[@tag=240]/marc:subfield[@code='k']"/>
+            </xsl:if>
+             <xsl:if test="marc:datafield[@tag=240]/marc:subfield[@code='o']">. <xsl:value-of select="marc:datafield[@tag=240]/marc:subfield[@code='o']"/>
+            </xsl:if></uniform_title>
+           <key sep=" - "><xsl:value-of select="marc:datafield[@tag=240]/marc:subfield[@code='r']"/></key>
             <work_catalog><xsl:value-of select="marc:datafield[@tag=240]/marc:subfield[@code='n']"/></work_catalog>
             <xsl:if test="marc:datafield[@tag=240]/marc:subfield[@code='m']">
               <scoring pre="\newline "><xsl:value-of select="marc:datafield[@tag=240]/marc:subfield[@code='m']"/></scoring>

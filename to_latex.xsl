@@ -71,7 +71,7 @@
 </xsl:when>
 <xsl:when test="name(.)='collection-link'">
 <xsl:variable name="coll" select="."/>
-<xsl:for-each select="key('collection',$coll)">In collection \rightarrow <xsl:value-of select="@position"/> (<xsl:value-of select="@rismid"/>)
+<xsl:for-each select="key('collection',$coll)">$\rightarrow$ In collection cat. no. <xsl:value-of select="@position"/> (<xsl:value-of select="@rismid"/>)
 </xsl:for-each>
 </xsl:when>
 </xsl:choose>
