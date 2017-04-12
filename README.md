@@ -1,6 +1,6 @@
 Description
 -----------
-<p align="right">
+<p float="right">
   <img width="30%" height="30%" src="example.png">
 </p>
 This script transforms a SRU-query from muscat.rism.info/sru/sources into a LaTex-file, provided by XSLT.
