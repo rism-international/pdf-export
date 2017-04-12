@@ -2,24 +2,24 @@ require 'nokogiri'
 require 'pry'
 
 #Inputfile
-doc = File.open("dfh.xml") { |f| Nokogiri::XML(f)  }
+doc = File.open("../dfh.xml") { |f| Nokogiri::XML(f)  }
 doc.encoding = 'utf-8'
 
 #Preprocessing
 preprocessing_file=File.new('/tmp/preprocessing.xml', 'w')
 latex_file=File.new('/tmp/example.tex', 'w')
-preproc = Nokogiri::XSLT(File.read('preprocessing.xsl'))
+preproc = Nokogiri::XSLT(File.read('stylesheets/preprocessing.xsl'))
 preprocessing_xml = preproc.transform(doc)
 preprocessing_file.write(preprocessing_xml)
 
 #Creating the corpus
-template = Nokogiri::XSLT(File.read('to_latex.xsl'))
+template = Nokogiri::XSLT(File.read('stylesheets/to_latex.xsl'))
 latex = template.transform(preprocessing_xml)
 
 #Creating the people index
-template = Nokogiri::XSLT(File.read('index_names_pre.xsl'))
+template = Nokogiri::XSLT(File.read('stylesheets/index_names_pre.xsl'))
 pre = template.transform(preprocessing_xml)
-template = Nokogiri::XSLT(File.read('index_names.xsl'))
+template = Nokogiri::XSLT(File.read('stylesheets/index_names.xsl'))
 regis = template.transform(pre)
 
 #Combining corpus and index together
