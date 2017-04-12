@@ -1,19 +1,35 @@
 require 'nokogiri'
 require 'pry'
 
-preprocessing_file=File.new('/tmp/preprocessing.xml', 'w')
-doc = File.open("output.xml") { |f| Nokogiri::XML(f)  }
+#Inputfile
+doc = File.open("dfh.xml") { |f| Nokogiri::XML(f)  }
 doc.encoding = 'utf-8'
+
+#Preprocessing
+preprocessing_file=File.new('/tmp/preprocessing.xml', 'w')
+latex_file=File.new('/tmp/example.tex', 'w')
 preproc = Nokogiri::XSLT(File.read('preprocessing.xsl'))
 preprocessing_xml = preproc.transform(doc)
 preprocessing_file.write(preprocessing_xml)
 
-latex_file=File.new('/tmp/example.tex', 'w')
-doc = File.open("/tmp/preprocessing.xml") { |f| Nokogiri::XML(f)  }
-doc.encoding = 'utf-8'
+#Creating the corpus
 template = Nokogiri::XSLT(File.read('to_latex.xsl'))
-latex = template.transform(doc)
+latex = template.transform(preprocessing_xml)
+
+#Creating the people index
+template = Nokogiri::XSLT(File.read('index_names_pre.xsl'))
+pre = template.transform(preprocessing_xml)
+template = Nokogiri::XSLT(File.read('index_names.xsl'))
+regis = template.transform(pre)
+
+#Combining corpus and index together
 latex_file.write(latex.children.to_s)
+latex_file.write(regis.children.to_s)
+
+#Finishing
+latex_file.write("\n")
+latex_file.write('\end{document}')
+latex_file.close
 
 #It is necessary to call pdflatex from the output directory
 Dir.chdir "/tmp/"

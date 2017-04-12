@@ -80,6 +80,6 @@
 <xsl:value-of select="@post"/>
 </xsl:for-each>
 </xsl:for-each>
-\end{document}
+<!-- \end{document} -->
 </xsl:template>
 </xsl:stylesheet>
