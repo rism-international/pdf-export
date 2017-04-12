@@ -3,10 +3,10 @@
   <xsl:output method="text" indent="no" encoding="UTF-8" omit-xml-declaration="yes" />
   <xsl:output method="text" indent="no" encoding="UTF-8"/>
   <xsl:template match="/">
-\newpage
-\newline
-\setcounter{secnumdepth}{0} 
-\section{Index of People} 
+    \clearpage  
+\twocolumn[{%
+\centering
+\LARGE Index of personal names \\[1.5em]}] 
 <xsl:for-each select="*/person">
 <xsl:sort select="."/>
 <xsl:if test="not(preceding-sibling::*=.)">
