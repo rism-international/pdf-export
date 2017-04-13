@@ -2,7 +2,7 @@ require 'nokogiri'
 require 'pry'
 
 #Inputfile
-doc = File.open("../output.xml") { |f| Nokogiri::XML(f)  }
+doc = File.open("../dfh.xml") { |f| Nokogiri::XML(f)  }
 doc.encoding = 'utf-8'
 
 #Preprocessing
@@ -22,9 +22,17 @@ pre = template.transform(preprocessing_xml)
 template = Nokogiri::XSLT(File.read('stylesheets/index_names.xsl'))
 regis = template.transform(pre)
 
+#Creating the title index
+template = Nokogiri::XSLT(File.read('stylesheets/index_title_pre.xsl'))
+pre = template.transform(preprocessing_xml)
+template = Nokogiri::XSLT(File.read('stylesheets/index_title.xsl'))
+titles = template.transform(pre)
+
+
 #Combining corpus and index together
 latex_file.write(latex.children.to_s)
 latex_file.write(regis.children.to_s)
+latex_file.write(titles.children.to_s)
 
 #Finishing
 latex_file.write("\n")

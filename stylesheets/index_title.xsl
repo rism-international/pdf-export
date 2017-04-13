@@ -6,10 +6,9 @@
     \clearpage  
 \twocolumn[{%
 \centering
-\LARGE Index of personal names \\[1.5em]}] 
-<xsl:variable name="apos">'</xsl:variable>
-<xsl:for-each select="*/person">
-<xsl:sort select="translate(translate(.,concat('[]',$apos), ''), 'äöüšÄÖÜŠ', 'aousAOUS')" lang="de"/>
+\LARGE Index of titles and text \\[1.5em]}] 
+<xsl:for-each select="*/title">
+<xsl:sort select="translate(translate(., '[]', ''), 'äöüšÄÖÜŠ', 'aousAOUS')" lang="de"/>
 <xsl:if test="not(preceding-sibling::*=.)">
 <xsl:text>&#xa;</xsl:text>
 \newline 
