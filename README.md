@@ -11,7 +11,7 @@ Currently an index of personal names is added to the corpus.
 
 Requirements
 -------------
-This software works under Ubuntu 16.04
+This software works at least with Ubuntu 16.04
 
 Packages and required software
 
@@ -51,7 +51,7 @@ Transformation of Marcxml to LaTex is done by calling the ruby script:
 ```bash
 &> ruby pdf.rb
 ```
-Input file is defined at the top of the script. Please consider also generating the input file using the sru-downloader in the related repository.
+Input file is defined at the top of the script. Please consider also generating the input file using the [sru-downloader](https://github.com/rism-international/sru-downloader) in the related repository.
 
 All temporary files are build in /tmp/.
 
