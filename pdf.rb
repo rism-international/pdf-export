@@ -47,5 +47,5 @@ latex_file.close
 #It is necessary to call pdflatex from the output directory
 Dir.chdir "/tmp/"
 cmd = 'pdflatex -interaction nonstopmode --enable-write18 -shell-escape -output-directory="." example.tex > /dev/null'
-#system( cmd )
+system( cmd )
 puts "Ready!"

@@ -15,8 +15,11 @@
 
 <xsl:template match="record">
 <xsl:for-each select="uniform_title | text">
+  <xsl:sort select="."/>
   <xsl:if test=".!=''">
+    <xsl:if test="name()='uniform_title' or ../uniform_title!=.">
     <title><xsl:attribute name="cat-no"><xsl:value-of select="../id"/></xsl:attribute><xsl:value-of select="."/></title>
+  </xsl:if>
   </xsl:if>
 </xsl:for-each>
 </xsl:template>

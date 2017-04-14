@@ -9,12 +9,18 @@
 \LARGE Index of titles and text \\[1.5em]}] 
 <xsl:for-each select="*/title">
 <xsl:sort select="translate(translate(., '[]', ''), 'äöüšÄÖÜŠ', 'aousAOUS')" lang="de"/>
+
+
+
 <xsl:if test="not(preceding-sibling::*=.)">
 <xsl:text>&#xa;</xsl:text>
 \newline 
 <xsl:value-of select="."/><xsl:text> ..... </xsl:text><xsl:value-of select="@cat-no"/>      
 </xsl:if>
-<xsl:if test="preceding-sibling::*=.">, <xsl:value-of select="@cat-no"/>      
+<xsl:if test="preceding-sibling::*=.">
+  <xsl:if test="preceding-sibling::*[1]!=. or preceding-sibling::*[1]/@cat-no!=@cat-no">, <xsl:value-of select="@cat-no"/>      
+  
+</xsl:if>
 </xsl:if>
 </xsl:for-each>
 </xsl:template>
