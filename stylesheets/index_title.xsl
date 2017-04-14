@@ -14,9 +14,7 @@
 \newline 
 <xsl:value-of select="."/><xsl:text> ..... </xsl:text><xsl:value-of select="@cat-no"/>      
 </xsl:if>
-<xsl:if test="preceding-sibling::*=.">
-  <xsl:if test="not(preceding-sibling::*[1]/@cat-no=@cat-no)">, <xsl:value-of select="@cat-no"/>      
-</xsl:if>
+<xsl:if test="preceding-sibling::*=.">, <xsl:value-of select="@cat-no"/>      
 </xsl:if>
 </xsl:for-each>
 </xsl:template>

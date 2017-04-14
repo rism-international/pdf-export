@@ -15,8 +15,11 @@
 
 <xsl:template match="record">
 <xsl:for-each select="composer | name">
+  <xsl:sort select="."/>
   <xsl:if test=".!=''">
-    <person><xsl:attribute name="cat-no"><xsl:value-of select="../id"/></xsl:attribute><xsl:value-of select="."/></person>
+    <xsl:if test="name()='composer' or ../composer!=.">
+        <person><xsl:attribute name="cat-no"><xsl:value-of select="../id"/></xsl:attribute><xsl:value-of select="."/></person>
+  </xsl:if>
   </xsl:if>
 </xsl:for-each>
 </xsl:template>

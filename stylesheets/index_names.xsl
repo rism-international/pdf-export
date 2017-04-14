@@ -10,13 +10,16 @@
 <xsl:variable name="apos">'</xsl:variable>
 <xsl:for-each select="*/person">
 <xsl:sort select="translate(translate(.,concat('[]',$apos), ''), 'äöüšÄÖÜŠ', 'aousAOUS')" lang="de"/>
+
+
 <xsl:if test="not(preceding-sibling::*=.)">
 <xsl:text>&#xa;</xsl:text>
 \newline 
 <xsl:value-of select="."/><xsl:text> ..... </xsl:text><xsl:value-of select="@cat-no"/>      
 </xsl:if>
 <xsl:if test="preceding-sibling::*=.">
-  <xsl:if test="not(preceding-sibling::*[1]/@cat-no=@cat-no)">, <xsl:value-of select="@cat-no"/>      
+  <xsl:if test="preceding-sibling::*[1]!=. or preceding-sibling::*[1]/@cat-no!=@cat-no">, <xsl:value-of select="@cat-no"/>      
+
 </xsl:if>
 </xsl:if>
 </xsl:for-each>
