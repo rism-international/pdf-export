@@ -49,6 +49,8 @@
 \thispagestyle{empty}
 \renewcommand*\contentsname{\hfill Table of content \hfill}
 \tableofcontents
+\thispagestyle{empty}
+\cleardoublepage
 \setlength{\columnseprule}{0.5pt}
 \newcommand\hfillplus[1]{{\unskip\nobreak\hfill\penalty50\
   \mbox{}\nobreak\hfill#1}}
@@ -59,7 +61,7 @@
 <!--START CORPUS-->
 \setcounter{secnumdepth}{0}
 \invisiblesection{Catalog of musical sources}
-\fancyhf{}
+\fancyhead{}
 \fancyhead[C]{\small Répertoire International des Sources Musicales}
 \twocolumn[{%
 \centering

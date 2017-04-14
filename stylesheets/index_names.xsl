@@ -6,7 +6,7 @@
     \clearpage  
 \setcounter{secnumdepth}{0}
 \invisiblesection{Index of personal names}
-\fancyhf{}
+\fancyhead{}
 \fancyhead[C]{\small Répertoire International des Sources Musicales}
 \twocolumn[{%
 \centering
