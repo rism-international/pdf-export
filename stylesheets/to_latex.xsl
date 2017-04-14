@@ -35,10 +35,6 @@
 \protected\def\pdfximage{\immediate\mypdfximage}
 \pagestyle{fancy}
 \renewcommand{\headrulewidth}{0.4pt}
-\makeatletter
-\let\latexl@section\l@section
-\def\l@section#1#2{\begingroup\let\numberline\@gobble\latexl@section{#1}{#2}\endgroup}
-\makeatother
 \begin{titlepage}
 \title{RISM Musical Sources}
 \author{\copyright \ 2017 by \ RISM}
@@ -50,8 +46,6 @@
 \renewcommand*\contentsname{\hfill Table of content \hfill}
 \tableofcontents
 \thispagestyle{empty}
-\cleardoublepage
-\setlength{\columnseprule}{0.5pt}
 \newcommand\hfillplus[1]{{\unskip\nobreak\hfill\penalty50\
   \mbox{}\nobreak\hfill#1}}
 \newcommand\invisiblesection[1]{%
@@ -59,13 +53,11 @@
   \addcontentsline{toc}{section}{\protect\numberline{\thesection}#1}%
   \sectionmark{#1}}
 <!--START CORPUS-->
-\setcounter{secnumdepth}{0}
-\invisiblesection{Catalog of musical sources}
+\chapter*{\centering Catalog of musical sources}
+\addcontentsline{toc}{chapter}{Catalog of musical sources}
 \fancyhead{}
 \fancyhead[C]{\small Répertoire International des Sources Musicales}
-\twocolumn[{%
-\centering
-\LARGE Catalog of musical sources \\[1.5em]}] 
+\setlength{\columnseprule}{0.5pt}
 <xsl:for-each select="document/record">
 <xsl:for-each select="./*">
 <xsl:if test="starts-with(@pre, '\newline')">

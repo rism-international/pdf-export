@@ -4,13 +4,10 @@
   <xsl:output method="text" indent="no" encoding="UTF-8"/>
   <xsl:template match="/">
     \clearpage  
-    \setcounter{secnumdepth}{0}
-\invisiblesection{Index of title and text}
+\chapter*{\centering Index of title and text}
+\addcontentsline{toc}{chapter}{Index of title and text}
 \fancyhead{}
 \fancyhead[C]{\small Répertoire International des Sources Musicales}
-\twocolumn[{%
-\centering
-\LARGE Index of title and text \\[1.5em]}] 
 <xsl:for-each select="*/title">
 <xsl:sort select="translate(translate(., '[]', ''), 'äöüšÄÖÜŠ', 'aousAOUS')" lang="de"/>
 

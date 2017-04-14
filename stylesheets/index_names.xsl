@@ -4,13 +4,10 @@
   <xsl:output method="text" indent="no" encoding="UTF-8"/>
   <xsl:template match="/">
     \clearpage  
-\setcounter{secnumdepth}{0}
-\invisiblesection{Index of personal names}
+\chapter*{\centering Index of personal names}
+\addcontentsline{toc}{chapter}{Index of personal names}
 \fancyhead{}
 \fancyhead[C]{\small Répertoire International des Sources Musicales}
-\twocolumn[{%
-\centering
-\LARGE Index of personal names \\[1.5em]}] 
 <xsl:variable name="apos">'</xsl:variable>
 <xsl:for-each select="*/person">
 <xsl:sort select="translate(translate(.,concat('[]',$apos), ''), 'äöüšÄÖÜŠ', 'aousAOUS')" lang="de"/>
