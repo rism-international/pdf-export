@@ -2,7 +2,7 @@ require 'nokogiri'
 require 'pry'
 
 #Inputfile
-doc = File.open("../output.xml") { |f| Nokogiri::XML(f)  }
+doc = File.open("../dfh.xml") { |f| Nokogiri::XML(f)  }
 doc.encoding = 'utf-8'
 
 #Preprocessing

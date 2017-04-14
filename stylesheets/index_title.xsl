@@ -4,9 +4,13 @@
   <xsl:output method="text" indent="no" encoding="UTF-8"/>
   <xsl:template match="/">
     \clearpage  
+    \setcounter{secnumdepth}{0}
+\invisiblesection{Index of title and text}
+\fancyhf{}
+\fancyhead[C]{\small Répertoire International des Sources Musicales}
 \twocolumn[{%
 \centering
-\LARGE Index of titles and text \\[1.5em]}] 
+\LARGE Index of title and text \\[1.5em]}] 
 <xsl:for-each select="*/title">
 <xsl:sort select="translate(translate(., '[]', ''), 'äöüšÄÖÜŠ', 'aousAOUS')" lang="de"/>
 
