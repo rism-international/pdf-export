@@ -110,6 +110,18 @@
               <func>(<xsl:value-of select="marc:subfield[@code='4']"/>)</func>
           </xsl:if>
         </xsl:for-each>
+        <xsl:for-each select="marc:datafield[@tag=691]">
+          <xsl:choose>
+            <xsl:when test="position()=1">
+                <lit pre="\newline see: "><xsl:value-of select="marc:subfield[@code='a']"/></lit>
+                <page><xsl:value-of select="marc:subfield[@code='n']"/></page>
+                </xsl:when>
+            <xsl:when test="not(position()=1)">
+              <lit pre="; "><xsl:value-of select="marc:subfield[@code='a']"/></lit>
+                <page><xsl:value-of select="marc:subfield[@code='n']"/></page>
+            </xsl:when>
+          </xsl:choose>
+              </xsl:for-each>
         <xsl:for-each select="marc:datafield[@tag=852]">
           <xsl:choose>
             <xsl:when test="position()=1">
