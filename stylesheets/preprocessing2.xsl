@@ -1,11 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:zs="http://www.loc.gov/zing/srw/" xmlns:marc="http://www.loc.gov/MARC21/slim" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" exclude-result-prefixes="marc">
   <xsl:output method="xml" indent="yes" encoding="UTF-8"/>
-  <xsl:template match="zs:searchRetrieveResponse">
 
+  <xsl:template match="zs:searchRetrieveResponse">
     <document>
       <xsl:variable name="apos">'</xsl:variable>
-      <xsl:for-each select="zs:records/zs:record/zs:recordData/marc:record">
+      <xsl:apply-templates select="zs:records/zs:record/zs:recordData/marc:record">
+        <xsl:sort select="marc:datafield[@tag=100]/marc:subfield[@code='a'] = false()"/>
+        <xsl:sort select="translate(translate(marc:datafield[@tag=100]/marc:subfield[@code='a'], concat('[]', $apos), ''), 'äöüšÄÖÜŠ', 'aousAOUS')" lang="de"/>
+      </xsl:apply-templates>
+    </document>
+  </xsl:template>
+
+  <xsl:template match="zs:records/zs:record/zs:recordData/marc:record">
+    <record>
+      <xsl:attribute name="id"><xsl:value-of select="position()"/></xsl:attribute>
+      <xsl:apply-templates select="marc:controlfield[@tag='001']"/>
+      <xsl:apply-templates select="marc:datafield[@tag='100']"/>
+      <xsl:apply-templates select="marc:datafield[@tag='130']"/>
+      <xsl:apply-templates select="marc:datafield[@tag='240']"/>
+      <xsl:apply-templates select="marc:datafield[@tag='245']"/>
+      <xsl:apply-templates select="marc:datafield[@tag=300]/marc:subfield[@code=8]">
+        <xsl:sort select="."/>
+      </xsl:apply-templates>
+    </record>
+  </xsl:template>
+
+  <xsl:template match="marc:controlfield[@tag='001']">
+    <id>
+      <xsl:value-of select="."/>
+    </id>
+  </xsl:template>
+
+  <xsl:template match="marc:datafield[@tag='100']">
+    <composer>
+      <xsl:value-of select="marc:subfield[@code='a']"/>
+    </composer>
+  </xsl:template>
+
+  <xsl:template match="marc:datafield[@tag='130']">
+    <composer>Collection</composer>
+
+    <uniform_title>
+      <xsl:value-of select="marc:subfield[@code='a']"/>
+      <xsl:if test="marc:subfield[@code='k']">. <xsl:value-of select="marc:subfield[@code='k']"/></xsl:if>
+      <xsl:if test="marc:subfield[@code='o']">. <xsl:value-of select="marc:subfield[@code='o']"/></xsl:if>
+    </uniform_title>
+  </xsl:template>
+
+  <xsl:template match="marc:datafield[@tag='240']">
+    <uniform_title>
+      <xsl:value-of select="marc:subfield[@code='a']"/>
+      <xsl:if test="marc:subfield[@code='k']">. <xsl:value-of select="marc:subfield[@code='k']"/></xsl:if>
+      <xsl:if test="marc:subfield[@code='o']">. <xsl:value-of select="marc:subfield[@code='o']"/></xsl:if>
+    </uniform_title>
+  </xsl:template>
+
+  <xsl:template match="marc:datafield[@tag='245']">
+    <original_title>
+      <xsl:value-of select="marc:subfield[@code='a']"/>
+    </original_title>
+  </xsl:template>
+
+  <xsl:template match="marc:datafield[@tag=300]/marc:subfield[@code=8]">
+  <xsl:for-each select=".">
+            <xsl:sort select="." lang="de"/>
+              <xsl:variable name="layer" select="."/>
+              <layer> 
+                <xsl:attribute name="pre">\newline \textcolor{darkblue}{\ding{\numexpr181 + <xsl:value-of select="floor($layer)"/>}}</xsl:attribute>
+              </layer>
+              <xsl:for-each select="../../marc:datafield/marc:subfield[@code=8][.=$layer]">
+                <xsl:sort select="../@tag" order="ascending" lang="de"/>
+                  <xsl:if test="../@tag=593">
+                    <copystatus> - <xsl:value-of select="../marc:subfield[@code='a']"/></copystatus>
+                    </xsl:if>
+                    <xsl:if test="../@tag=260">
+                      <date><xsl:value-of select="../marc:subfield[@code='c']"/></date>
+                    </xsl:if>
+                    <xsl:if test="../@tag=300">
+                      <score><xsl:value-of select="../marc:subfield[@code='a']"/></score>
+                      <format><xsl:value-of select="../marc:subfield[@code='c']"/></format>
+                      </xsl:if>
+                      <xsl:if test="../@tag=592">
+                      <watermark pre="\newline "><xsl:value-of select="../marc:subfield[@code='a']"/></watermark>
+                    </xsl:if>
+                    <xsl:if test="../@tag=700">
+                      <copyist pre="\newline "><xsl:value-of select="../marc:subfield[@code='a']"/> (<xsl:value-of select="../marc:subfield[@code='4']"/>)</copyist>
+                    </xsl:if>
+                  </xsl:for-each>
+          </xsl:for-each>
+          <
+
+  </xsl:template>
+ 
+
+
+</xsl:stylesheet>
+ 
+ 
+
+  <!--
+
         <xsl:sort select="marc:datafield[@tag=100]/marc:subfield[@code='a'] = false()"/>
         <xsl:sort select="translate(translate(marc:datafield[@tag=100]/marc:subfield[@code='a'], concat('[]', $apos), ''), 'äöüšÄÖÜŠ', 'aousAOUS')" lang="de"/>
         <xsl:sort select="translate(translate(marc:datafield[@tag=240]/marc:subfield[@code='a'], '[]',''), 'äöüšÄÖÜŠ', 'aousAOUS')" lang="de"/>
@@ -48,7 +143,6 @@
               <original_title pre="\newline \begin{{itshape}}" post="\end{{itshape}}"><xsl:value-of select="marc:datafield[@tag=245]/marc:subfield[@code='a']"/></original_title>
             </xsl:if>
             
-            <!--Material block -->
             <xsl:for-each select="marc:datafield[@tag=300]/marc:subfield[@code=8]">
             <xsl:sort select="." lang="de"/>
               <xsl:variable name="layer" select="."/>
@@ -137,12 +231,6 @@
               <xsl:if test="marc:datafield[@tag=773]">
                 <collection-link pre="\newline "><xsl:value-of select="marc:datafield[@tag=773]/marc:subfield[@code='w']"/></collection-link>
                 </xsl:if>
-          <!--      lyric 700
-          watermarks 596$a
-          collection_link 773$w
-          -->
-        </record>
-      </document>
-    </xsl:for-each>
   </xsl:template>
 </xsl:stylesheet>
+-->
