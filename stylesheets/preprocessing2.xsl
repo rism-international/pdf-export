@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:zs="http://www.loc.gov/zing/srw/" xmlns:marc="http://www.loc.gov/MARC21/slim" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" exclude-result-prefixes="marc">
   <xsl:output method="xml" indent="yes" encoding="UTF-8"/>
-
   <xsl:template match="zs:searchRetrieveResponse">
     <document>
       <xsl:variable name="apos">'</xsl:variable>
@@ -14,8 +13,8 @@
 
   <xsl:template match="zs:records/zs:record/zs:recordData/marc:record">
     <record>
-      <xsl:attribute name="id"><xsl:value-of select="position()"/></xsl:attribute>
-      <xsl:apply-templates select="marc:controlfield[@tag='001']"/>
+      <xsl:attribute name="position"><xsl:value-of select="position()"/></xsl:attribute>
+      <xsl:attribute name="rismid"><xsl:value-of select="marc:controlfield[@tag='001']"/></xsl:attribute>
       <xsl:apply-templates select="marc:datafield[@tag='100']"/>
       <xsl:apply-templates select="marc:datafield[@tag='130']"/>
       <xsl:apply-templates select="marc:datafield[@tag='240']"/>
@@ -23,17 +22,21 @@
       <xsl:apply-templates select="marc:datafield[@tag=300]/marc:subfield[@code=8]">
         <xsl:sort select="."/>
       </xsl:apply-templates>
+      <xsl:apply-templates select="marc:datafield[@tag='031']"/>
+      <xsl:apply-templates select="marc:controlfield[@tag='001']"/>
+      <xsl:apply-templates select="marc:datafield[@tag='852']"/>
+      
     </record>
   </xsl:template>
 
   <xsl:template match="marc:controlfield[@tag='001']">
-    <id>
+    <rism_id>
       <xsl:value-of select="."/>
-    </id>
+    </rism_id>
   </xsl:template>
 
   <xsl:template match="marc:datafield[@tag='100']">
-    <composer>
+    <composer xsl:use-attribute-sets="newline">
       <xsl:value-of select="marc:subfield[@code='a']"/>
     </composer>
   </xsl:template>
@@ -76,13 +79,26 @@
   </xsl:template>
 
   <xsl:template name="mat">
-      <xsl:if test="../@tag=260">
+    <xsl:choose>
+      <xsl:when test="../@tag=260">
         <xsl:call-template name="date" select="../marc:datafield"/>
-        </xsl:if>
-      <xsl:if test="../@tag=593">
+        </xsl:when>
+      <xsl:when test="../@tag=300">
+        <xsl:call-template name="n300" select="../marc:datafield"/>
+      </xsl:when>
+      <xsl:when test="../@tag=593">
         <xsl:call-template name="copystatus" select="../marc:datafield"/>
-      </xsl:if>
- 
+        </xsl:when> 
+      <xsl:when test="../@tag=592">
+        <xsl:call-template name="watermark" select="../marc:datafield"/>
+      </xsl:when>
+     <xsl:when test="../@tag=700">
+        <xsl:call-template name="copyist" select="../marc:datafield"/>
+        </xsl:when>
+    <xsl:when test="../@tag=500">
+        <xsl:call-template name="material-note" select="../marc:datafield"/>
+      </xsl:when>
+    </xsl:choose>
   </xsl:template>
 
   <xsl:template name="date">
@@ -96,6 +112,72 @@
       <xsl:value-of select="../marc:subfield[@code='a']"/>
     </copystatus>
   </xsl:template>
+
+  <xsl:template name="n300">
+    <score>
+      <xsl:value-of select="../marc:subfield[@code='a']"/>
+      </score>
+      <format>
+      <xsl:value-of select="../marc:subfield[@code='c']"/>
+    </format>
+  </xsl:template>
+
+  <xsl:template name="copyist">
+    <copyist>
+      <xsl:value-of select="../marc:subfield[@code='a']"/>
+      </copyist>
+  </xsl:template>
+
+  <xsl:template name="watermark">
+    <watermark>
+      <xsl:value-of select="../marc:subfield[@code='a']"/>
+      </watermark>
+  </xsl:template>
+
+  <xsl:template name="material-note">
+    <material-note>
+      <xsl:value-of select="../marc:subfield[@code='a']"/>
+      </material-note>
+  </xsl:template>
+
+  <xsl:template match="marc:datafield[@tag='031']">
+    <no>
+      <xsl:value-of select="marc:subfield[@code='a']"/>.<xsl:value-of select="marc:subfield[@code='b']"/>.<xsl:value-of select="marc:subfield[@code='c']"/>
+    </no>
+    <xsl:if test="marc:subfield[@code='m']"> 
+      <inc_score><xsl:value-of select="marc:subfield[@code='m']"/></inc_score>
+    </xsl:if>
+    <xsl:if test="marc:subfield[@code='r']"> 
+      <inc_key><xsl:value-of select="marc:subfield[@code='r']"/></inc_key>
+    </xsl:if>
+    <xsl:if test="marc:subfield[@code='t']"> 
+      <text pre="\newline \begin{{footnotesize}} " post=" \end{{footnotesize}}" ><xsl:value-of select="marc:subfield[@code='t']"/></text>
+    </xsl:if>
+    <xsl:if test="marc:subfield[@code='p']">
+      <verovio-code>
+        <filename><xsl:value-of select="concat(../marc:controlfield[@tag='001'],'-',position())"/></filename>
+        <code>@clef:<xsl:value-of select="marc:subfield[@code='g']"/>
+@keysig:<xsl:value-of select="marc:subfield[@code='n']"/>
+@timesig:<xsl:value-of select="marc:subfield[@code='o']"/>
+@data:<xsl:value-of select="marc:subfield[@code='p']"/>
+        </code>
+      </verovio-code>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="marc:datafield[@tag='852']">
+    <library>
+      <xsl:value-of select="marc:subfield[@code='a']"/>
+    </library>
+    <shelfmark>
+      <xsl:value-of select="marc:subfield[@code='c']"/>
+    </shelfmark>
+  </xsl:template>
+
+<xsl:attribute-set name="newline">
+  <xsl:attribute name="pre">\newline </xsl:attribute>
+</xsl:attribute-set>
+
 
 
 
