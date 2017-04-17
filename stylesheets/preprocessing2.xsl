@@ -7,7 +7,9 @@
       <xsl:apply-templates select="zs:records/zs:record/zs:recordData/marc:record">
         <xsl:sort select="marc:datafield[@tag=100]/marc:subfield[@code='a'] = false()"/>
         <xsl:sort select="translate(translate(marc:datafield[@tag=100]/marc:subfield[@code='a'], concat('[]', $apos), ''), 'äöüšÄÖÜŠ', 'aousAOUS')" lang="de"/>
-      </xsl:apply-templates>
+        <xsl:sort select="translate(translate(marc:datafield[@tag=240]/marc:subfield[@code='a'], '[]',''), 'äöüšÄÖÜŠ', 'aousAOUS')" lang="de"/>
+        <xsl:sort select="translate(translate(marc:datafield[@tag=130]/marc:subfield[@code='a'], '[]',''), 'äöüšÄÖÜŠ', 'aousAOUS')" lang="de"/>
+     </xsl:apply-templates>
     </document>
   </xsl:template>
 
@@ -31,7 +33,9 @@
       </xsl:apply-templates>
       <xsl:apply-templates select="marc:controlfield[@tag='001']"/>
       <xsl:apply-templates select="marc:datafield[@tag='500']"/>
-      <xsl:apply-templates select="marc:datafield[@tag='700']"/>
+      <xsl:apply-templates select="marc:datafield[@tag='700']">
+        <xsl:sort select="."/>
+      </xsl:apply-templates>
       <xsl:apply-templates select="marc:datafield[@tag='852']"/>
       <xsl:apply-templates select="marc:datafield[@tag='773']"/>
     </record>
@@ -66,6 +70,9 @@
       <xsl:if test="marc:subfield[@code='k']">. <xsl:value-of select="marc:subfield[@code='k']"/></xsl:if>
       <xsl:if test="marc:subfield[@code='o']">. <xsl:value-of select="marc:subfield[@code='o']"/></xsl:if>
     </uniform_title>
+    <key><xsl:value-of select="marc:subfield[@code='r']"/></key>
+    <work_catalog><xsl:value-of select="marc:subfield[@code='n']"/></work_catalog>
+    <scoring pre="{$newline}"><xsl:value-of select="marc:subfield[@code='m']"/></scoring>
   </xsl:template>
 
   <xsl:template match="marc:datafield[@tag='240']">
@@ -74,6 +81,9 @@
       <xsl:if test="marc:subfield[@code='k']">. <xsl:value-of select="marc:subfield[@code='k']"/></xsl:if>
       <xsl:if test="marc:subfield[@code='o']">. <xsl:value-of select="marc:subfield[@code='o']"/></xsl:if>
     </uniform_title>
+    <key><xsl:value-of select="marc:subfield[@code='r']"/></key>
+    <work_catalog><xsl:value-of select="marc:subfield[@code='n']"/></work_catalog>
+    <scoring pre="{$newline}"><xsl:value-of select="marc:subfield[@code='m']"/></scoring>
   </xsl:template>
 
   <xsl:template match="marc:datafield[@tag='245']">
@@ -143,12 +153,24 @@
 
   <xsl:template name="copyist">
     <copyist>
-      <xsl:value-of select="../marc:subfield[@code='a']"/>
+      <xsl:if test="position()=1">
+        <xsl:attribute name="pre"><xsl:value-of select="concat($newline, 'Copyist: ')"/></xsl:attribute>
+      </xsl:if>
+      <xsl:if test="position()!=1">
+        <xsl:attribute name="pre"><xsl:value-of select="'; '"/></xsl:attribute>
+      </xsl:if>
+        <xsl:value-of select="../marc:subfield[@code='a']"/>
     </copyist>
   </xsl:template>
 
   <xsl:template name="watermark">
     <watermark>
+      <xsl:if test="position()=1">
+        <xsl:attribute name="pre"><xsl:value-of select="concat($newline, 'Watermark: ')"/></xsl:attribute>
+      </xsl:if>
+      <xsl:if test="position()!=1">
+        <xsl:attribute name="pre"><xsl:value-of select="'; '"/></xsl:attribute>
+      </xsl:if>
       <xsl:value-of select="../marc:subfield[@code='a']"/>
     </watermark>
   </xsl:template>
@@ -203,7 +225,7 @@
       <xsl:when test="marc:subfield[@code=8]"/>
       <xsl:when test="not(marc:subfield[@code=8])">
         <name pre="\newline "><xsl:value-of select="marc:subfield[@code='a']"/></name>
-        <func><xsl:value-of select="marc:subfield[@code=4]"/></func>
+        <func>(<xsl:value-of select="marc:subfield[@code=4]"/>)</func>
       </xsl:when>
     </xsl:choose>
   </xsl:template>
@@ -212,6 +234,9 @@
     <library>
       <xsl:if test="position()=1">
         <xsl:attribute name="pre"><xsl:value-of select="$newline"/></xsl:attribute>
+        </xsl:if>
+        <xsl:if test="position()!=1">
+        <xsl:attribute name="pre"><xsl:value-of select="'; '"/></xsl:attribute>
       </xsl:if>
       <xsl:value-of select="marc:subfield[@code='a']"/></library>
     <shelfmark><xsl:value-of select="marc:subfield[@code='c']"/></shelfmark>
