@@ -63,36 +63,41 @@
   </xsl:template>
 
   <xsl:template match="marc:datafield[@tag=300]/marc:subfield[@code=8]">
-  <xsl:for-each select=".">
-            <xsl:sort select="." lang="de"/>
-              <xsl:variable name="layer" select="."/>
-              <layer> 
-                <xsl:attribute name="pre">\newline \textcolor{darkblue}{\ding{\numexpr181 + <xsl:value-of select="floor($layer)"/>}}</xsl:attribute>
-              </layer>
-              <xsl:for-each select="../../marc:datafield/marc:subfield[@code=8][.=$layer]">
-                <xsl:sort select="../@tag" order="ascending" lang="de"/>
-                  <xsl:if test="../@tag=593">
-                    <copystatus> - <xsl:value-of select="../marc:subfield[@code='a']"/></copystatus>
-                    </xsl:if>
-                    <xsl:if test="../@tag=260">
-                      <date><xsl:value-of select="../marc:subfield[@code='c']"/></date>
-                    </xsl:if>
-                    <xsl:if test="../@tag=300">
-                      <score><xsl:value-of select="../marc:subfield[@code='a']"/></score>
-                      <format><xsl:value-of select="../marc:subfield[@code='c']"/></format>
-                      </xsl:if>
-                      <xsl:if test="../@tag=592">
-                      <watermark pre="\newline "><xsl:value-of select="../marc:subfield[@code='a']"/></watermark>
-                    </xsl:if>
-                    <xsl:if test="../@tag=700">
-                      <copyist pre="\newline "><xsl:value-of select="../marc:subfield[@code='a']"/> (<xsl:value-of select="../marc:subfield[@code='4']"/>)</copyist>
-                    </xsl:if>
-                  </xsl:for-each>
-          </xsl:for-each>
-          <
-
+    <xsl:for-each select=".">
+      <xsl:sort select="." lang="de"/>
+      <xsl:variable name="layer" select="."/>
+      <layer>
+        <xsl:value-of select="."/> 
+      </layer>
+      <xsl:for-each select="../../marc:datafield/marc:subfield[@code=8][.=$layer]">
+        <xsl:call-template name="mat" select="../../marc:datafield/marc:subfield[@code=8][.=$layer]"/>
+      </xsl:for-each>
+    </xsl:for-each>
   </xsl:template>
+
+  <xsl:template name="mat">
+      <xsl:if test="../@tag=260">
+        <xsl:call-template name="date" select="../marc:datafield"/>
+        </xsl:if>
+      <xsl:if test="../@tag=593">
+        <xsl:call-template name="copystatus" select="../marc:datafield"/>
+      </xsl:if>
  
+  </xsl:template>
+
+  <xsl:template name="date">
+    <date>
+      <xsl:value-of select="../marc:subfield[@code='c']"/>
+    </date>
+  </xsl:template>
+
+  <xsl:template name="copystatus">
+    <copystatus>
+      <xsl:value-of select="../marc:subfield[@code='a']"/>
+    </copystatus>
+  </xsl:template>
+
+
 
 
 </xsl:stylesheet>
