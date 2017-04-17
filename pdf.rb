@@ -6,11 +6,12 @@ doc = File.open("../output.xml") { |f| Nokogiri::XML(f)  }
 doc.encoding = 'utf-8'
 
 #Preprocessing
-preprocessing_file=File.new('/tmp/preprocessing.xml', 'w')
+preprocessing_file=File.new('/tmp/preprocessing2.xml', 'w')
 latex_file=File.new('/tmp/example.tex', 'w')
-preproc = Nokogiri::XSLT(File.read('stylesheets/preprocessing.xsl'))
+preproc = Nokogiri::XSLT(File.read('stylesheets/preprocessing2.xsl'))
 preprocessing_xml = preproc.transform(doc)
 preprocessing_file.write(preprocessing_xml)
+=begin
 #Creating the corpus
 template = Nokogiri::XSLT(File.read('stylesheets/to_latex.xsl'))
 latex = template.transform(preprocessing_xml)
@@ -48,3 +49,4 @@ Dir.chdir "/tmp/"
 cmd = 'pdflatex -interaction nonstopmode --enable-write18 -shell-escape -output-directory="." example.tex > /dev/null'
 system( cmd )
 puts "Ready!"
+=end

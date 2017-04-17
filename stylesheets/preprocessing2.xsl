@@ -15,8 +15,12 @@
     <record>
       <xsl:attribute name="position"><xsl:value-of select="position()"/></xsl:attribute>
       <xsl:attribute name="rismid"><xsl:value-of select="marc:controlfield[@tag='001']"/></xsl:attribute>
-      <xsl:apply-templates select="marc:datafield[@tag='100']"/>
-      <xsl:apply-templates select="marc:datafield[@tag='130']"/>
+      <xsl:apply-templates select="marc:datafield[@tag='100']">
+        <xsl:with-param name="pos"><xsl:value-of select="position()"/></xsl:with-param>
+      </xsl:apply-templates>
+      <xsl:apply-templates select="marc:datafield[@tag='130']">
+        <xsl:with-param name="pos"><xsl:value-of select="position()"/></xsl:with-param>
+      </xsl:apply-templates>
       <xsl:apply-templates select="marc:datafield[@tag='240']"/>
       <xsl:apply-templates select="marc:datafield[@tag='245']"/>
       <xsl:apply-templates select="marc:datafield[@tag=300]/marc:subfield[@code=8]">
@@ -36,14 +40,17 @@
   </xsl:template>
 
   <xsl:template match="marc:datafield[@tag='100']">
+    <xsl:param name="pos"/>
     <composer xsl:use-attribute-sets="newline">
       <xsl:value-of select="marc:subfield[@code='a']"/>
     </composer>
+    <id><xsl:value-of select="$pos"/></id>
   </xsl:template>
 
   <xsl:template match="marc:datafield[@tag='130']">
+    <xsl:param name="pos"/>
     <composer>Collection</composer>
-
+    <id><xsl:value-of select="$pos"/></id>
     <uniform_title>
       <xsl:value-of select="marc:subfield[@code='a']"/>
       <xsl:if test="marc:subfield[@code='k']">. <xsl:value-of select="marc:subfield[@code='k']"/></xsl:if>
