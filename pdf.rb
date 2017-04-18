@@ -8,7 +8,7 @@ doc.encoding = 'utf-8'
 #Preprocessing
 preprocessing_file=File.new('/tmp/preprocessing.xml', 'w')
 latex_file=File.new('/tmp/example.tex', 'w')
-preproc = Nokogiri::XSLT(File.read('stylesheets/preprocessing2.xsl'))
+preproc = Nokogiri::XSLT(File.read('stylesheets/preprocessing.xsl'))
 preprocessing_xml = preproc.transform(doc)
 preprocessing_file.write(preprocessing_xml)
 
