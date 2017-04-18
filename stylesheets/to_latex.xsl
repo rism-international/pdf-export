@@ -4,6 +4,7 @@
   <xsl:key name="collection" match="record" use="@rismid"/>
   <xsl:template match="/">
 \documentclass[twocolumn]{book}
+\usepackage[papersize={16.8cm, 25cm},left=1.5cm,right=2cm,top=2.5cm,bottom=2.5cm]{geometry}
 \usepackage[utf8x]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{textcomp}
@@ -85,7 +86,7 @@
 \end{filecontents*}
 \commandline{ verovio --spacing-non-linear=0.50 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 <xsl:value-of select="filename"/>.code }
 \newline
-\includesvg[width=220pt]{<xsl:value-of select="filename"/>}%
+\includesvg[width=180pt]{<xsl:value-of select="filename"/>}%
 </xsl:when>
 <xsl:when test="not(name(.)='verovio-code')">
 <xsl:choose>
