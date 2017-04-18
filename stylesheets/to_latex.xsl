@@ -60,13 +60,13 @@
 \setlength{\columnseprule}{0.5pt}
 <xsl:for-each select="document/record">
 <xsl:for-each select="./*">
-<xsl:if test="starts-with(@pre, '\newline')">
+<xsl:if test="starts-with(@before, '\newline')">
 <xsl:text>&#xa;</xsl:text>
 </xsl:if>
-<xsl:if test="@pre">
-  <xsl:value-of select="@pre"/>
+<xsl:if test="@before">
+  <xsl:value-of select="@before"/>
 </xsl:if>
-<xsl:if test="not(@pre)">
+<xsl:if test="not(@before)">
   <xsl:text>  </xsl:text>
 </xsl:if>
 <xsl:choose>
@@ -91,7 +91,7 @@
 </xsl:choose>
 </xsl:when>
 </xsl:choose>
-<xsl:value-of select="@post"/>
+<xsl:value-of select="@after"/>
 </xsl:for-each>
 </xsl:for-each>
 <!-- \end{document} -->

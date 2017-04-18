@@ -59,12 +59,16 @@ All temporary files are build in /tmp/.
 
 Background
 -----------
+1. Preprocessing
+At first the marcxml-file is transformed to a preprocessing xml, which is later used for building the PDF as well as the indices. Every node could have to attributes:
+* before: LaTex-code inserted before the node content
+* after: appended LaTex-content to the node content
 
-1. XSLT
+2. XSLT
 
-The process is called from the pdf.rb-script. Main target of the script is the build of a related .TEX-file in prepartion for pdftex. At the current state the XSLT also defines the order of the resulting document.
+This process is called from the pdf.rb-script. Main target of the script is the build of a related .TEX-file using the preprocessing file. At the current state the XSLT also defines the order of the resulting document.
 
-2. PDFtex
+3. PDFtex
 
 During the next step the .TEX-file is calling some subroutines:
 * Creating textfiles with the Plaine & Easy-code.
@@ -80,10 +84,9 @@ Result will be look alike example.pdf in this repository.
 
 Indices
 -------
-Indices can be build also by using the preprocessing and transforming via XSLT. Currently the index of personal names is incuded in the corpus.
+Indices can be build also by using the preprocessing and transforming via XSLT. Currently the index of personal names and title/text is incuded in the corpus.
 
 Additional indices could be:
-* Title and Text
 * Watermark
 * Shelfmark
 * Literature

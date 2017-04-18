@@ -47,7 +47,7 @@
   </xsl:template>
 
   <xsl:template match="marc:controlfield[@tag='001']">
-    <rism_id pre="\newline RISM-ID: ">
+    <rism_id before="\newline RISM-ID: ">
       <xsl:value-of select="."/>
     </rism_id>
   </xsl:template>
@@ -55,22 +55,22 @@
   <xsl:template match="marc:datafield[@tag='100']">
     <xsl:param name="pos"/>
     <composer>
-      <xsl:attribute name="pre"><xsl:value-of select="concat($newline, $par, '\vspace{7pt} \textcolor{darkblue}{\textbf{')"/></xsl:attribute>
+      <xsl:attribute name="before"><xsl:value-of select="concat($newline, $par, '\vspace{7pt} \textcolor{darkblue}{\textbf{')"/></xsl:attribute>
       <xsl:value-of select="marc:subfield[@code='a']"/>
       </composer>
       <life_date>
-        <xsl:attribute name="post">}}</xsl:attribute>
+        <xsl:attribute name="after">}}</xsl:attribute>
       <xsl:value-of select="marc:subfield[@code='d']"/>
     </life_date>
-    <id pre="\hfillplus{{" post="}}"><xsl:value-of select="$pos"/></id>
+    <id before="\hfillplus{{" after="}}"><xsl:value-of select="$pos"/></id>
   </xsl:template>
 
   <xsl:template match="marc:datafield[@tag='130']">
     <xsl:param name="pos"/>
     <composer>
-      <xsl:attribute name="pre"><xsl:value-of select="concat($newline, $par, '\vspace{7pt} \textcolor{darkblue}{\textbf{Collection}}')"/></xsl:attribute></composer>
-    <id pre="\hfillplus{{" post="}}"><xsl:value-of select="$pos"/></id>
-    <uniform_title pre="{$newline}">
+      <xsl:attribute name="before"><xsl:value-of select="concat($newline, $par, '\vspace{7pt} \textcolor{darkblue}{\textbf{Collection}}')"/></xsl:attribute></composer>
+    <id before="\hfillplus{{" after="}}"><xsl:value-of select="$pos"/></id>
+    <uniform_title before="{$newline}">
       <xsl:value-of select="marc:subfield[@code='a']"/>
       <xsl:if test="marc:subfield[@code='k']">. <xsl:value-of select="marc:subfield[@code='k']"/></xsl:if>
       <xsl:if test="marc:subfield[@code='o']">. <xsl:value-of select="marc:subfield[@code='o']"/></xsl:if>
@@ -78,12 +78,12 @@
     <key><xsl:value-of select="marc:subfield[@code='r']"/></key>
     <work_catalog><xsl:value-of select="marc:subfield[@code='n']"/></work_catalog> 
     <xsl:if test="marc:subfield[@code='m']">
-      <scoring pre="{$newline}"><xsl:value-of select="marc:subfield[@code='m']"/></scoring>
+      <scoring before="{$newline}"><xsl:value-of select="marc:subfield[@code='m']"/></scoring>
     </xsl:if>
   </xsl:template>
 
   <xsl:template match="marc:datafield[@tag='240']">
-    <uniform_title pre="\newline ">
+    <uniform_title before="\newline ">
       <xsl:value-of select="marc:subfield[@code='a']"/>
       <xsl:if test="marc:subfield[@code='k']">. <xsl:value-of select="marc:subfield[@code='k']"/></xsl:if>
       <xsl:if test="marc:subfield[@code='o']">. <xsl:value-of select="marc:subfield[@code='o']"/></xsl:if>
@@ -91,14 +91,14 @@
     <key><xsl:value-of select="marc:subfield[@code='r']"/></key>
     <work_catalog><xsl:value-of select="marc:subfield[@code='n']"/></work_catalog>
     <xsl:if test="marc:subfield[@code='m']">
-      <scoring pre="{$newline}"><xsl:value-of select="marc:subfield[@code='m']"/></scoring>
+      <scoring before="{$newline}"><xsl:value-of select="marc:subfield[@code='m']"/></scoring>
     </xsl:if>
   </xsl:template>
 
   <xsl:template match="marc:datafield[@tag='245']">
     <original_title>
-      <xsl:attribute name="pre"><xsl:value-of select="concat($newline, '\begin{itshape}')"/></xsl:attribute>
-      <xsl:attribute name="post"><xsl:value-of select="'\end{itshape} '"/></xsl:attribute>
+      <xsl:attribute name="before"><xsl:value-of select="concat($newline, '\begin{itshape}')"/></xsl:attribute>
+      <xsl:attribute name="after"><xsl:value-of select="'\end{itshape} '"/></xsl:attribute>
       <xsl:value-of select="marc:subfield[@code='a']"/>
     </original_title>
   </xsl:template>
@@ -108,7 +108,7 @@
       <xsl:sort select="." lang="de"/>
       <xsl:variable name="layer" select="."/>
       <layer>
-        <xsl:attribute name="pre"><xsl:value-of select="concat($newline, '\textcolor{darkblue}{\ding{\numexpr181 + ', .,'}}')"/></xsl:attribute>
+        <xsl:attribute name="before"><xsl:value-of select="concat($newline, '\textcolor{darkblue}{\ding{\numexpr181 + ', .,'}}')"/></xsl:attribute>
       </layer>
       <xsl:for-each select="../../marc:datafield/marc:subfield[@code=8][.=$layer]">
         <xsl:call-template name="mat" select="../../marc:datafield/marc:subfield[@code=8][.=$layer]"/>
@@ -146,7 +146,7 @@
   </xsl:template>
 
   <xsl:template name="copystatus">
-    <copystatus pre="{$newline}">
+    <copystatus before="{$newline}">
       <xsl:value-of select="../marc:subfield[@code='a']"/>
     </copystatus>
   </xsl:template>
@@ -162,7 +162,7 @@
 
   <xsl:template name="copyist">
     <copyist>
-      <xsl:attribute name="pre"><xsl:value-of select="$newline"/></xsl:attribute>
+      <xsl:attribute name="before"><xsl:value-of select="$newline"/></xsl:attribute>
       <xsl:value-of select="../marc:subfield[@code='a']"/>
     </copyist>
   </xsl:template>
@@ -170,10 +170,10 @@
   <xsl:template name="watermark">
     <watermark>
       <xsl:if test="../preceding-sibling::*[1]/@tag!=../@tag">
-        <xsl:attribute name="pre"><xsl:value-of select="concat($newline, 'Watermark: ')"/></xsl:attribute>
+        <xsl:attribute name="before"><xsl:value-of select="concat($newline, 'Watermark: ')"/></xsl:attribute>
       </xsl:if>
       <xsl:if test="../preceding-sibling::*[1]/@tag=../@tag">
-        <xsl:attribute name="pre">; </xsl:attribute>
+        <xsl:attribute name="before">; </xsl:attribute>
       </xsl:if>
       <xsl:value-of select="../marc:subfield[@code='a']"/>
     </watermark>
@@ -181,15 +181,15 @@
 
   <xsl:template name="material-note">
     <material-note>
-      <xsl:attribute name="pre"><xsl:value-of select="concat($newline, '\begin{small} ')"/></xsl:attribute>
-      <xsl:attribute name="post"><xsl:value-of select="'\end{small} '"/></xsl:attribute>
+      <xsl:attribute name="before"><xsl:value-of select="concat($newline, '\begin{small} ')"/></xsl:attribute>
+      <xsl:attribute name="after"><xsl:value-of select="'\end{small} '"/></xsl:attribute>
       <xsl:value-of select="../marc:subfield[@code='a']"/>
     </material-note>
   </xsl:template>
 
   <xsl:template match="marc:datafield[@tag='031']">
     <xsl:param name="pos"/>
-    <no pre="\newline ">
+    <no before="\newline ">
       <xsl:value-of select="marc:subfield[@code='a']"/>.<xsl:value-of select="marc:subfield[@code='b']"/>.<xsl:value-of select="marc:subfield[@code='c']"/>
     </no>
     <xsl:if test="marc:subfield[@code='m']"> 
@@ -199,7 +199,7 @@
       <inc_key><xsl:value-of select="marc:subfield[@code='r']"/></inc_key>
     </xsl:if>
     <xsl:if test="marc:subfield[@code='t']"> 
-      <text pre="\newline \begin{{footnotesize}} " post=" \end{{footnotesize}}" ><xsl:value-of select="marc:subfield[@code='t']"/></text>
+      <text before="\newline \begin{{footnotesize}} " after=" \end{{footnotesize}}" ><xsl:value-of select="marc:subfield[@code='t']"/></text>
     </xsl:if>
     <xsl:if test="marc:subfield[@code='p']">
       <verovio-code>
@@ -217,7 +217,7 @@
     <xsl:choose>
       <xsl:when test="marc:subfield[@code=8]"/>
       <xsl:when test="not(marc:subfield[@code=8])">
-        <note><xsl:attribute name="pre"><xsl:value-of select="$newline"/></xsl:attribute>
+        <note><xsl:attribute name="before"><xsl:value-of select="$newline"/></xsl:attribute>
           <xsl:value-of select="marc:subfield[@code='a']"/>
         </note>
       </xsl:when>
@@ -228,7 +228,7 @@
     <xsl:choose>
       <xsl:when test="marc:subfield[@code=8]"/>
       <xsl:when test="not(marc:subfield[@code=8])">
-        <name pre="\newline "><xsl:value-of select="marc:subfield[@code='a']"/></name>
+        <name before="\newline "><xsl:value-of select="marc:subfield[@code='a']"/></name>
         <func>(<xsl:value-of select="marc:subfield[@code=4]"/>)</func>
       </xsl:when>
     </xsl:choose>
@@ -238,7 +238,7 @@
     <xsl:choose>
       <xsl:when test="marc:subfield[@code=8]"/>
       <xsl:when test="not(marc:subfield[@code=8])">
-        <institution pre="\newline "><xsl:value-of select="marc:subfield[@code='a']"/></institution>
+        <institution before="\newline "><xsl:value-of select="marc:subfield[@code='a']"/></institution>
         <func>(<xsl:value-of select="marc:subfield[@code=4]"/>)</func>
       </xsl:when>
     </xsl:choose>
@@ -248,11 +248,11 @@
   <xsl:template match="marc:datafield[@tag=691]">
     <xsl:choose>
       <xsl:when test="position()=1">
-        <lit pre="\newline Literature: "><xsl:value-of select="marc:subfield[@code='a']"/></lit>
+        <lit before="\newline Literature: "><xsl:value-of select="marc:subfield[@code='a']"/></lit>
         <page><xsl:value-of select="marc:subfield[@code='n']"/></page>
       </xsl:when>
       <xsl:when test="not(position()=1)">
-        <lit pre="; "><xsl:value-of select="marc:subfield[@code='a']"/></lit>
+        <lit before="; "><xsl:value-of select="marc:subfield[@code='a']"/></lit>
         <page><xsl:value-of select="marc:subfield[@code='n']"/></page>
       </xsl:when>
     </xsl:choose>
@@ -261,10 +261,10 @@
   <xsl:template match="marc:datafield[@tag='852']">
     <library>
       <xsl:if test="position()=1">
-        <xsl:attribute name="pre"><xsl:value-of select="$newline"/></xsl:attribute>
+        <xsl:attribute name="before"><xsl:value-of select="$newline"/></xsl:attribute>
         </xsl:if>
         <xsl:if test="position()!=1">
-        <xsl:attribute name="pre">; </xsl:attribute>
+        <xsl:attribute name="before">; </xsl:attribute>
       </xsl:if>
       <xsl:value-of select="marc:subfield[@code='a']"/></library>
     <xsl:if test="marc:subfield[@code='c']">
@@ -273,7 +273,7 @@
   </xsl:template>
 
   <xsl:template match="marc:datafield[@tag='773']">
-    <collection-link pre="{$newline}">
+    <collection-link before="{$newline}">
       <xsl:value-of select="marc:subfield[@code='w']"/>
     </collection-link>
   </xsl:template>
