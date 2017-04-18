@@ -43,6 +43,15 @@
 \begin{document}
 \maketitle
 \thispagestyle{empty}
+\twocolumn[
+\begin{@twocolumnfalse}
+  \vspace*{250px}
+  \begin{center}
+    This document is licensed under the Creative Commons Attribution - ShareAlike 3.0 License. \\
+    To view a copy of this license visit: \\
+    \url{http://creativecommons.org/licenses/by-sa/3.0/legalcode}.
+  \end{center}
+\end{@twocolumnfalse}]
 \renewcommand*\contentsname{\hfill Table of content \hfill}
 \tableofcontents
 \thispagestyle{empty}
