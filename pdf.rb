@@ -11,6 +11,8 @@ latex_file=File.new('/tmp/example.tex', 'w')
 preproc = Nokogiri::XSLT(File.read('stylesheets/preprocessing2.xsl'))
 preprocessing_xml = preproc.transform(doc)
 preprocessing_file.write(preprocessing_xml)
+
+#=begin
 #Creating the corpus
 template = Nokogiri::XSLT(File.read('stylesheets/to_latex.xsl'))
 latex = template.transform(preprocessing_xml)
@@ -46,5 +48,8 @@ latex_file.close
 #It is necessary to call pdflatex from the output directory
 Dir.chdir "/tmp/"
 cmd = 'pdflatex -interaction nonstopmode --enable-write18 -shell-escape -output-directory="." example.tex > /dev/null'
+cmd2 = 'rubber --pdf example'
 system( cmd )
+system( cmd2 )
 puts "Ready!"
+#=end

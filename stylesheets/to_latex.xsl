@@ -63,8 +63,12 @@
 <xsl:if test="starts-with(@pre, '\newline')">
 <xsl:text>&#xa;</xsl:text>
 </xsl:if>
-
-<xsl:value-of select="@pre"/>
+<xsl:if test="@pre">
+  <xsl:value-of select="@pre"/>
+</xsl:if>
+<xsl:if test="not(@pre)">
+  <xsl:text>  </xsl:text>
+</xsl:if>
 <xsl:choose>
 <xsl:when test="name(.)='verovio-code'">
 \begin{filecontents*}{<xsl:value-of select="filename"/>.code}
@@ -77,11 +81,11 @@
 <xsl:when test="not(name(.)='verovio-code')">
 <xsl:choose>
 <xsl:when test="not(name(.)='collection-link')">
-<xsl:value-of select="."/><xsl:text>  </xsl:text>
+<xsl:value-of select="."/>
 </xsl:when>
 <xsl:when test="name(.)='collection-link'">
 <xsl:variable name="coll" select="."/>
-<xsl:for-each select="key('collection',$coll)">$\rightarrow$ In collection cat. no. <xsl:value-of select="@position"/> (<xsl:value-of select="@rismid"/>)
+<xsl:for-each select="key('collection',$coll)">$\rightarrow$ In collection <xsl:value-of select="@position"/> (<xsl:value-of select="@rismid"/>)
 </xsl:for-each>
 </xsl:when>
 </xsl:choose>
