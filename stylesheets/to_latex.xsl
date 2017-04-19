@@ -25,6 +25,8 @@
 \definecolor{darkblue}{rgb}{0, 0,.4}
 \usepackage[colorlinks=true, urlcolor=darkblue, linkcolor=blue]{hyperref}
 \usepackage[hyphens]{url}
+\usepackage{csquotes}
+\MakeOuterQuote{"}
 \urlstyle{same}
 \parindent0cm
 \setlength{\columnsep}{30 pt}
@@ -89,16 +91,34 @@
 \includesvg[width=180pt]{<xsl:value-of select="filename"/>}%
 </xsl:when>
 <xsl:when test="not(name(.)='verovio-code')">
-<xsl:choose>
-<xsl:when test="not(name(.)='collection-link')">
-<xsl:value-of select="."/>
-</xsl:when>
-<xsl:when test="name(.)='collection-link'">
-<xsl:variable name="coll" select="."/>
-<xsl:for-each select="key('collection',$coll)">$\rightarrow$ In collection <xsl:value-of select="@position"/> (<xsl:value-of select="@rismid"/>)
-</xsl:for-each>
-</xsl:when>
-</xsl:choose>
+  <xsl:choose>
+    <xsl:when test="not(name(.)='collection-link')">
+      <!-- Escaping latex entities & and muscat {{brk}} -->
+     <xsl:variable name="note2">
+        <xsl:call-template name="replace-string">
+          <xsl:with-param name="text" select="."/>
+          <xsl:with-param name="replace" select="'&amp;'" />
+          <xsl:with-param name="with" select="concat('\', $amp)"/>
+        </xsl:call-template>
+      </xsl:variable>
+      <xsl:variable name="note3">
+        <xsl:call-template name="replace-string">
+          <xsl:with-param name="text" select="$note2"/>
+          <xsl:with-param name="replace" select="'{{brk}}'" />
+          <xsl:with-param name="with" select="'\newline '"/>
+        </xsl:call-template>
+      </xsl:variable>
+
+      <xsl:value-of disable-output-escaping="yes" select="$note3"/>
+
+
+    </xsl:when>
+    <xsl:when test="name(.)='collection-link'">
+      <xsl:variable name="coll" select="."/>
+      <xsl:for-each select="key('collection',$coll)">$\rightarrow$ In collection <xsl:value-of select="@position"/> (<xsl:value-of select="@rismid"/>)
+      </xsl:for-each>
+    </xsl:when>
+  </xsl:choose>
 </xsl:when>
 </xsl:choose>
 <xsl:value-of select="@after"/>
@@ -106,4 +126,33 @@
 </xsl:for-each>
 <!-- \end{document} -->
 </xsl:template>
+
+  <xsl:variable name="quote">"</xsl:variable>
+  <xsl:variable name="amp"><![CDATA[&]]></xsl:variable>
+
+  <xsl:template name="replace-string">
+    <xsl:param name="text"/>
+    <xsl:param name="replace"/>
+    <xsl:param name="with"/>
+    <xsl:choose>
+      <xsl:when test="contains($text,$replace)">
+        <xsl:value-of select="substring-before($text,$replace)"/>
+        <xsl:value-of select="$with"/>
+        <xsl:call-template name="replace-string">
+          <xsl:with-param name="text"
+            select="substring-after($text,$replace)"/>
+          <xsl:with-param name="replace" select="$replace"/>
+          <xsl:with-param name="with" select="$with"/>
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$text"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+
+
+
+
 </xsl:stylesheet>

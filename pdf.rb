@@ -2,8 +2,9 @@ require 'nokogiri'
 require 'pry'
 
 #Inputfile
-doc = File.open("../dfh.xml") { |f| Nokogiri::XML(f)  }
-doc.encoding = 'utf-8'
+doc = File.open("../mozart.xml") { |f| Nokogiri::XML(f)  }
+#oc.encoding = 'utf-8'
+#doc.encoding = 'ASCII'
 
 #Preprocessing
 preprocessing_file=File.new('/tmp/preprocessing.xml', 'w')

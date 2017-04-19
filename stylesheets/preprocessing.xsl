@@ -259,21 +259,8 @@
       <xsl:when test="marc:subfield[@code=8]"/>
       <xsl:when test="not(marc:subfield[@code=8])">
         <note><xsl:attribute name="before"><xsl:value-of select="$newline"/></xsl:attribute>
-          <xsl:variable name="note1">
-          <xsl:call-template name="replace-string">
-            <xsl:with-param name="text" select="marc:subfield[@code='a']"/>
-            <xsl:with-param name="replace" select="$quote" />
-            <xsl:with-param name="with" select="'\textquotedbl '"/>
-          </xsl:call-template>
-        </xsl:variable>
-     
-        <xsl:call-template name="replace-string">
-            <xsl:with-param name="text" select="$note1"/>
-            <xsl:with-param name="replace" select="$amp" />
-            <xsl:with-param name="with" select="uuu"/>
-          </xsl:call-template>
-
-        </note>
+          <xsl:value-of select="marc:subfield[@code='a']"/>
+       </note>
       </xsl:when>
     </xsl:choose>
   </xsl:template>
@@ -351,27 +338,5 @@
   <xsl:variable name="quote">"</xsl:variable>
   <xsl:variable name="apos">'</xsl:variable>
   <xsl:variable name="amp">&amp;</xsl:variable>
-
-  <xsl:template name="replace-string">
-    <xsl:param name="text"/>
-    <xsl:param name="replace"/>
-    <xsl:param name="with"/>
-    <xsl:choose>
-      <xsl:when test="contains($text,$replace)">
-        <xsl:value-of select="substring-before($text,$replace)"/>
-        <xsl:value-of select="$with"/>
-        <xsl:call-template name="replace-string">
-          <xsl:with-param name="text"
-            select="substring-after($text,$replace)"/>
-          <xsl:with-param name="replace" select="$replace"/>
-          <xsl:with-param name="with" select="$with"/>
-        </xsl:call-template>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:value-of select="$text"/>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:template>
-
 
 </xsl:stylesheet>
