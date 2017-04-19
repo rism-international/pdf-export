@@ -53,7 +53,7 @@ cmd1 = 'sed -i -E "s/\|([a-zA-Z0-9#])/\$\^\1\$/g" example.tex'
 cmd2 = 'pdflatex -interaction nonstopmode --enable-write18 -shell-escape -output-directory="." example.tex > /dev/null'
 cmd3 = 'rubber --pdf example'
 system( cmd1 )
-system( cmd2 )
+#system( cmd2 )
 system( cmd3 )
 puts "Ready!"
 #=end

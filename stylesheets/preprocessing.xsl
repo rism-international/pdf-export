@@ -102,7 +102,8 @@
       <work_catalog before=", "><xsl:value-of select="marc:subfield[@code='n']"/></work_catalog>
     </xsl:if>
     <xsl:if test="marc:subfield[@code='r']">
-      <key before=" - "><xsl:value-of select="marc:subfield[@code='r']"/></key>
+      <xsl:variable name="n240r" select="marc:subfield[@code='r']"/>
+      <key before=" - "><xsl:value-of select="$keyList[@code=$n240r]"/></key>
     </xsl:if>
     <xsl:if test="marc:subfield[@code='m']">
       <scoring before="{$newline}"><xsl:value-of select="marc:subfield[@code='m']"/></scoring>
@@ -235,9 +236,14 @@
     </no>
     <xsl:if test="marc:subfield[@code='m']"> 
       <inc_score><xsl:value-of select="marc:subfield[@code='m']"/></inc_score>
+      </xsl:if>
+    <xsl:if test="marc:subfield[@code='d']"> 
+      <inc_title before=", \begin{{itshape}}" after="\end{{itshape}}"><xsl:value-of select="marc:subfield[@code='d']"/></inc_title>
     </xsl:if>
+ 
     <xsl:if test="marc:subfield[@code='r']"> 
-      <inc_key before=", "><xsl:value-of select="marc:subfield[@code='r']"/></inc_key>
+      <xsl:variable name="inckey" select="marc:subfield[@code='r']"/>
+      <inc_key before=", "><xsl:value-of select="$keyList[@code=$inckey]"/></inc_key>
     </xsl:if>
     <xsl:if test="marc:subfield[@code='t']"> 
       <text before="\newline \begin{{footnotesize}} " after=" \end{{footnotesize}}" ><xsl:value-of select="marc:subfield[@code='t']"/></text>
@@ -248,9 +254,7 @@
         <code>@clef:<xsl:value-of select="marc:subfield[@code='g']"/>
 @keysig:<xsl:value-of select="marc:subfield[@code='n']"/>
 @timesig:<xsl:value-of select="marc:subfield[@code='o']"/>
-@data:<xsl:value-of select="marc:subfield[@code='p']"/>
-        </code>
-      </verovio-code>
+@data:<xsl:value-of select="marc:subfield[@code='p']"/></code></verovio-code>
     </xsl:if>
   </xsl:template>
 
@@ -337,7 +341,51 @@
   <xsl:variable name="par">\par </xsl:variable>
   <xsl:variable name="quote">"</xsl:variable>
   <xsl:variable name="apos">'</xsl:variable>
-  <xsl:variable name="amp">&amp;</xsl:variable>
-   <xsl:variable name="vLower" select=
-      "'abcdefghijklmnopqrstuvwxyz'"/>
+
+  <xsl:param name="vkeys-de">
+    <key code="C">C-Dur</key>
+    <key code="C|x">Cis-Dur</key>
+    <key code="C|b">Ces-Dur</key>
+    <key code="D|b">Des-Dur</key>
+    <key code="D">D-Dur</key>
+    <key code="D|x">Dis-Dur</key>
+    <key code="E|b">Eb-Dur</key>
+    <key code="E">E-Dur</key>
+    <key code="F|b">Fes-Dur</key>
+    <key code="F">F-Dur</key>
+    <key code="F|x">Fis-Dur</key>
+    <key code="G|b">Ges-Dur</key>
+    <key code="G">G-Dur</key>
+    <key code="G|x">Gis-Dur</key>
+    <key code="A|b">As-Dur</key>
+    <key code="A">A-Dur</key>
+    <key code="A|x">Ais-Dur</key>
+    <key code="B|b">B-Dur</key>
+    <key code="B">H-Dur</key>
+    <key code="c|b">ces-Moll</key>
+    <key code="c">c-Moll</key>
+    <key code="c|x">cis-Moll</key>
+    <key code="d|b">des-Moll</key>
+    <key code="d">d-Moll</key>
+    <key code="d|x">dis-Moll</key>
+    <key code="e|b">es-Moll</key>
+    <key code="e">e-Moll</key>
+    <key code="e|x">eis-Moll</key>
+    <key code="f|b">fes-Moll</key>
+    <key code="f">f-Moll</key>
+    <key code="f|x">fis-Moll</key>
+    <key code="g|b">ges-Moll</key>
+    <key code="g">g-Moll</key>
+    <key code="g|x">gis-Moll</key>
+    <key code="a|b">as-Moll</key>
+    <key code="a">a-Moll</key>
+    <key code="a|x">ais-Moll</key>
+    <key code="b">b-Moll</key>
+    <key code="b|b">h-Moll</key>
+  </xsl:param>
+
+  <xsl:variable name="keyList" select=
+   "document('')/*/xsl:param[@name='vkeys-de']/*"/>
+
+
 </xsl:stylesheet>

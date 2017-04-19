@@ -88,8 +88,7 @@
 \end{filecontents*}
 \commandline{ verovio --spacing-non-linear=0.50 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 <xsl:value-of select="filename"/>.code }
 \newline
-\includesvg[width=180pt]{<xsl:value-of select="filename"/>}%
-</xsl:when>
+\includesvg[width=180pt]{<xsl:value-of select="filename"/>}%</xsl:when>
 <xsl:when test="not(name(.)='verovio-code')">
   <xsl:choose>
     <xsl:when test="not(name(.)='collection-link')">
@@ -115,10 +114,7 @@
           <xsl:with-param name="with" select="'\newline '"/>
         </xsl:call-template>
       </xsl:variable>
-
       <xsl:value-of disable-output-escaping="yes" select="$note3"/>
-
-
     </xsl:when>
     <xsl:when test="name(.)='collection-link'">
       <xsl:variable name="coll" select="."/>
@@ -131,7 +127,6 @@
 <xsl:value-of select="@after"/>
 </xsl:for-each>
 </xsl:for-each>
-<!-- \end{document} -->
 </xsl:template>
 
   <xsl:variable name="quote">"</xsl:variable>
