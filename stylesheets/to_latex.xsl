@@ -94,9 +94,16 @@
   <xsl:choose>
     <xsl:when test="not(name(.)='collection-link')">
       <!-- Escaping latex entities & and muscat {{brk}} -->
-     <xsl:variable name="note2">
+      <xsl:variable name="note1">
         <xsl:call-template name="replace-string">
           <xsl:with-param name="text" select="."/>
+          <xsl:with-param name="replace" select="$percent" />
+          <xsl:with-param name="with" select="' \% '"/>
+        </xsl:call-template>
+      </xsl:variable>
+     <xsl:variable name="note2">
+        <xsl:call-template name="replace-string">
+          <xsl:with-param name="text" select="$note1"/>
           <xsl:with-param name="replace" select="'&amp;'" />
           <xsl:with-param name="with" select="concat('\', $amp)"/>
         </xsl:call-template>
@@ -129,6 +136,7 @@
 
   <xsl:variable name="quote">"</xsl:variable>
   <xsl:variable name="amp"><![CDATA[&]]></xsl:variable>
+  <xsl:variable name="percent"> % </xsl:variable>
 
   <xsl:template name="replace-string">
     <xsl:param name="text"/>

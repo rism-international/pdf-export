@@ -48,9 +48,12 @@ latex_file.close
 
 #It is necessary to call pdflatex from the output directory
 Dir.chdir "/tmp/"
-cmd = 'pdflatex -interaction nonstopmode --enable-write18 -shell-escape -output-directory="." example.tex > /dev/null'
-cmd2 = 'rubber --pdf example'
-system( cmd )
+# this is necessary because XSLT 1.0 lacks regexp support; it can/should be called at the input.file
+cmd1 = 'sed -i -E "s/\|([a-zA-Z0-9#])/\$\^\1\$/g" example.tex'
+cmd2 = 'pdflatex -interaction nonstopmode --enable-write18 -shell-escape -output-directory="." example.tex > /dev/null'
+cmd3 = 'rubber --pdf example'
+system( cmd1 )
 system( cmd2 )
+system( cmd3 )
 puts "Ready!"
 #=end

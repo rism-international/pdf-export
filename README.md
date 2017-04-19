@@ -19,7 +19,7 @@ Packages and required software
 
 1. Latex and all included packages
 ```bash
-sudo apt install tex-common texlive-base texlive-binaries texlive-extra-utils texlive-font-utils texlive-fonts-recommended texlive-generic-recommended texlive-latex-base texlive-latex-extra texlive-latex-recommended texlive-pictures texlive-pstricks texlive-lang-german rubber
+sudo apt install tex-common texlive-base texlive-binaries texlive-extra-utils texlive-font-utils texlive-fonts-recommended texlive-generic-recommended texlive-latex-base texlive-latex-extra texlive-latex-recommended texlive-pictures texlive-pstricks texlive-lang-german rubber sed
 ```
 2. inkscape
 ```bash
@@ -29,6 +29,8 @@ sudo apt install inkscape
 see: https://github.com/rism-ch/verovio/wiki/Building-instructions
 
 4. Ruby and Nokogiri
+
+6. sed for some regexp support on the OS
 
 5. Increase the main memory size of texmf.conf:
 * find the correct texmf.conf: 
