@@ -237,7 +237,7 @@
       <inc_score><xsl:value-of select="marc:subfield[@code='m']"/></inc_score>
     </xsl:if>
     <xsl:if test="marc:subfield[@code='r']"> 
-      <inc_key><xsl:value-of select="marc:subfield[@code='r']"/></inc_key>
+      <inc_key before=", "><xsl:value-of select="marc:subfield[@code='r']"/></inc_key>
     </xsl:if>
     <xsl:if test="marc:subfield[@code='t']"> 
       <text before="\newline \begin{{footnotesize}} " after=" \end{{footnotesize}}" ><xsl:value-of select="marc:subfield[@code='t']"/></text>
@@ -338,5 +338,6 @@
   <xsl:variable name="quote">"</xsl:variable>
   <xsl:variable name="apos">'</xsl:variable>
   <xsl:variable name="amp">&amp;</xsl:variable>
-
+   <xsl:variable name="vLower" select=
+      "'abcdefghijklmnopqrstuvwxyz'"/>
 </xsl:stylesheet>
