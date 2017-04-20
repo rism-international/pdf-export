@@ -71,7 +71,7 @@
 \fancyhead[C]{\small Répertoire International des Sources Musicales}
 \setlength{\columnseprule}{0.5pt}
 <xsl:for-each select="document/record">
-<xsl:for-each select="./*">
+  <xsl:for-each select="./*">
 <xsl:if test="starts-with(@before, '\newline')">
 <xsl:text>&#xa;</xsl:text>
 </xsl:if>

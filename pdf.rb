@@ -9,7 +9,7 @@ doc = File.open("../mozart.xml") { |f| Nokogiri::XML(f)  }
 #Preprocessing
 preprocessing_file=File.new('/tmp/preprocessing.xml', 'w')
 latex_file=File.new('/tmp/example.tex', 'w')
-preproc = Nokogiri::XSLT(File.read('stylesheets/preprocessing.xsl'))
+preproc = Nokogiri::XSLT(File.read('stylesheets/preprocessing-de.xsl'))
 preprocessing_xml = preproc.transform(doc)
 preprocessing_file.write(preprocessing_xml)
 
