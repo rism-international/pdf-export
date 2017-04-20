@@ -74,9 +74,10 @@
   <xsl:template match="marc:datafield[@tag='130']">
     <xsl:param name="pos"/>
     <composer>
-      <xsl:attribute name="before"><xsl:value-of select="concat($newline, $par, '\vspace{7pt} \textcolor{darkblue}{\textbf{Collection}}')"/></xsl:attribute></composer>
+      <xsl:attribute name="before"><xsl:value-of select="concat($newline, $par, '\vspace{7pt} \textcolor{darkblue}{\textbf{Sammlung}}')"/></xsl:attribute></composer>
     <id before="\hfillplus{{" after="}}"><xsl:value-of select="$pos"/></id>
     <uniform_title before="{$newline}">
+
       <xsl:value-of select="marc:subfield[@code='a']"/>
       <xsl:if test="marc:subfield[@code='k']">. <xsl:value-of select="marc:subfield[@code='k']"/></xsl:if>
       <xsl:if test="marc:subfield[@code='o']">. <xsl:value-of select="marc:subfield[@code='o']"/></xsl:if>
@@ -102,8 +103,7 @@
       <work_catalog before=", "><xsl:value-of select="marc:subfield[@code='n']"/></work_catalog>
     </xsl:if>
     <xsl:if test="marc:subfield[@code='r']">
-      <xsl:variable name="n240r" select="marc:subfield[@code='r']"/>
-      <key before=" - "><xsl:value-of select="$keyList[@code=$n240r]"/></key>
+      <key before=" - "><xsl:value-of select="marc:subfield[@code='r']"/></key>
     </xsl:if>
     <xsl:if test="marc:subfield[@code='m']">
       <scoring before="{$newline}"><xsl:value-of select="marc:subfield[@code='m']"/></scoring>
@@ -200,7 +200,7 @@
     <xsl:variable name="layer" select="../marc:subfield[@code=8]"/>
     <copyist pos="{../@tag}">
       <xsl:if test="not(../preceding-sibling::*[1]/marc:subfield[@code=8]=$layer and ../preceding-sibling::*[1]/@tag=../@tag)">
-        <xsl:attribute name="before"><xsl:value-of select="concat($newline, 'Copyist: ')"/></xsl:attribute>
+        <xsl:attribute name="before"><xsl:value-of select="concat($newline, 'Schreiber: ')"/></xsl:attribute>
       </xsl:if>
       <xsl:if test="../preceding-sibling::*[1]/marc:subfield[@code=8]=$layer and ../preceding-sibling::*[1]/@tag=../@tag">
         <xsl:attribute name="before"><xsl:value-of select="'; '"/></xsl:attribute>
@@ -212,7 +212,7 @@
   <xsl:template name="watermark">
     <watermark>
       <xsl:if test="../preceding-sibling::*[1]/@tag!=../@tag">
-        <xsl:attribute name="before"><xsl:value-of select="concat($newline, 'Watermark: ')"/></xsl:attribute>
+        <xsl:attribute name="before"><xsl:value-of select="concat($newline, 'Wasserzeichen: ')"/></xsl:attribute>
       </xsl:if>
       <xsl:if test="../preceding-sibling::*[1]/@tag=../@tag">
         <xsl:attribute name="before">; </xsl:attribute>
@@ -242,8 +242,7 @@
     </xsl:if>
  
     <xsl:if test="marc:subfield[@code='r']"> 
-      <xsl:variable name="inckey" select="marc:subfield[@code='r']"/>
-      <inc_key before=", "><xsl:value-of select="$keyList[@code=$inckey]"/></inc_key>
+      <inc_key before=", "><xsl:value-of select="marc:subfield[@code='r']"/></inc_key>
     </xsl:if>
     <xsl:if test="marc:subfield[@code='t']"> 
       <text before="\newline \begin{{footnotesize}} " after=" \end{{footnotesize}}" ><xsl:value-of select="marc:subfield[@code='t']"/></text>
@@ -293,7 +292,7 @@
   <xsl:template match="marc:datafield[@tag=691]">
     <xsl:choose>
       <xsl:when test="position()=1">
-        <lit before="\newline Literature: "><xsl:value-of select="marc:subfield[@code='a']"/></lit>
+        <lit before="\newline Literatur: "><xsl:value-of select="marc:subfield[@code='a']"/></lit>
         <page><xsl:value-of select="marc:subfield[@code='n']"/></page>
       </xsl:when>
       <xsl:when test="not(position()=1)">
@@ -341,51 +340,6 @@
   <xsl:variable name="par">\par </xsl:variable>
   <xsl:variable name="quote">"</xsl:variable>
   <xsl:variable name="apos">'</xsl:variable>
-
-  <xsl:param name="vkeys">
-    <key code="C">C Major</key>
-    <key code="C|x">C# Major</key>
-    <key code="C|b">Cb Major</key>
-    <key code="D|b">Db Major</key>
-    <key code="D">D Major</key>
-    <key code="D|x">D# Major</key>
-    <key code="E|b">Eb Major</key>
-    <key code="E">E Major</key>
-    <key code="F|b">Fb Major</key>
-    <key code="F">F Major</key>
-    <key code="F|x">F# Major</key>
-    <key code="G|b">Gb Major</key>
-    <key code="G">G Major</key>
-    <key code="G|x">G# Major</key>
-    <key code="A|b">Ab Major</key>
-    <key code="A">A Major</key>
-    <key code="A|x">A# Major</key>
-    <key code="B|b">Bb Major</key>
-    <key code="B">B Major</key>
-    <key code="c|b">Cb Minor</key>
-    <key code="c">C Minor</key>
-    <key code="c|x">C# Minor</key>
-    <key code="d|b">Db Minor</key>
-    <key code="d">D Minor</key>
-    <key code="d|x">D# Minor</key>
-    <key code="e|b">Eb Minor</key>
-    <key code="e">E Minor</key>
-    <key code="e|x">E# Minor</key>
-    <key code="f|b">Fb Minor</key>
-    <key code="f">F Minor</key>
-    <key code="f|x">F# Minor</key>
-    <key code="g|b">Gb Minor</key>
-    <key code="g">G Minor</key>
-    <key code="g|x">G# Minor</key>
-    <key code="a|b">Ab Minor</key>
-    <key code="a">A Minor</key>
-    <key code="a|x">A# Minor</key>
-    <key code="b">Bb Minor</key>
-    <key code="b|b">B Minor</key>
-  </xsl:param>
-
-  <xsl:variable name="keyList" select=
-   "document('')/*/xsl:param[@name='vkeys']/*"/>
 
 
 </xsl:stylesheet>

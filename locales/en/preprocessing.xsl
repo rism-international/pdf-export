@@ -95,18 +95,7 @@
 
   <xsl:template match="marc:datafield[@tag='240']">
     <uniform_title before="\newline ">
-      <xsl:variable name="et" select="marc:subfield[@code='a']"/>
-      <xsl:variable name="replace">
-       <xsl:call-template name="replace-all">
-          <xsl:with-param name="text" select="$et"/>
-          <xsl:with-param name="array" select="$genreList" />
-        </xsl:call-template>
-      </xsl:variable>
-      <xsl:choose>
-        <xsl:when test="not($replace='')"><xsl:value-of select="$replace"/></xsl:when>
-        <xsl:otherwise><xsl:value-of select="$et"/></xsl:otherwise>
-    </xsl:choose>
-
+      <xsl:value-of select="marc:subfield[@code='a']"/>
       <xsl:if test="marc:subfield[@code='k']">. <xsl:value-of select="marc:subfield[@code='k']"/></xsl:if>
       <xsl:if test="marc:subfield[@code='o']">. <xsl:value-of select="marc:subfield[@code='o']"/></xsl:if>
     </uniform_title>
@@ -114,8 +103,7 @@
       <work_catalog before=", "><xsl:value-of select="marc:subfield[@code='n']"/></work_catalog>
     </xsl:if>
     <xsl:if test="marc:subfield[@code='r']">
-      <xsl:variable name="n240r" select="marc:subfield[@code='r']"/>
-      <key before=" - "><xsl:value-of select="$keyList[@code=$n240r]"/></key>
+      <key before=" - "><xsl:value-of select="marc:subfield[@code='r']"/></key>
     </xsl:if>
     <xsl:if test="marc:subfield[@code='m']">
       <scoring before="{$newline}"><xsl:value-of select="marc:subfield[@code='m']"/></scoring>
@@ -254,8 +242,7 @@
     </xsl:if>
  
     <xsl:if test="marc:subfield[@code='r']"> 
-      <xsl:variable name="inckey" select="marc:subfield[@code='r']"/>
-      <inc_key before=", "><xsl:value-of select="$keyList[@code=$inckey]"/></inc_key>
+      <inc_key before=", "><xsl:value-of select="marc:subfield[@code='r']"/></inc_key>
     </xsl:if>
     <xsl:if test="marc:subfield[@code='t']"> 
       <text before="\newline \begin{{footnotesize}} " after=" \end{{footnotesize}}" ><xsl:value-of select="marc:subfield[@code='t']"/></text>
@@ -353,87 +340,6 @@
   <xsl:variable name="par">\par </xsl:variable>
   <xsl:variable name="quote">"</xsl:variable>
   <xsl:variable name="apos">'</xsl:variable>
-
-  <xsl:param name="vkeys-de">
-    <key code="C">C-Dur</key>
-    <key code="C|x">Cis-Dur</key>
-    <key code="C|b">Ces-Dur</key>
-    <key code="D|b">Des-Dur</key>
-    <key code="D">D-Dur</key>
-    <key code="D|x">Dis-Dur</key>
-    <key code="E|b">Es-Dur</key>
-    <key code="E">E-Dur</key>
-    <key code="F|b">Fes-Dur</key>
-    <key code="F">F-Dur</key>
-    <key code="F|x">Fis-Dur</key>
-    <key code="G|b">Ges-Dur</key>
-    <key code="G">G-Dur</key>
-    <key code="G|x">Gis-Dur</key>
-    <key code="A|b">As-Dur</key>
-    <key code="A">A-Dur</key>
-    <key code="A|x">Ais-Dur</key>
-    <key code="B|b">B-Dur</key>
-    <key code="B">H-Dur</key>
-    <key code="c|b">ces-Moll</key>
-    <key code="c">c-Moll</key>
-    <key code="c|x">cis-Moll</key>
-    <key code="d|b">des-Moll</key>
-    <key code="d">d-Moll</key>
-    <key code="d|x">dis-Moll</key>
-    <key code="e|b">es-Moll</key>
-    <key code="e">e-Moll</key>
-    <key code="e|x">eis-Moll</key>
-    <key code="f|b">fes-Moll</key>
-    <key code="f">f-Moll</key>
-    <key code="f|x">fis-Moll</key>
-    <key code="g|b">ges-Moll</key>
-    <key code="g">g-Moll</key>
-    <key code="g|x">gis-Moll</key>
-    <key code="a|b">as-Moll</key>
-    <key code="a">a-Moll</key>
-    <key code="a|x">ais-Moll</key>
-    <key code="b">h-Moll</key>
-    <key code="b|b">b-Moll</key>
-  </xsl:param>
-  <xsl:variable name="keyList" select=
-   "document('')/*/xsl:param[@name='vkeys-de']/*"/>
-
-<xsl:param name="vgenres-de">
-  <key code="Sonatas">Sonaten</key>
-  <key code="Preludes">Präludien</key>
-  <key code="Fugues">Fugen</key>
-  <key code="Concertos">Konzerte</key>
-  <key code="Contredanses">Kontertänze</key>
-  <key code="Masses">Messen</key>
-  <key code="Symhonies">Sinfonien</key>
-  <key code="Suites">Suiten</key>
-  <key code="Solfeggios">Solfeggien</key>
-  <key code="Minuets">Menuette</key>
-</xsl:param>
-<xsl:variable name="genreList" select=
- "document('')/*/xsl:param[@name='vgenres-de']/*"/>
-
-
-
-  <xsl:template name="replace-all">
-    <xsl:param name="text"/>
-    <xsl:param name="array"/>
-      <xsl:for-each select="$array">
-          <xsl:if test="contains($text,@code)">
-            <xsl:value-of select="substring-before($text,@code)"/>
-            <xsl:value-of select="."/>
-            <xsl:call-template name="replace-all">
-              <xsl:with-param name="text" select="substring-after($text,@code)"/>
-              <xsl:with-param name="array" select="$array"/>
-            </xsl:call-template>
-          </xsl:if>
-    </xsl:for-each>
-  </xsl:template>
-
-
-
-
-
 
 
 </xsl:stylesheet>

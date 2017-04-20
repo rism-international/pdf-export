@@ -1,37 +1,82 @@
 require 'nokogiri'
 require 'pry'
 
+lang = YAML.load_file("locales/de.yml")
 #Inputfile
-doc = File.open("../mozart.xml") { |f| Nokogiri::XML(f)  }
-#oc.encoding = 'utf-8'
-#doc.encoding = 'ASCII'
+input_doc = File.open("../mozart.xml") { |f| Nokogiri::XML(f)  }
+
+input_doc.xpath("//marc:datafield[@tag='240']/marc:subfield[@code='r']").each do |n|
+  if lang['n240r'][n.content]
+    n.content = lang['n240r'][n.content]
+  end
+end
+input_doc.xpath("//marc:datafield[@tag='031']/marc:subfield[@code='r']").each do |n|
+  if lang['n240r'][n.content]
+    n.content = lang['n240r'][n.content]
+  end
+end
+input_doc.xpath("//marc:datafield[@tag='240']/marc:subfield[@code='k']").each do |n|
+  if lang['n240k'][n.content]
+    n.content = lang['n240k'][n.content]
+  end
+end
+input_doc.xpath("//marc:datafield[@tag='240']/marc:subfield[@code='a']").each do |n|
+  lang['n240a'].each do |k,v|
+    if n.content.include?(k)
+      n.content = n.content.gsub(k,v)
+    end
+  end
+end
+input_doc.xpath("//marc:datafield[@tag='240']/marc:subfield[@code='a']").each do |n|
+  lang['n240a'].each do |k,v|
+    if n.content.include?(k)
+      n.content = n.content.gsub(k,v)
+    end
+  end
+end
+input_doc.xpath("//marc:datafield[@tag='300']/marc:subfield[@code='a']").each do |n|
+  lang['n300a'].each do |k,v|
+    if n.content.include?(k)
+      n.content = n.content.gsub(k,v)
+    end
+  end
+end
+input_doc.xpath("//marc:datafield[@tag='593']/marc:subfield[@code='a']").each do |n|
+  lang['n593a'].each do |k,v|
+    if n.content.include?(k)
+      n.content = n.content.gsub(k,v)
+    end
+  end
+end
+
+doc = input_doc
 
 #Preprocessing
 preprocessing_file=File.new('/tmp/preprocessing.xml', 'w')
 latex_file=File.new('/tmp/example.tex', 'w')
-preproc = Nokogiri::XSLT(File.read('stylesheets/preprocessing-de.xsl'))
+preproc = Nokogiri::XSLT(File.read('locales/de/preprocessing.xsl'))
 preprocessing_xml = preproc.transform(doc)
 preprocessing_file.write(preprocessing_xml)
 
 #=begin
 #Creating the corpus
-template = Nokogiri::XSLT(File.read('stylesheets/to_latex.xsl'))
+template = Nokogiri::XSLT(File.read('locales/de/latex.xsl'))
 latex = template.transform(preprocessing_xml)
 
 #Creating the people index
-template = Nokogiri::XSLT(File.read('stylesheets/index_names_pre.xsl'))
+template = Nokogiri::XSLT(File.read('locales/de/index_names_pre.xsl'))
 pre = template.transform(preprocessing_xml)
 
 regfile = File.new("/tmp/names.xml", "w")
 regfile.write(pre)
 
-template = Nokogiri::XSLT(File.read('stylesheets/index_names.xsl'))
+template = Nokogiri::XSLT(File.read('locales/de/index_names.xsl'))
 regis = template.transform(pre)
 
 #Creating the title index
-template = Nokogiri::XSLT(File.read('stylesheets/index_title_pre.xsl'))
+template = Nokogiri::XSLT(File.read('locales/de/index_title_pre.xsl'))
 pre = template.transform(preprocessing_xml)
-template = Nokogiri::XSLT(File.read('stylesheets/index_title.xsl'))
+template = Nokogiri::XSLT(File.read('locales/de/index_title.xsl'))
 titles = template.transform(pre)
 
 

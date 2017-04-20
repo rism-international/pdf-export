@@ -1,0 +1,73 @@
+n240r:    
+  "C": C-Dur
+  "C|x": Cis-Dur
+  "C|b": Ces-Dur
+  "D|b": Des-Dur
+  "D": D-Dur
+  "D|x": Dis-Dur
+  "E|b": Es-Dur
+  "E": E-Dur
+  "F|b": Fes-Dur
+  "F": F-Dur
+  "F|x": Fis-Dur
+  "G|b": Ges-Dur
+  "G": G-Dur
+  "G|x": Gis-Dur
+  "A|b": As-Dur
+  "A": A-Dur
+  "A|x": Ais-Dur
+  "B|b": B-Dur
+  "B": H-Dur
+  "c|b": ces-Moll
+  "c": c-Moll
+  "c|x": cis-Moll
+  "d|b": des-Moll
+  "d": d-Moll
+  "d|x": dis-Moll
+  "e|b": es-Moll
+  "e": e-Moll
+  "e|x": eis-Moll
+  "f|b": fes-Moll
+  "f": f-Moll
+  "f|x": fis-Moll
+  "g|b": ges-Moll
+  "g": g-Moll
+  "g|x": gis-Moll
+  "a|b": as-Moll
+  "a": a-Moll
+  "a|x": ais-Moll
+  "b": h-Moll
+  "b|b": b-Moll
+
+n240a:
+  " and ": " und "
+  Cantatas: Kantate
+  Concertos: Konzert
+  Contredances: Kontertanz
+  Fantasies: Phantasie
+  Fugues: Fuge
+  Keyboard Pieces: Klavierstück
+  Madrigals: Madrigal
+  Masses: Messe
+  Minuets: Menuett
+  Preludes: Präludium
+  Solfeggios: Solfeggio
+  Sonatas: Sonate
+  Symphonies: Sinfonie
+  Variations: Variationen
+
+n240k:
+  Excerpts: Auswahl
+
+n593a:
+  Manuscript copy: Abschrift
+  print: Musikdruck
+
+n300a:
+  parts: Stimmen
+  part: Stimme
+  short score: Particell
+  score: Partitur
+
+
+

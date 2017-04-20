@@ -39,7 +39,7 @@
 \pagestyle{fancy}
 \renewcommand{\headrulewidth}{0.4pt}
 \begin{titlepage}
-\title{RISM Musical Sources}
+\title{RISM Musikquellen}
 \author{\copyright \ 2017 by \ RISM}
 \date{\today}
 \end{titlepage}
@@ -55,7 +55,7 @@
     \url{http://creativecommons.org/licenses/by-sa/3.0/legalcode}.
   \end{center}
 \end{@twocolumnfalse}]
-\renewcommand*\contentsname{\hfill Table of content \hfill}
+\renewcommand*\contentsname{\hfill Inhaltsverzeichnis \hfill}
 \tableofcontents
 \thispagestyle{empty}
 \newcommand\hfillplus[1]{{\unskip\nobreak\hfill\penalty50\
@@ -65,8 +65,8 @@
   \addcontentsline{toc}{section}{\protect\numberline{\thesection}#1}%
   \sectionmark{#1}}
 <!--START CORPUS-->
-\chapter*{\centering Catalog of musical sources}
-\addcontentsline{toc}{chapter}{Catalog of musical sources}
+\chapter*{\centering Katalog der Musikquellen}
+\addcontentsline{toc}{chapter}{Katalog der Musikquellen}
 \fancyhead{}
 \fancyhead[C]{\small Répertoire International des Sources Musicales}
 \setlength{\columnseprule}{0.5pt}
@@ -118,7 +118,7 @@
     </xsl:when>
     <xsl:when test="name(.)='collection-link'">
       <xsl:variable name="coll" select="."/>
-      <xsl:for-each select="key('collection',$coll)">$\rightarrow$ In collection <xsl:value-of select="@position"/> (<xsl:value-of select="@rismid"/>)
+      <xsl:for-each select="key('collection',$coll)">$\rightarrow$ In N$^o$ <xsl:value-of select="@position"/> (<xsl:value-of select="@rismid"/>)
       </xsl:for-each>
     </xsl:when>
   </xsl:choose>
