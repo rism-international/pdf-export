@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:zs="http://www.loc.gov/zing/srw/" xmlns:marc="http://www.loc.gov/MARC21/slim" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" exclude-result-prefixes="marc">
   <xsl:output method="text" indent="no" encoding="UTF-8" omit-xml-declaration="yes" />
-  <xsl:output method="text" indent="no" encoding="UTF-8"/>
+
+  <xsl:param name="varFile"/>
+  <xsl:variable name="gVariables" select="document($varFile)"/>
+  
   <xsl:template match="/">
     \clearpage  
-\chapter*{\centering Register der Titel und Texte}
-\addcontentsline{toc}{chapter}{Register der Titel und Texte}
+    \chapter*{\centering <xsl:value-of select="$gVariables/*/var[@code='index_title']"/>}
+\addcontentsline{toc}{chapter}{<xsl:value-of select="$gVariables/*/var[@code='index_title']"/>}
 \fancyhead{}
 \fancyhead[C]{\small Répertoire International des Sources Musicales}
 <xsl:for-each select="*/title">

@@ -1,0 +1,89 @@
+n240r:    
+  "C": C Major
+  "C|x": C# Major
+  "C|b": Cb Major
+  "D|b": Db Major
+  "D": D Major
+  "D|x": D# Major
+  "E|b": Es Major
+  "E": E Major
+  "F|b": Fb Major
+  "F": F Major
+  "F|x": F# Major
+  "G|b": Gb Major
+  "G": G Major
+  "G|x": G# Major
+  "A|b": As Major
+  "A": A Major
+  "A|x": A# Major
+  "B|b": B Major
+  "B": H Major
+  "c|b": Cb Minor
+  "c": C Minor
+  "c|x": C# Minor
+  "d|b": Db Minor
+  "d": D Minor
+  "d|x": D# Minor
+  "e|b": Eb Minor
+  "e": E Minor
+  "e|x": E# Minor
+  "f|b": Fb Minor
+  "f": F Minor
+  "f|x": F# Minor
+  "g|b": Gb Minor
+  "g": G Minor
+  "g|x": G# Minor
+  "a|b": Ab Minor
+  "a": A Minor
+  "a|x": A# Minor
+  "b": B Minor
+  "b|b": Bb Minor
+
+# Containing [singular form, plural form]
+n240a:
+  Cantatas: 
+    - Cantata
+    - Cantatas
+  Concertos: 
+    - Concerto
+    - Concertos
+  Contredanses: 
+    - Contredanse
+    - Contredanses
+  Fantasies: 
+    - Fantasy
+    - Fantasies
+  Fugues: 
+    - Fugue
+    - Fugues
+  Keyboard pieces: 
+    - Keyboard piece
+    - keyboard pieces
+  Madrigals: 
+    - Madrigal
+    - Madrigals
+  Masses: 
+    - Mass
+    - Masses
+  Minuets: 
+    - Minuet
+    - Minuets
+  Preludes: 
+    - Prelude
+    - Preludes
+  Quartets:
+    - Quartet
+    - Quartets
+  Solfeggios: 
+    - Solfeggio
+    - Solfeggios
+  Sonatas: 
+    - Sonata
+    - Sonatas
+  Symphonies: 
+    - Symphony
+    - Symphonies
+  Trios:
+    - Trio
+    - Trios
+

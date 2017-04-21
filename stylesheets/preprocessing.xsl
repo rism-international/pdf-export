@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:zs="http://www.loc.gov/zing/srw/" xmlns:marc="http://www.loc.gov/MARC21/slim" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" exclude-result-prefixes="marc">
   <xsl:output method="xml" indent="yes" encoding="UTF-8"/>
+
+  <xsl:param name="varFile"/>
+
+  <xsl:variable name="gVariables" select="document($varFile)"/>
+  <xsl:variable name="newline">\newline </xsl:variable>
+  <xsl:variable name="par">\par </xsl:variable>
+  <xsl:variable name="quote">"</xsl:variable>
+  <xsl:variable name="apos">'</xsl:variable>
+
   <xsl:template match="zs:searchRetrieveResponse">
     <document>
       <xsl:apply-templates select="zs:records/zs:record/zs:recordData/marc:record">
@@ -200,7 +209,7 @@
     <xsl:variable name="layer" select="../marc:subfield[@code=8]"/>
     <copyist pos="{../@tag}">
       <xsl:if test="not(../preceding-sibling::*[1]/marc:subfield[@code=8]=$layer and ../preceding-sibling::*[1]/@tag=../@tag)">
-        <xsl:attribute name="before"><xsl:value-of select="concat($newline, 'Schreiber: ')"/></xsl:attribute>
+        <xsl:attribute name="before"><xsl:value-of select="concat($newline, $gVariables/*/var[@code='copyist'], ': ')"/></xsl:attribute>
       </xsl:if>
       <xsl:if test="../preceding-sibling::*[1]/marc:subfield[@code=8]=$layer and ../preceding-sibling::*[1]/@tag=../@tag">
         <xsl:attribute name="before"><xsl:value-of select="'; '"/></xsl:attribute>
@@ -212,7 +221,7 @@
   <xsl:template name="watermark">
     <watermark>
       <xsl:if test="../preceding-sibling::*[1]/@tag!=../@tag">
-        <xsl:attribute name="before"><xsl:value-of select="concat($newline, 'Wasserzeichen: ')"/></xsl:attribute>
+        <xsl:attribute name="before"><xsl:value-of select="concat($newline, $gVariables/*/var[@code='watermark'], ': ')"/></xsl:attribute>
       </xsl:if>
       <xsl:if test="../preceding-sibling::*[1]/@tag=../@tag">
         <xsl:attribute name="before">; </xsl:attribute>
@@ -292,7 +301,7 @@
   <xsl:template match="marc:datafield[@tag=691]">
     <xsl:choose>
       <xsl:when test="position()=1">
-        <lit before="\newline Literatur: "><xsl:value-of select="marc:subfield[@code='a']"/></lit>
+        <lit before="\newline {$gVariables/*/var[@code='lit']}: "><xsl:value-of select="marc:subfield[@code='a']"/></lit>
         <page><xsl:value-of select="marc:subfield[@code='n']"/></page>
       </xsl:when>
       <xsl:when test="not(position()=1)">
@@ -334,12 +343,6 @@
       <xsl:value-of select="marc:subfield[@code='w']"/>
     </collection-link>
   </xsl:template>
-
-
-  <xsl:variable name="newline">\newline </xsl:variable>
-  <xsl:variable name="par">\par </xsl:variable>
-  <xsl:variable name="quote">"</xsl:variable>
-  <xsl:variable name="apos">'</xsl:variable>
 
 
 </xsl:stylesheet>

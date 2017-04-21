@@ -2,6 +2,9 @@
 <xsl:stylesheet version="1.0" xmlns:zs="http://www.loc.gov/zing/srw/" xmlns:marc="http://www.loc.gov/MARC21/slim" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" exclude-result-prefixes="marc">
   <xsl:output method="text" indent="no" encoding="UTF-8" omit-xml-declaration="yes" />
   <xsl:key name="collection" match="record" use="@rismid"/>
+  <xsl:param name="varFile"/>
+  <xsl:variable name="gVariables" select="document($varFile)"/>
+  
   <xsl:template match="/">
 \documentclass[twocolumn]{book}
 \usepackage[papersize={16.8cm, 25cm},left=1.5cm,right=2cm,top=2.5cm,bottom=2.5cm]{geometry}
@@ -39,7 +42,7 @@
 \pagestyle{fancy}
 \renewcommand{\headrulewidth}{0.4pt}
 \begin{titlepage}
-\title{RISM Musikquellen}
+\title{<xsl:value-of select="$gVariables/*/var[@code='title']"/>}
 \author{\copyright \ 2017 by \ RISM}
 \date{\today}
 \end{titlepage}
@@ -55,7 +58,7 @@
     \url{http://creativecommons.org/licenses/by-sa/3.0/legalcode}.
   \end{center}
 \end{@twocolumnfalse}]
-\renewcommand*\contentsname{\hfill Inhaltsverzeichnis \hfill}
+\renewcommand*\contentsname{\hfill <xsl:value-of select="$gVariables/*/var[@code='toc']"/> \hfill}
 \tableofcontents
 \thispagestyle{empty}
 \newcommand\hfillplus[1]{{\unskip\nobreak\hfill\penalty50\
@@ -65,8 +68,8 @@
   \addcontentsline{toc}{section}{\protect\numberline{\thesection}#1}%
   \sectionmark{#1}}
 <!--START CORPUS-->
-\chapter*{\centering Katalog der Musikquellen}
-\addcontentsline{toc}{chapter}{Katalog der Musikquellen}
+\chapter*{\centering <xsl:value-of select="$gVariables/*/var[@code='title_corpus']"/>}
+\addcontentsline{toc}{chapter}{<xsl:value-of select="$gVariables/*/var[@code='title_corpus']"/>}
 \fancyhead{}
 \fancyhead[C]{\small Répertoire International des Sources Musicales}
 \setlength{\columnseprule}{0.5pt}
@@ -118,7 +121,7 @@
     </xsl:when>
     <xsl:when test="name(.)='collection-link'">
       <xsl:variable name="coll" select="."/>
-      <xsl:for-each select="key('collection',$coll)">$\rightarrow$ In N$^o$ <xsl:value-of select="@position"/> (<xsl:value-of select="@rismid"/>)
+      <xsl:for-each select="key('collection',$coll)">$\rightarrow$ <xsl:value-of select="concat($gVariables/*/var[@code='in_collection'], ' ')"/> <xsl:value-of select="@position"/> (<xsl:value-of select="@rismid"/>)
       </xsl:for-each>
     </xsl:when>
   </xsl:choose>
