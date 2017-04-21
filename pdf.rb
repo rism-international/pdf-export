@@ -12,9 +12,10 @@ opts = Trollop::options do
          ruby pdf.rb [-iol]
          where [options] are:
       EOS
-opt :lang, "Language option", :short => '-l', :default => "en"
+opt :lang, "Language option (currently support for english & german)", :short => '-l', :default => "en"
+opt :title, "Defines the title of the catalog", :short => '-t', :default => "RISM"
 opt :outfile, "Output-Filename", :type => :string, :default => "/tmp/example.pdf", :short => '-o'
-opt :infile, "Input-Filename", :type => :string, :short => '-i'
+opt :infile, "Input-Filename as MarcXML", :type => :string, :short => '-i'
 end
 
 if !opts[:infile]
@@ -28,6 +29,7 @@ prog_path = Dir.pwd
 ifile=opts[:infile]
 ofile=opts[:outfile]
 lang=opts[:lang]
+title=opts[:title]
 
 varFile="locales/#{lang}/variables.xml"
 termFile="locales/#{lang}/terms.yml"
@@ -90,28 +92,28 @@ doc = input_doc
 preprocessing_file=File.new('/tmp/preprocessing.xml', 'w')
 latex_file=File.new('/tmp/example.tex', 'w')
 preproc = Nokogiri::XSLT(File.read('stylesheets/preprocessing.xsl'))
-preprocessing_xml = preproc.transform(doc, ["varFile", "'#{varFile}'"])
+preprocessing_xml = preproc.transform(doc, ["varFile", "'#{varFile}'", "title", "'#{title}'"])
 preprocessing_file.write(preprocessing_xml)
 
 #Creating the corpus
 template = Nokogiri::XSLT(File.read('stylesheets/latex.xsl'))
-latex = template.transform(preprocessing_xml, ["varFile", "'#{varFile}'"])
+latex = template.transform(preprocessing_xml, ["varFile", "'#{varFile}'", "title", "'#{title}'"])
 
 #Creating the people index
 template = Nokogiri::XSLT(File.read('stylesheets/index_names_pre.xsl'))
-pre = template.transform(preprocessing_xml, ["varFile", "'#{varFile}'"])
+pre = template.transform(preprocessing_xml, ["varFile", "'#{varFile}'", "title", "'#{title}'"])
 
 regfile = File.new("/tmp/names.xml", "w")
 regfile.write(pre)
 
 template = Nokogiri::XSLT(File.read('stylesheets/index_names.xsl'))
-regis = template.transform(pre, ["varFile", "'#{varFile}'"])
+regis = template.transform(pre, ["varFile", "'#{varFile}'", "title", "'#{title}'"])
 
 #Creating the title index
 template = Nokogiri::XSLT(File.read('stylesheets/index_title_pre.xsl'))
 pre = template.transform(preprocessing_xml)
 template = Nokogiri::XSLT(File.read('stylesheets/index_title.xsl'))
-titles = template.transform(pre, ["varFile", "'#{varFile}'"])
+titles = template.transform(pre, ["varFile", "'#{varFile}'", "title", "'#{title}'"])
 
 #Combining corpus and index together
 latex_file.write(latex.children.to_s)
@@ -120,7 +122,7 @@ latex_file.write(titles.children.to_s)
 
 #Finishing
 latex_file.write("\n")
-latex_file.write('\end{document}')
+latex_file.write(' \clearpage \onecolumn \ \thispagestyle{empty} \end{document}')
 latex_file.close
 
 #It is necessary to call pdflatex from the output directory
@@ -129,9 +131,11 @@ Dir.chdir "/tmp/"
 cmd1 = 'sed -i -E "s/\|([a-zA-Z0-9#])/\$\^\1\$/g" example.tex'
 cmd2 = 'pdflatex -interaction nonstopmode --enable-write18 -shell-escape -output-directory="." example.tex > /dev/null'
 cmd3 = 'rubber --pdf example'
-cmd4 = "cp example.pdf #{prog_path}/#{ofile}"
 system( cmd1 )
 #system( cmd2 )
 system( cmd3 )
-system( cmd4 )
+if ofile != "/tmp/example.pdf"
+  cmd4 = "cp example.pdf #{prog_path}/#{ofile}"
+  system( cmd4 )
+end
 puts "Ready!"

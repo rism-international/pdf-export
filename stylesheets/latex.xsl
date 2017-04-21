@@ -3,6 +3,7 @@
   <xsl:output method="text" indent="no" encoding="UTF-8" omit-xml-declaration="yes" />
   <xsl:key name="collection" match="record" use="@rismid"/>
   <xsl:param name="varFile"/>
+  <xsl:param name="title"/>
   <xsl:variable name="gVariables" select="document($varFile)"/>
   
   <xsl:template match="/">
@@ -42,8 +43,10 @@
 \pagestyle{fancy}
 \renewcommand{\headrulewidth}{0.4pt}
 \begin{titlepage}
-\title{<xsl:value-of select="$gVariables/*/var[@code='title']"/>}
-\author{\copyright \ 2017 by \ RISM}
+\title{<xsl:value-of select="$gVariables/*/var[@code='title']"/> \\ 
+\vspace{10 mm} \large <xsl:value-of select="$title"/>
+}
+\author{\copyright \ RISM}
 \date{\today}
 \end{titlepage}
 \begin{document}
@@ -71,7 +74,7 @@
 \chapter*{\centering <xsl:value-of select="$gVariables/*/var[@code='title_corpus']"/>}
 \addcontentsline{toc}{chapter}{<xsl:value-of select="$gVariables/*/var[@code='title_corpus']"/>}
 \fancyhead{}
-\fancyhead[C]{\small Répertoire International des Sources Musicales}
+\fancyhead[C]{\small RISM -\ <xsl:value-of select="$title"/>}
 \setlength{\columnseprule}{0.5pt}
 <xsl:for-each select="document/record">
   <xsl:for-each select="./*">
