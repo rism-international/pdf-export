@@ -40,21 +40,57 @@ n240r:
   "b|b": b-Moll
 
 n240a:
-  " and ": " und "
-  Cantatas: Kantate
-  Concertos: Konzert
-  Contredances: Kontertanz
-  Fantasies: Phantasie
-  Fugues: Fuge
-  Keyboard Pieces: Klavierstück
-  Madrigals: Madrigal
-  Masses: Messe
-  Minuets: Menuett
-  Preludes: Präludium
-  Solfeggios: Solfeggio
-  Sonatas: Sonate
-  Symphonies: Sinfonie
-  Variations: Variationen
+  " and ": 
+    - " und "
+    - " und "
+  Cantatas: 
+    - Kantate
+    - Kantaten
+  Concertos: 
+    - Konzert
+    - Konzerte
+  Contredanses: 
+    - Kontertanz
+    - Kontertänze
+  Fantasies: 
+    - Phantasie
+    - Phantasien
+  Fugues: 
+    - Fuge
+    - Fugen
+  Keyboard pieces: 
+    - Klavierstück
+    - Klavierstücke
+  Madrigals: 
+    - Madrigal
+    - Madrigale
+  Masses: 
+    - Messe
+    - Messen
+  Minuets: 
+    - Menuett
+    - Menuette
+  Preludes: 
+    - Präludium
+    - Präludien
+  Quartets:
+    - Quartett
+    - Quartette
+  Solfeggios: 
+    - Solfeggio
+    - Solfeggien
+  Sonatas: 
+    - Sonate
+    - Sonaten
+  Symphonies: 
+    - Sinfonie
+    - Sinfonien
+  Trios:
+    - Trio
+    - Trios
+  Variations: 
+    - Variationen
+    - Variationen
 
 n240k:
   Excerpts: Auswahl

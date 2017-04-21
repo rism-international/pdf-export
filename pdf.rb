@@ -1,7 +1,7 @@
 require 'nokogiri'
 require 'pry'
 
-lang = YAML.load_file("locales/de.yml")
+lang = YAML.load_file("locales/de/de.yml")
 #Inputfile
 input_doc = File.open("../mozart.xml") { |f| Nokogiri::XML(f)  }
 
@@ -23,14 +23,11 @@ end
 input_doc.xpath("//marc:datafield[@tag='240']/marc:subfield[@code='a']").each do |n|
   lang['n240a'].each do |k,v|
     if n.content.include?(k)
-      n.content = n.content.gsub(k,v)
-    end
-  end
-end
-input_doc.xpath("//marc:datafield[@tag='240']/marc:subfield[@code='a']").each do |n|
-  lang['n240a'].each do |k,v|
-    if n.content.include?(k)
-      n.content = n.content.gsub(k,v)
+      if n.content =~ /^[0-9]/
+        n.content = n.content.gsub(k,v[1])
+      else
+        n.content = n.content.gsub(k,v[0])
+      end
     end
   end
 end
