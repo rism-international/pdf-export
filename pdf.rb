@@ -13,9 +13,23 @@ opts = Trollop::options do
          where [options] are:
       EOS
 opt :lang, "Language option (currently support for english & german)", :short => '-l', :default => "en"
+opt :font, "Select the default font, for some sample see eg: https://de.sharelatex.com/learn/Font_typefaces", :short => '-f', :default => "lmodern"
 opt :title, "Defines the title of the catalog", :short => '-t', :default => "RISM"
+opt :fontlist, "List available fonts"
 opt :outfile, "Output-Filename", :type => :string, :default => "/tmp/example.pdf", :short => '-o'
 opt :infile, "Input-Filename as MarcXML", :type => :string, :short => '-i'
+end
+
+sfonts = %w(charter times lmodern ebgaramond palatino gentium LibreBodoni quattrocento gfsbodoni)
+ssfonts = %w(cmbright raleway gillius gentium)
+
+if opts[:fontlist]
+  puts "Available fonts are:"
+  puts "\tSerif fonts:"
+  sfonts.sort.each {|e| puts "\t\t#{e}"}
+  puts "\tSans Serif fonts:"
+  ssfonts.sort.each {|e| puts "\t\t#{e}"}
+  exit
 end
 
 if !opts[:infile]
@@ -24,14 +38,20 @@ if !opts[:infile]
   exit
 end
 
+
 prog_path = Dir.pwd
 
 ifile=opts[:infile]
 ofile=opts[:outfile]
 lang=opts[:lang]
 title=opts[:title]
+font=opts[:font]
+unless (sfonts + ssfonts).include?(font)
+  puts "Unknown font-name, using lmodern (default latex font)."
+  font = "lmodern"
+end
 
-varFile="locales/#{lang}/variables.xml"
+  varFile="locales/#{lang}/variables.xml"
 termFile="locales/#{lang}/terms.yml"
 
 terms = YAML.load_file(termFile)
@@ -97,7 +117,7 @@ preprocessing_file.write(preprocessing_xml)
 
 #Creating the corpus
 template = Nokogiri::XSLT(File.read('stylesheets/latex.xsl'))
-latex = template.transform(preprocessing_xml, ["varFile", "'#{varFile}'", "title", "'#{title}'"])
+latex = template.transform(preprocessing_xml, ["varFile", "'#{varFile}'", "title", "'#{title}'", "font", "'#{font}'"])
 
 #Creating the people index
 template = Nokogiri::XSLT(File.read('stylesheets/index_names_pre.xsl'))
@@ -122,7 +142,7 @@ latex_file.write(titles.children.to_s)
 
 #Finishing
 latex_file.write("\n")
-latex_file.write(' \clearpage \onecolumn \ \thispagestyle{empty} \end{document}')
+latex_file.write(' \clearpage \onecolumn \ \vfill \center {\chancery Finis.}$ \vfill \thispagestyle{empty} \end{document}')
 latex_file.close
 
 #It is necessary to call pdflatex from the output directory

@@ -10,6 +10,7 @@ Features:
 * Included alphabetic index.
 * Configurable with XSLT preprocessing.
 * Multilanguage support (currently english and german)
+* Optional font selection (see some samples at example/fonts)
 
 
 Requirements
@@ -20,7 +21,7 @@ Packages and required software
 
 1. Latex and all included packages
 ```bash
-sudo apt install tex-common texlive-base texlive-binaries texlive-extra-utils texlive-font-utils texlive-fonts-recommended texlive-generic-recommended texlive-latex-base texlive-latex-extra texlive-latex-recommended texlive-pictures texlive-pstricks texlive-lang-german rubber sed
+sudo apt install tex-common texlive-base texlive-binaries texlive-extra-utils texlive-font-utils texlive-fonts-recommended texlive-generic-recommended texlive-latex-base texlive-latex-extra texlive-latex-recommended texlive-pictures texlive-pstricks texlive-lang-german rubber sed texlive-fonts-extra texlive-lang-greek
 ```
 2. Inkscape
 ```bash
@@ -57,7 +58,7 @@ Basic usage
 
 Transformation of Marcxml to LaTex is done by calling the ruby script:
 ```bash
-&> ruby pdf.rb --lang="de" --outfile="mozart.pdf" --infile="../mozart.xml"
+&> ruby pdf.rb --lang="de" --outfile="mozart.pdf" --infile="../mozart.xml" --font="times"
 ```
 Please consider also generating the input file using the [sru-downloader](https://github.com/rism-international/sru-downloader) in the related repository.
 Keep in mind that the ruby script is only a wrapper for calling all the XSLT and can be easily replaced by other program languages.

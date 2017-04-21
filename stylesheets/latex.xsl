@@ -4,12 +4,14 @@
   <xsl:key name="collection" match="record" use="@rismid"/>
   <xsl:param name="varFile"/>
   <xsl:param name="title"/>
+  <xsl:param name="font"/>
   <xsl:variable name="gVariables" select="document($varFile)"/>
   
   <xsl:template match="/">
 \documentclass[twocolumn]{book}
 \usepackage[papersize={16.8cm, 25cm},left=1.5cm,right=2cm,top=2.5cm,bottom=2.5cm]{geometry}
 \usepackage[utf8x]{inputenc}
+\usepackage[default]{<xsl:value-of select="$font"/>}
 \usepackage[T1]{fontenc}
 \usepackage{textcomp}
 \usepackage{xparse}
@@ -31,6 +33,7 @@
 \usepackage[hyphens]{url}
 \usepackage{csquotes}
 \MakeOuterQuote{"}
+\newcommand*\chancery{\fontfamily{pzc}\selectfont}
 \urlstyle{same}
 \parindent0cm
 \setlength{\columnsep}{30 pt}
