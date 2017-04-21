@@ -9,6 +9,7 @@ Features:
 * Sorting by different categories.
 * Included alphabetic index.
 * Configurable with XSLT preprocessing.
+* Multilanguage support (currently english and german)
 
 
 Requirements
@@ -21,29 +22,32 @@ Packages and required software
 ```bash
 sudo apt install tex-common texlive-base texlive-binaries texlive-extra-utils texlive-font-utils texlive-fonts-recommended texlive-generic-recommended texlive-latex-base texlive-latex-extra texlive-latex-recommended texlive-pictures texlive-pstricks texlive-lang-german rubber sed
 ```
-2. inkscape
+2. Inkscape
 ```bash
 sudo apt install inkscape 
 ```
-3. verovio (called from commandline)
+3. Verovio (called from commandline)
 see: https://github.com/rism-ch/verovio/wiki/Building-instructions
 
-4. Ruby and Nokogiri
+4. Ruby
+Related packages:
+* Nokogiri
+* Trollop
 
-6. sed for some regexp support on the OS
+6. Sed for some regexp support on the OS
 
-5. Increase the main memory size of texmf.conf:
-* find the correct texmf.conf: 
+7. Increase the main memory size of texmf.conf:
+* Find the correct texmf.conf: 
 ```bash
 kpsewhich -a texmf.cnf
 ```
-* increase the size:
+* Increase the size:
 ```latex
 main_memory = 7999999
 extra_mem_top = 7999999
 extra_mem_bot = 7999999
 ```
-* rebuild the configuration files
+* Rebuild the configuration files
 ```bash
 sudo fmtutil-sys --all
 ```
@@ -53,11 +57,20 @@ Basic usage
 
 Transformation of Marcxml to LaTex is done by calling the ruby script:
 ```bash
-&> ruby pdf.rb
+&> ruby pdf.rb --lang="de" --outfile="mozart.pdf" --infile="../mozart.xml"
 ```
-Input file is defined at the top of the script. Please consider also generating the input file using the [sru-downloader](https://github.com/rism-international/sru-downloader) in the related repository.
+Please consider also generating the input file using the [sru-downloader](https://github.com/rism-international/sru-downloader) in the related repository.
+Keep in mind that the ruby script is only a wrapper for calling all the XSLT and can be easily replaced by other program languages.
 
 All temporary files are build in /tmp/.
+
+Language support
+-----------------
+There are multiple replacements in the MARCXML for inserting optimized values.
+They are called by the according folder in the locales directory.
+There are two files defining global variables in the preprocessing and in the transform:
+* terms.yml: All field values for the replacement, sometimes in singular and plural form.
+* variables.xml: Containing variables for the XSLT.
 
 Background
 -----------
@@ -77,6 +90,7 @@ During the next step the .TEX-file is calling some subroutines:
 * Calling verovio in the subshell to generate the SVG-files.
 * Calling \includesvg to insert the graphics into the document.
 * Completing the PDF-export.
+* Generate the indices.
 
 Hint: The pdftex-command MUST be called from within the output-directory (eg. /tmp/)
 
