@@ -95,9 +95,9 @@
 \begin{filecontents*}{<xsl:value-of select="filename"/>.code}
 <xsl:value-of select="code"/>
 \end{filecontents*}
-\commandline{ verovio --spacing-non-linear=0.50 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 <xsl:value-of select="filename"/>.code }
+\commandline{ verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 <xsl:value-of select="filename"/>.code }
 \newline
-\includesvg[width=180pt]{<xsl:value-of select="filename"/>}%</xsl:when>
+\includesvg[width=173pt]{<xsl:value-of select="filename"/>}%</xsl:when>
 <xsl:when test="not(name(.)='verovio-code')">
   <xsl:choose>
     <xsl:when test="not(name(.)='collection-link')">
