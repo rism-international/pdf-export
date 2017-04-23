@@ -10,7 +10,7 @@ Features:
 * Included alphabetic index.
 * Configurable with XSLT preprocessing.
 * Multilanguage support (currently english and german)
-* Optional font selection (see some samples at example/fonts)
+* Optional font selection
 
 
 Requirements
@@ -19,9 +19,9 @@ Working at least with Ubuntu 16.04
 
 Packages and required software
 
-1. Latex and all included packages
+1. Latex, LuaLaTex and all included packages
 ```bash
-sudo apt install tex-common texlive-base texlive-binaries texlive-extra-utils texlive-font-utils texlive-fonts-recommended texlive-generic-recommended texlive-latex-base texlive-latex-extra texlive-latex-recommended texlive-pictures texlive-pstricks texlive-lang-german rubber sed texlive-fonts-extra texlive-lang-greek
+sudo apt install tex-common texlive-base texlive-binaries texlive-extra-utils texlive-font-utils texlive-fonts-recommended texlive-generic-recommended texlive-latex-base texlive-latex-extra texlive-latex-recommended texlive-pictures texlive-pstricks texlive-lang-german rubber sed texlive-fonts-extra texlive-lang-greek texlive-xetex
 ```
 2. Inkscape
 ```bash
@@ -52,13 +52,18 @@ extra_mem_bot = 7999999
 ```bash
 sudo fmtutil-sys --all
 ```
+8. Set ulimit
+For using lualatex set new size of opening files:
+```bash
+ulimit –n 64000
+```bash
 
 Basic usage
 -----------
 
 Transformation of Marcxml to LaTex is done by calling the ruby script:
 ```bash
-&> ruby pdf.rb --lang="de" --outfile="mozart.pdf" --infile="../mozart.xml" --font="times"
+&> ruby pdf.rb --lang="de" --outfile="mozart.pdf" --infile="../mozart.xml" --font="serif"
 ```
 Please consider also generating the input file using the [sru-downloader](https://github.com/rism-international/sru-downloader) in the related repository.
 Keep in mind that the ruby script is only a wrapper for calling all the XSLT and can be easily replaced by other program languages.
@@ -72,6 +77,11 @@ They are called by the according folder in the locales directory.
 There are two files defining global variables in the preprocessing and in the transform:
 * terms.yml: All field values for the replacement, sometimes in singular and plural form.
 * variables.xml: Containing variables for the XSLT.
+
+Unicode font
+-----------
+Default font is Linux Libertine with coverage of Latin, Latin extented, Cyrillic, Greek und Hebrew (ca. 2000 chars). Keep in mind that no actual font covers the complete unicode range. For additional Unicode ranges select your font manually.
+
 
 Background
 -----------
