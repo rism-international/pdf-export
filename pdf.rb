@@ -14,6 +14,7 @@ opts = Trollop::options do
       EOS
 opt :lang, "Language option (currently support for english & german)", :short => '-l', :default => "en"
 opt :font, "Select serif or sans font", :short => '-f', :default => "serif"
+opt :clear, "Clearing the SVG files", :short => '-c', :type => :boolean, :default => false
 opt :title, "Defines the title of the catalog", :short => '-t', :default => "RISM"
 opt :outfile, "Output-Filename", :type => :string, :default => "/tmp/example.pdf", :short => '-o'
 opt :infile, "Input-Filename as MarcXML", :type => :string, :short => '-i'
@@ -25,8 +26,9 @@ if !opts[:infile]
   exit
 end
 
+
 prog_path = Dir.pwd
-ifile=opts[:infile]
+inputfile=opts[:infile]
 ofile=opts[:outfile]
 lang=opts[:lang]
 title=opts[:title]
@@ -44,13 +46,21 @@ termFile="locales/#{lang}/terms.yml"
 
 terms = YAML.load_file(termFile)
 #Inputfile
+#
+#
+system ( "cp #{inputfile} /tmp/input.xml" )
+
+ifile = "/tmp/input.xml"
+system( "sed -i -E 's/\~/\\\\\~/g' #{ifile}"  )
+system( "sed -i -E 's/_/~\\\\\_/g' #{ifile}"  )
+
 doc = File.open(ifile) { |f| Nokogiri::XML(f)  }
 
 # Global substitution of Latex special chars
-doc.xpath("//marc:datafield/marc:subfield[@code='a']").each do |n|
-  n.content = n.content.gsub("_", "\\\~")
-  n.content = n.content.gsub(/\|([a-z0-9A-Z])/, '$^\1$')
-end
+#doc.xpath("//marc:datafield/marc:subfield[@code='a']").each do |n|
+#  n.content = n.content.gsub("_", "\\\~")
+#  n.content = n.content.gsub(/\|([a-z0-9A-Z])/, '$^\1$')
+#end
 
 # Replacement according the localization
 doc.xpath("//marc:datafield[@tag='240']/marc:subfield[@code='r']").each do |n|
@@ -142,6 +152,13 @@ latex_file.close
 #It is necessary to call pdflatex from the output directory
 Dir.chdir "/tmp/"
 # this is necessary because XSLT 1.0 lacks regexp support; it can/should be called at the input.file
+#
+system( 'sed -i -E "s/\|([a-zA-Z0-9#])/\$\^\1\$/g" example.tex' )
+
+if opts[:clear]
+  system ( "rm *.svg && rm *.pdf && rm *.pdf_tex && rm *.code" )
+end
+
 cmd = 'lualatex -interaction nonstopmode --enable-write18 -shell-escape -output-directory="." example.tex > /dev/null'
 system( cmd )
 # Run twice to have the correct TOC
