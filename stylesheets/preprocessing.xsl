@@ -77,14 +77,14 @@
         <xsl:attribute name="after">}}</xsl:attribute>
       <xsl:value-of select="marc:subfield[@code='d']"/>
     </life_date>
-    <id before="\hfillplus{{" after="}}"><xsl:value-of select="$pos"/></id>
+    <id before="\hfillplus{{\textbf{{" after="}}}}"><xsl:value-of select="$pos"/></id>
   </xsl:template>
 
   <xsl:template match="marc:datafield[@tag='130']">
     <xsl:param name="pos"/>
     <composer>
       <xsl:attribute name="before"><xsl:value-of select="concat($par, '\vspace{7pt} \textcolor{darkblue}{\textbf{Sammlung}}')"/></xsl:attribute></composer>
-    <id before="\hfillplus{{" after="}}"><xsl:value-of select="$pos"/></id>
+    <id before="\hfillplus{{\textbf{{" after="}}}}"><xsl:value-of select="$pos"/></id>
     <uniform_title before="{$newline}">
 
       <xsl:value-of select="marc:subfield[@code='a']"/>

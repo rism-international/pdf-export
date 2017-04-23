@@ -38,38 +38,42 @@ elsif sfont == "sans"
 else
   font = "Linux Libertine 0"
 end
-
-#Replace special characters
-system( "sed -i -E 's/\~/\\\\\~/g' #{ifile}" )
-system( "sed -i -E 's/_/~\\\\\_/g' #{ifile}" )
   
 varFile="locales/#{lang}/variables.xml"
 termFile="locales/#{lang}/terms.yml"
 
 terms = YAML.load_file(termFile)
 #Inputfile
-input_doc = File.open(ifile) { |f| Nokogiri::XML(f)  }
+doc = File.open(ifile) { |f| Nokogiri::XML(f)  }
 
-input_doc.xpath("//marc:datafield[@tag='240']/marc:subfield[@code='r']").each do |n|
+# Global substitution of Latex special chars
+doc.xpath("//marc:datafield/marc:subfield[@code='a']").each do |n|
+  n.content = n.content.gsub("_", "\\\~")
+  n.content = n.content.gsub(/\|([a-z0-9A-Z])/, '$^\1$')
+end
+
+# Replacement according the localization
+doc.xpath("//marc:datafield[@tag='240']/marc:subfield[@code='r']").each do |n|
   if terms['n240r'][n.content]
     n.content = terms['n240r'][n.content]
   end
 end
-input_doc.xpath("//marc:datafield[@tag='031']/marc:subfield[@code='r']").each do |n|
+
+doc.xpath("//marc:datafield[@tag='031']/marc:subfield[@code='r']").each do |n|
   if terms['n240r'][n.content]
     n.content = terms['n240r'][n.content]
   end
 end
 
 if lang!='en'
-  input_doc.xpath("//marc:datafield[@tag='240']/marc:subfield[@code='k']").each do |n|
+  doc.xpath("//marc:datafield[@tag='240']/marc:subfield[@code='k']").each do |n|
     if terms['n240k'][n.content]
       n.content = terms['n240k'][n.content]
     end
   end
 end
 
-input_doc.xpath("//marc:datafield[@tag='240']/marc:subfield[@code='a']").each do |n|
+doc.xpath("//marc:datafield[@tag='240']/marc:subfield[@code='a']").each do |n|
   terms['n240a'].each do |k,v|
     if n.content.include?(k)
       if n.content =~ /^[0-9]/
@@ -82,14 +86,14 @@ input_doc.xpath("//marc:datafield[@tag='240']/marc:subfield[@code='a']").each do
 end
 
 if lang!='en'
-  input_doc.xpath("//marc:datafield[@tag='300']/marc:subfield[@code='a']").each do |n|
+  doc.xpath("//marc:datafield[@tag='300']/marc:subfield[@code='a']").each do |n|
     terms['n300a'].each do |k,v|
       if n.content.include?(k)
         n.content = n.content.gsub(k,v)
       end
     end
   end
-  input_doc.xpath("//marc:datafield[@tag='593']/marc:subfield[@code='a']").each do |n|
+  doc.xpath("//marc:datafield[@tag='593']/marc:subfield[@code='a']").each do |n|
     terms['n593a'].each do |k,v|
       if n.content.include?(k)
         n.content = n.content.gsub(k,v)
@@ -97,8 +101,6 @@ if lang!='en'
     end
   end
 end
-
-doc = input_doc
 
 #Preprocessing
 preprocessing_file=File.new('/tmp/preprocessing.xml', 'w')
@@ -140,15 +142,13 @@ latex_file.close
 #It is necessary to call pdflatex from the output directory
 Dir.chdir "/tmp/"
 # this is necessary because XSLT 1.0 lacks regexp support; it can/should be called at the input.file
-cmd1 = 'sed -i -E "s/\|([a-zA-Z0-9#])/\$\^\1\$/g" example.tex'
-#cmd2 = 'pdflatex -interaction nonstopmode --enable-write18 -shell-escape -output-directory="." example.tex > /dev/null'
-cmd2 = 'lualatex -interaction nonstopmode --enable-write18 -shell-escape -output-directory="." example.tex > /dev/null'
-cmd3 = 'rubber example'
-system( cmd1 )
-system( cmd2 )
-system( cmd3 )
-if ofile != "/tmp/example.pdf"
-  cmd4 = "cp example.pdf #{prog_path}/#{ofile}"
-  system( cmd4 )
-end
+cmd = 'lualatex -interaction nonstopmode --enable-write18 -shell-escape -output-directory="." example.tex > /dev/null'
+system( cmd )
+# Run twice to have the correct TOC
+puts "Compiling the TOC ..."
+system( cmd )
+
+#if ofile != "/tmp/example.pdf"
+#  system( "cp example.pdf #{prog_path}/#{ofile}" )
+#end
 puts "Ready!"
