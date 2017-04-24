@@ -1,0 +1,6 @@
+source 'https://rubygems.org' 
+gem 'nokogiri'
+gem 'trollop'
+gem 'rubyzip'
+gem 'zip-zip'
+gem 'pry'

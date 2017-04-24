@@ -65,11 +65,11 @@
     <xsl:param name="pos"/>
     <composer>
       <xsl:if test="marc:subfield[@code='j']='Conjectural'">
-        <xsl:attribute name="before"><xsl:value-of select="concat($par, '\vspace{7pt} \textcolor{darkblue}{\textbf{?')"/></xsl:attribute>
+        <xsl:attribute name="before"><xsl:value-of select="concat($par, '\vspace{16pt} \textcolor{darkblue}{\textbf{?')"/></xsl:attribute>
         <xsl:attribute name="after"><xsl:value-of select="'?'"/></xsl:attribute>
       </xsl:if>
       <xsl:if test="marc:subfield[@code='j']!='Conjectural' or not(marc:subfield[@code='j'])">
-        <xsl:attribute name="before"><xsl:value-of select="concat($par, '\vspace{7pt} \textcolor{darkblue}{\textbf{')"/></xsl:attribute>
+        <xsl:attribute name="before"><xsl:value-of select="concat($par, '\vspace{16pt} \textcolor{darkblue}{\textbf{')"/></xsl:attribute>
       </xsl:if>
       <xsl:value-of select="marc:subfield[@code='a']"/>
      </composer>
@@ -83,7 +83,7 @@
   <xsl:template match="marc:datafield[@tag='130']">
     <xsl:param name="pos"/>
     <composer>
-      <xsl:attribute name="before"><xsl:value-of select="concat($par, '\vspace{7pt} \textcolor{darkblue}{\textbf{Sammlung}}')"/></xsl:attribute></composer>
+      <xsl:attribute name="before"><xsl:value-of select="concat($par, '\vspace{16pt} \textcolor{darkblue}{\textbf{Sammlung}}')"/></xsl:attribute></composer>
     <id before="\hfillplus{{\textbf{{" after="}}}}"><xsl:value-of select="$pos"/></id>
     <uniform_title before="{$newline}">
 

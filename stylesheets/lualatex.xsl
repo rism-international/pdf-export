@@ -8,12 +8,12 @@
   <xsl:variable name="gVariables" select="document($varFile)"/>
   
   <xsl:template match="/">
-\documentclass[twocolumn]{book}
-\usepackage[papersize={16.8cm, 25cm},left=1.5cm,right=2cm,top=2.5cm,bottom=2.5cm]{geometry}
+\documentclass[twocolumn, 12pt]{book}
+\usepackage[papersize={21.0cm, 29.7cm},left=1.5cm,right=2cm,top=2.5cm,bottom=2.5cm]{geometry}
 \usepackage{fontspec}
 \usepackage[utf8]{luainputenc}
 \usepackage{newunicodechar}
-\setmainfont[Ligatures=TeX]{Linux Libertine O}
+\setmainfont[Ligatures=TeX]{<xsl:value-of select="$font"/>}
 \usepackage{ifluatex}
 \ifluatex
   \usepackage{pdftexcmds}
@@ -104,9 +104,8 @@
 \begin{filecontents*}{<xsl:value-of select="filename"/>.code}
 <xsl:value-of select="code"/>
 \end{filecontents*}
-\commandline{ if [ ! -f <xsl:value-of select="filename"/>.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 <xsl:value-of select="filename"/>.code; fi }
-\newline
-\includesvg[width=173pt]{<xsl:value-of select="filename"/>}%</xsl:when>
+\commandline{ if [ ! -f <xsl:value-of select="filename"/>.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 <xsl:value-of select="filename"/>.code; fi } <!-- 16.8cm, 25cm: 173pt -->
+\newline \includesvg[width=225pt]{<xsl:value-of select="filename"/>}%</xsl:when>
 <xsl:when test="not(name(.)='verovio-code')">
   <xsl:choose>
     <xsl:when test="not(name(.)='collection-link')">

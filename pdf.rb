@@ -34,11 +34,11 @@ lang=opts[:lang]
 title=opts[:title]
 sfont=opts[:font]
 if sfont == "serif"
-  font = "Linux Libertine 0"
+  font = "Linux Libertine O"
 elsif sfont == "sans"
-  font = "Linux Biolinum 0"
+  font = "Linux Biolinum O"
 else
-  font = "Linux Libertine 0"
+  font = "Linux Libertine O"
 end
   
 varFile="locales/#{lang}/variables.xml"
