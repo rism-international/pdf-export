@@ -39,8 +39,6 @@
 \usepackage[defaultlines=4, all]{nowidow}
 \definecolor{darkblue}{rgb}{0, 0,.4}
 \usepackage[colorlinks=true, urlcolor=darkblue, linkcolor=blue]{hyperref}
-\usepackage{csquotes}
-\MakeOuterQuote{"}
 \newcommand*\chancery{\fontfamily{pzc}\selectfont}
 \urlstyle{same}
 \parindent0cm

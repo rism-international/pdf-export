@@ -154,6 +154,7 @@ Dir.chdir "/tmp/"
 # this is necessary because XSLT 1.0 lacks regexp support; it can/should be called at the input.file
 #
 system( 'sed -i -E "s/\|([a-zA-Z0-9#])/\$\^\1\$/g" example.tex' )
+system( "sed -i -E 's/\"/{\\\\textquotedbl}/g' example.tex")
 
 if opts[:clear]
   system ( "rm *.svg && rm *.pdf && rm *.pdf_tex && rm *.code" )
