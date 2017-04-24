@@ -77,7 +77,7 @@
         <xsl:attribute name="after">}}</xsl:attribute>
       <xsl:value-of select="marc:subfield[@code='d']"/>
     </life_date>
-    <id before="\hfillplus{{\textbf{{" after="}}}}"><xsl:value-of select="$pos"/></id>
+    <id before="\hfillplus{{\textbf{{" after="}}}}">[<xsl:value-of select="$pos"/>]</id>
   </xsl:template>
 
   <xsl:template match="marc:datafield[@tag='130']">

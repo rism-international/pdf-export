@@ -21,7 +21,7 @@ Packages and required software
 
 1. Latex, LuaLaTex and all included packages
 ```bash
-sudo apt install tex-common texlive-base texlive-binaries texlive-extra-utils texlive-font-utils texlive-fonts-recommended texlive-generic-recommended texlive-latex-base texlive-latex-extra texlive-latex-recommended texlive-pictures texlive-pstricks texlive-lang-german rubber sed texlive-fonts-extra texlive-lang-greek texlive-xetex
+sudo apt install tex-common texlive-base texlive-binaries texlive-extra-utils texlive-font-utils texlive-fonts-recommended texlive-generic-recommended texlive-latex-base texlive-latex-extra texlive-latex-recommended texlive-pictures texlive-pstricks texlive-lang-german sed texlive-fonts-extra texlive-lang-greek texlive-xetex
 ```
 2. Inkscape
 ```bash
@@ -80,7 +80,10 @@ There are two files defining global variables in the preprocessing and in the tr
 
 Unicode font
 -----------
-Default font is Linux Libertine with coverage of Latin, Latin extented, Cyrillic, Greek und Hebrew (ca. 2000 chars). Keep in mind that no actual font covers the complete unicode range. For additional Unicode ranges select your font manually.
+Default font is Linux Libertine with coverage of Latin, Latin extented, Cyrillic, Greek und Hebrew (ca. 2000 chars). Keep in mind that no actual font covers the complete unicode range.
+_Unicode characters which are not supported by the font may vanish silently._
+ 
+For additional Unicode ranges select your font manually.
 
 
 Background
@@ -118,7 +121,7 @@ Additional indices could be:
 * Shelfmark
 * Literature
 
-For implementation see the example code in the index_names*.xls
+For implementation see the example code.
 
 Localization
 --------------
