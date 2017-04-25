@@ -4,7 +4,7 @@ require 'trollop'
 require 'yaml'
 
 opts = Trollop::options do
-    version "RISM PDF Catalog 0.1 (2017.04)"
+    version "RISM PDF Catalog 1.0 (2017.04)"
       banner <<-EOS
       This utility program changes SRU-retrieve file to high quality PDF output. 
       Overall required argument is -i [inputfile].
@@ -26,7 +26,6 @@ if !opts[:infile]
   exit
 end
 
-
 prog_path = Dir.pwd
 ifile=opts[:infile]
 ofile=opts[:outfile]
@@ -45,7 +44,6 @@ varFile="locales/#{lang}/variables.xml"
 termFile="locales/#{lang}/terms.yml"
 terms = YAML.load_file(termFile)
 doc = File.open(ifile) { |f| Nokogiri::XML(f)  }
-
 
 # Replacement according the localization
 doc.xpath("//marc:datafield[@tag='240']/marc:subfield[@code='r']").each do |n|
@@ -143,7 +141,6 @@ latex_file.close
 
 #It is necessary to call pdflatex from the output directory
 Dir.chdir "/tmp/"
-
 if opts[:clear]
   system ( "rm *.svg && rm *.pdf && rm *.pdf_tex && rm *.code" )
 end
