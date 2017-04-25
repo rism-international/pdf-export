@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<variables>
+  <var code="title">RISM Musical sources</var>
+  <var code="watermark">Watermark</var>
+  <var code="lit">Literature</var>
+  <var code="copyist">Copyist</var>
+  <var code="title_corpus">Catalog of musical sources</var>
+  <var code="toc">Table of content</var>
+  <var code="index_title">Index of title and text</var>
+  <var code="index_people">Index of personal names</var>
+  <var code="collection">Collection</var>
+</variables>

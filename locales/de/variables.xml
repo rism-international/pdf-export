@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<variables>
+  <var code="title">RISM Musikquellen</var>
+  <var code="watermark">Wasserzeichen</var>
+  <var code="lit">Literatur</var>
+  <var code="copyist">Schreiber</var>
+  <var code="title_corpus">Katalog der Musikquellen</var>
+  <var code="toc">Inhaltsverzeichnis</var>
+  <var code="index_title">Register der Titel und Texte</var>
+  <var code="index_people">Register der Personennamen</var>
+  <var code="collection">Sammlung</var>
+
+</variables>
