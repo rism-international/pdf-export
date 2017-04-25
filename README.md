@@ -35,28 +35,11 @@ Related packages:
 * Nokogiri
 * Trollop
 
-6. Sed for some regexp support on the OS
-
-7. Increase the main memory size of texmf.conf:
-* Find the correct texmf.conf: 
-```bash
-kpsewhich -a texmf.cnf
-```
-* Increase the size:
-```latex
-main_memory = 7999999
-extra_mem_top = 7999999
-extra_mem_bot = 7999999
-```
-* Rebuild the configuration files
-```bash
-sudo fmtutil-sys --all
-```
-8. Set ulimit
+5. Set ulimit
 For using lualatex set new size of opening files:
 ```bash
 ulimit –n 64000
-```bash
+```
 
 Basic usage
 -----------
