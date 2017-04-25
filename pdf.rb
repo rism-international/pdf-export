@@ -2,6 +2,7 @@ require 'nokogiri'
 require 'pry'
 require 'trollop'
 require 'yaml'
+require 'tmpdir'
 
 opts = Trollop::options do
     version "RISM PDF Catalog 1.0 (2017.04)"
@@ -14,7 +15,7 @@ opts = Trollop::options do
       EOS
 opt :lang, "Language option (currently support for english & german)", :short => '-l', :default => "en"
 opt :font, "Select serif or sans font", :short => '-f', :default => "serif"
-opt :clear, "Clearing the SVG files", :short => '-c', :type => :boolean, :default => false
+opt :clear, "Clearing temporary files before executing", :short => '-c', :type => :boolean, :default => false
 opt :title, "Defines the title of the catalog", :short => '-t', :default => "RISM"
 opt :outfile, "Output-Filename", :type => :string, :default => "/tmp/example.pdf", :short => '-o'
 opt :infile, "Input-Filename as MarcXML", :type => :string, :short => '-i'
@@ -26,11 +27,14 @@ if !opts[:infile]
   exit
 end
 
+temp_path = Dir.tmpdir() 
 prog_path = Dir.pwd
+platform = RbConfig::CONFIG["host_os"]
 ifile=opts[:infile]
 ofile=opts[:outfile]
 lang=opts[:lang]
 title=opts[:title]
+
 sfont=opts[:font]
 if sfont == "serif"
   font = "Linux Libertine O"
@@ -40,8 +44,8 @@ else
   font = "Linux Libertine O"
 end
   
-varFile="locales/#{lang}/variables.xml"
-termFile="locales/#{lang}/terms.yml"
+varFile=File.join(prog_path, "locales", lang, "variables.xml")
+termFile=File.join(prog_path, "locales", lang, "terms.yml")
 terms = YAML.load_file(termFile)
 doc = File.open(ifile) { |f| Nokogiri::XML(f)  }
 
@@ -104,28 +108,28 @@ if lang!='en'
 end
 
 #Preprocessing
-preprocessing_file=File.new('/tmp/preprocessing.xml', 'w')
-latex_file=File.new('/tmp/example.tex', 'w')
-preproc = Nokogiri::XSLT(File.read('stylesheets/preprocessing.xsl'))
+preprocessing_file=File.new(File.join(temp_path, 'preprocessing.xml'), 'w')
+latex_file=File.new(File.join(temp_path, 'example.tex'), 'w')
+preproc = Nokogiri::XSLT(File.read(File.join(prog_path, 'stylesheets', 'preprocessing.xsl')))
 preprocessing_xml = preproc.transform(doc, ["varFile", "'#{varFile}'", "title", "'#{title}'"])
 preprocessing_file.write(preprocessing_xml)
 
 #Creating the corpus
-template = Nokogiri::XSLT(File.read('stylesheets/lualatex.xsl'))
-latex = template.transform(preprocessing_xml, ["varFile", "'#{varFile}'", "title", "'#{title}'", "font", "'#{font}'"])
+template = Nokogiri::XSLT(File.read(File.join(prog_path, 'stylesheets', 'lualatex.xsl')))
+latex = template.transform(preprocessing_xml, ["varFile", "'#{varFile}'", "title", "'#{title}'", "font", "'#{font}'", "platform", "'#{platform}'"])
 puts "Creation of corpus TEX file finished."
 
 #Creating the people index
-template = Nokogiri::XSLT(File.read('stylesheets/index_names_pre.xsl'))
+template = Nokogiri::XSLT(File.read(File.join(prog_path, 'stylesheets', 'index_names_pre.xsl')))
 pre = template.transform(preprocessing_xml, ["varFile", "'#{varFile}'", "title", "'#{title}'"])
-template = Nokogiri::XSLT(File.read('stylesheets/index_names.xsl'))
+template = Nokogiri::XSLT(File.read(File.join(prog_path, 'stylesheets', 'index_names.xsl')))
 regis = template.transform(pre, ["varFile", "'#{varFile}'", "title", "'#{title}'"])
 puts "Creation of names index finished."
 
 #Creating the title index
-template = Nokogiri::XSLT(File.read('stylesheets/index_title_pre.xsl'))
+template = Nokogiri::XSLT(File.read(File.join(prog_path, 'stylesheets', 'index_title_pre.xsl')))
 pre = template.transform(preprocessing_xml)
-template = Nokogiri::XSLT(File.read('stylesheets/index_title.xsl'))
+template = Nokogiri::XSLT(File.read(File.join(prog_path, 'stylesheets', 'index_title.xsl')))
 titles = template.transform(pre, ["varFile", "'#{varFile}'", "title", "'#{title}'"])
 puts "Creation of title index finished."
 
@@ -140,18 +144,18 @@ latex_file.write(' \clearpage \onecolumn \ \vfill \center {\chancery Finis.}$ \v
 latex_file.close
 
 #It is necessary to call pdflatex from the output directory
-Dir.chdir "/tmp/"
+Dir.chdir temp_path
 if opts[:clear]
   system ( "rm *.svg && rm *.pdf && rm *.pdf_tex && rm *.code" )
 end
 
-cmd = 'lualatex -interaction nonstopmode --enable-write18 -shell-escape -output-directory="." example.tex > /dev/null'
+cmd = 'lualatex -interaction batchmode --enable-write18 -shell-escape example.tex'
 system( cmd )
 # Run twice to have the correct TOC
 puts "Compiling the TOC ..."
 system( cmd )
 
-if ofile != "/tmp/example.pdf"
-  system( "cp example.pdf #{prog_path}/#{ofile}" )
+if ofile != File.join(temp_path, "example.pdf")
+  system( "cp example.pdf #{File.join(prog_path, ofile)}" )
 end
 puts "Ready!"
