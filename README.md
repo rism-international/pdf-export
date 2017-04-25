@@ -61,11 +61,17 @@ ulimit –n 64000
 Basic usage
 -----------
 
-Transformation of Marcxml to LaTex is done by calling the ruby script:
+After cloning this repository you can start directly testing the example:
+
 ```bash
-&> ruby pdf.rb --lang="de" --outfile="mozart.pdf" --infile="../mozart.xml" --font="serif"
+ ruby pdf.rb --lang="de" --outfile="coburg.pdf" --infile="example/example.xml" --title="Kunstsammlungen der Veste Coburg" --font="serif"
 ```
-Please consider also generating the input file using the [sru-downloader](https://github.com/rism-international/sru-downloader) in the related repository.
+
+Please consider also generating more input files using the [sru-downloader](https://github.com/rism-international/sru-downloader) in the related repository.
+```bash
+java -jar SRUDownloader.jar "http://beta.rism.info/sru/sources?operation=searchRetrieve&version=1.1&query=possessingInstitution=D-Cv&maximumRecords=100"
+```
+
 Keep in mind that the ruby script is only a wrapper for calling all the XSLT and can be easily replaced by other program languages.
 
 All temporary files are build in /tmp/.

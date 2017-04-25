@@ -251,7 +251,11 @@
       <inc_score><xsl:value-of select="marc:subfield[@code='m']"/></inc_score>
       </xsl:if>
     <xsl:if test="marc:subfield[@code='d']"> 
-      <inc_title before=", \begin{{itshape}}" after="\end{{itshape}}"><xsl:value-of select="marc:subfield[@code='d']"/></inc_title>
+      <inc_title before=", \begin{{itshape}}" after="\end{{itshape}}">
+        <xsl:call-template name="superscript">
+          <xsl:with-param name="text" select="marc:subfield[@code='d']"/>
+        </xsl:call-template>
+      </inc_title>
     </xsl:if>
  
     <xsl:if test="marc:subfield[@code='r']"> 

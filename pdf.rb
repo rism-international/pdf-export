@@ -28,7 +28,7 @@ end
 
 
 prog_path = Dir.pwd
-inputfile=opts[:infile]
+ifile=opts[:infile]
 ofile=opts[:outfile]
 lang=opts[:lang]
 title=opts[:title]
@@ -43,22 +43,9 @@ end
   
 varFile="locales/#{lang}/variables.xml"
 termFile="locales/#{lang}/terms.yml"
-
 terms = YAML.load_file(termFile)
-#Inputfile
-#
-#
-system ( "cp #{inputfile} /tmp/input.xml" )
-
-ifile = "/tmp/input.xml"
-
 doc = File.open(ifile) { |f| Nokogiri::XML(f)  }
 
-# Global substitution of Latex special chars
-#doc.xpath("//marc:datafield/marc:subfield[@code='a']").each do |n|
-#  n.content = n.content.gsub("_", "\\\~")
-#  n.content = n.content.gsub(/\|([a-z0-9A-Z])/, '$^\1$')
-#end
 
 # Replacement according the localization
 doc.xpath("//marc:datafield[@tag='240']/marc:subfield[@code='r']").each do |n|
@@ -167,7 +154,7 @@ system( cmd )
 puts "Compiling the TOC ..."
 system( cmd )
 
-#if ofile != "/tmp/example.pdf"
-#  system( "cp example.pdf #{prog_path}/#{ofile}" )
-#end
+if ofile != "/tmp/example.pdf"
+  system( "cp example.pdf #{prog_path}/#{ofile}" )
+end
 puts "Ready!"
