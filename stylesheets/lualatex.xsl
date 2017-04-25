@@ -133,7 +133,7 @@
     </xsl:when>
     <xsl:when test="name(.)='collection-link'">
       <xsl:variable name="coll" select="."/>
-      <xsl:for-each select="key('collection',$coll)">$\rightarrow$ <xsl:value-of select="concat($gVariables/*/var[@code='in_collection'], ' ')"/> <xsl:value-of select="@position"/> (<xsl:value-of select="@rismid"/>)
+      <xsl:for-each select="key('collection',$coll)">$\rightarrow$ In <xsl:value-of select="concat($gVariables/*/var[@code='collection'], ' ')"/> <xsl:value-of select="@position"/> (<xsl:value-of select="@rismid"/>)
       </xsl:for-each>
     </xsl:when>
   </xsl:choose>
