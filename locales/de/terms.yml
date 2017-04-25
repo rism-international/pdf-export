@@ -43,6 +43,9 @@ n240a:
   " and ": 
     - " und "
     - " und "
+  "Album leaves":
+    - Albumblatt
+    - Albumblätter
   Cantatas: 
     - Kantate
     - Kantaten
@@ -70,6 +73,12 @@ n240a:
   Minuets: 
     - Menuett
     - Menuette
+  Partsongs:
+    - Chorsatz
+    - Chorsätze
+  Pieces:
+    - Musikstück
+    - Musikstücke
   Preludes: 
     - Präludium
     - Präludien
@@ -88,22 +97,40 @@ n240a:
   Trios:
     - Trio
     - Trios
+  Triosonatas:
+    - Triosonate
+    - Triosonaten
   Variations: 
     - Variationen
     - Variationen
+  Vocal pieces:
+    - Vokalstück
+    - Vokalstücke
+  Wind music:
+    - Musik für Bläser
+    - Musikstücke für Bläser
 
 n240k:
   Excerpts: Auswahl
+  Fragments: Fragment
 
 n593a:
   Manuscript copy: Abschrift
   print: Musikdruck
+  Autograph manuscript: Autograph
 
 n300a:
   parts: Stimmen
   part: Stimme
   short score: Particell
   score: Partitur
+
+relator_codes:
+  fmo: Vorbesitzer
+  oth: Sonstige
+  lyr: Textdichter
+  perf: Interpret
+  dte: Widmungsträger
 
 
 

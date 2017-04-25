@@ -123,7 +123,9 @@
     <original_title>
       <xsl:attribute name="before"><xsl:value-of select="concat($par, '\begin{itshape}')"/></xsl:attribute>
       <xsl:attribute name="after"><xsl:value-of select="'\end{itshape} '"/></xsl:attribute>
-      <xsl:value-of select="marc:subfield[@code='a']"/>
+      <xsl:call-template name="superscript">
+        <xsl:with-param name="text" select="marc:subfield[@code='a']"/>
+      </xsl:call-template>
     </original_title>
   </xsl:template>
 
@@ -234,7 +236,9 @@
     <material-note>
       <xsl:attribute name="before"><xsl:value-of select="concat($newline, '\begin{small} ')"/></xsl:attribute>
       <xsl:attribute name="after"><xsl:value-of select="'\end{small} '"/></xsl:attribute>
-      <xsl:value-of select="../marc:subfield[@code='a']"/>
+      <xsl:call-template name="superscript">
+        <xsl:with-param name="text" select="../marc:subfield[@code='a']"/>
+      </xsl:call-template>
     </material-note>
   </xsl:template>
 
@@ -271,8 +275,10 @@
       <xsl:when test="marc:subfield[@code=8]"/>
       <xsl:when test="not(marc:subfield[@code=8])">
         <note><xsl:attribute name="before"><xsl:value-of select="$par"/></xsl:attribute>
-          <xsl:value-of select="marc:subfield[@code='a']"/>
-       </note>
+          <xsl:call-template name="superscript">
+            <xsl:with-param name="text" select="marc:subfield[@code='a']"/>
+           </xsl:call-template>
+        </note>
       </xsl:when>
     </xsl:choose>
   </xsl:template>
@@ -343,6 +349,39 @@
       <xsl:value-of select="marc:subfield[@code='w']"/>
     </collection-link>
   </xsl:template>
+
+  <!-- This function is called by note fields and originaltitle --> 
+  <xsl:template name="superscript">
+    <xsl:param name="text"/>
+    <xsl:choose>
+      <xsl:when test="contains($text,'|')">
+        <xsl:value-of select="substring-before($text,'|')"/>
+        <xsl:variable name="resttext" select="substring-after($text, '|')"/>
+        <xsl:choose>
+          <xsl:when test="substring($resttext,1,1)!=' '">
+            <xsl:value-of select="'\textsuperscript{'"/>
+            <xsl:value-of select="substring($resttext,1,1)"/>
+            <xsl:value-of select="'}'"/>
+          </xsl:when>
+          <xsl:when test="substring($resttext,1,1)=' '">
+            <xsl:value-of select="'| '"/>
+          </xsl:when>
+        </xsl:choose>
+       <xsl:call-template name="superscript">
+          <xsl:with-param name="text" select="substring($resttext,2)"/>
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$text"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+
+
+
+
+
 
 
 </xsl:stylesheet>

@@ -51,7 +51,6 @@
 \let\mypdfximage\pdfximage
 \protected\def\pdfximage{\immediate\mypdfximage}
 \pagestyle{fancy}
-\renewcommand{\headrulewidth}{0.4pt}
 \begin{titlepage}
 \title{<xsl:value-of select="$gVariables/*/var[@code='title']"/> \\ 
 \vspace{10 mm} \large <xsl:value-of select="$title"/>
@@ -76,10 +75,6 @@
 \thispagestyle{empty}
 \newcommand\hfillplus[1]{{\unskip\nobreak\hfill\penalty50\
   \mbox{}\nobreak\hfill#1}}
-\newcommand\invisiblesection[1]{%
-  \refstepcounter{section}%
-  \addcontentsline{toc}{section}{\protect\numberline{\thesection}#1}%
-  \sectionmark{#1}}
 <!--START CORPUS-->
 \chapter*{\centering <xsl:value-of select="$gVariables/*/var[@code='title_corpus']"/>}
 \addcontentsline{toc}{chapter}{<xsl:value-of select="$gVariables/*/var[@code='title_corpus']"/>}
@@ -107,7 +102,7 @@
 <xsl:when test="not(name(.)='verovio-code')">
   <xsl:choose>
     <xsl:when test="not(name(.)='collection-link')">
-      <!-- Escaping latex entities & and muscat {{brk}} -->
+      <!-- Escaping some latex entities & ~ % _ "(Quote) and muscat {{brk}} -->
       <xsl:variable name="note1">
         <xsl:call-template name="replace-string">
           <xsl:with-param name="text" select="."/>
@@ -129,7 +124,29 @@
           <xsl:with-param name="with" select="'\newline '"/>
         </xsl:call-template>
       </xsl:variable>
-      <xsl:value-of disable-output-escaping="yes" select="$note3"/>
+      <xsl:variable name="note4">
+        <xsl:call-template name="replace-string">
+          <xsl:with-param name="text" select="$note3"/>
+          <xsl:with-param name="replace" select="$quote" />
+          <xsl:with-param name="with" select="'{\textquotedbl}'"/>
+        </xsl:call-template>
+      </xsl:variable>
+      <xsl:variable name="note5">
+        <xsl:call-template name="replace-string">
+          <xsl:with-param name="text" select="$note4"/>
+          <xsl:with-param name="replace" select="$underscore" />
+          <xsl:with-param name="with" select="'\_'"/>
+        </xsl:call-template>
+      </xsl:variable>
+      <xsl:variable name="note6">
+        <xsl:call-template name="replace-string">
+          <xsl:with-param name="text" select="$note5"/>
+          <xsl:with-param name="replace" select="$flex"/>
+          <xsl:with-param name="with" select="'\~'"/>
+        </xsl:call-template>
+      </xsl:variable>
+
+      <xsl:value-of disable-output-escaping="yes" select="$note6"/>
     </xsl:when>
     <xsl:when test="name(.)='collection-link'">
       <xsl:variable name="coll" select="."/>
@@ -147,6 +164,9 @@
   <xsl:variable name="quote">"</xsl:variable>
   <xsl:variable name="amp"><![CDATA[&]]></xsl:variable>
   <xsl:variable name="percent"> % </xsl:variable>
+  <xsl:variable name="flex">~</xsl:variable>
+  <xsl:variable name="underscore">_</xsl:variable>
+
 
   <xsl:template name="replace-string">
     <xsl:param name="text"/>

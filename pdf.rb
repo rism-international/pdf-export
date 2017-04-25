@@ -51,8 +51,6 @@ terms = YAML.load_file(termFile)
 system ( "cp #{inputfile} /tmp/input.xml" )
 
 ifile = "/tmp/input.xml"
-system( "sed -i -E 's/\~/\\\\\~/g' #{ifile}"  )
-system( "sed -i -E 's/_/~\\\\\_/g' #{ifile}"  )
 
 doc = File.open(ifile) { |f| Nokogiri::XML(f)  }
 
@@ -83,7 +81,7 @@ if lang!='en'
   end
 end
 
-doc.xpath("//marc:datafield[@tag='240']/marc:subfield[@code='a']").each do |n|
+doc.xpath("//marc:datafield[@tag='130' or @tag='240']/marc:subfield[@code='a']").each do |n|
   terms['n240a'].each do |k,v|
     if n.content.include?(k)
       if n.content =~ /^[0-9]/
@@ -110,6 +108,14 @@ if lang!='en'
       end
     end
   end
+  doc.xpath("//marc:datafield[@tag='700' or @tag='710']/marc:subfield[@code='4']").each do |n|
+    terms['relator_codes'].each do |k,v|
+      if n.content.include?(k)
+        n.content = n.content.gsub(k,v)
+      end
+    end
+  end
+
 end
 
 #Preprocessing
@@ -122,22 +128,21 @@ preprocessing_file.write(preprocessing_xml)
 #Creating the corpus
 template = Nokogiri::XSLT(File.read('stylesheets/lualatex.xsl'))
 latex = template.transform(preprocessing_xml, ["varFile", "'#{varFile}'", "title", "'#{title}'", "font", "'#{font}'"])
+puts "Creation of corpus TEX file finished."
 
 #Creating the people index
 template = Nokogiri::XSLT(File.read('stylesheets/index_names_pre.xsl'))
 pre = template.transform(preprocessing_xml, ["varFile", "'#{varFile}'", "title", "'#{title}'"])
-
-regfile = File.new("/tmp/names.xml", "w")
-regfile.write(pre)
-
 template = Nokogiri::XSLT(File.read('stylesheets/index_names.xsl'))
 regis = template.transform(pre, ["varFile", "'#{varFile}'", "title", "'#{title}'"])
+puts "Creation of names index finished."
 
 #Creating the title index
 template = Nokogiri::XSLT(File.read('stylesheets/index_title_pre.xsl'))
 pre = template.transform(preprocessing_xml)
 template = Nokogiri::XSLT(File.read('stylesheets/index_title.xsl'))
 titles = template.transform(pre, ["varFile", "'#{varFile}'", "title", "'#{title}'"])
+puts "Creation of title index finished."
 
 #Combining corpus and index together
 latex_file.write(latex.children.to_s)
@@ -151,11 +156,6 @@ latex_file.close
 
 #It is necessary to call pdflatex from the output directory
 Dir.chdir "/tmp/"
-# this is necessary because XSLT 1.0 lacks regexp support; it can/should be called at the input.file
-#
-system( "sed -i -E 's/\\^/{\\\\textasciicircum}/g' example.tex")
-system( 'sed -i -E "s/\|([a-zA-Z0-9#])/\$\^\1\$/g" example.tex' )
-system( "sed -i -E 's/\"/{\\\\textquotedbl}/g' example.tex")
 
 if opts[:clear]
   system ( "rm *.svg && rm *.pdf && rm *.pdf_tex && rm *.code" )
