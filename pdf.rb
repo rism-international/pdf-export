@@ -29,7 +29,9 @@ end
 
 temp_path = Dir.tmpdir() 
 prog_path = Dir.pwd
+verovio_node_path = File.join(prog_path, "verovio-node", "pae.js")
 platform = RbConfig::CONFIG["host_os"]
+platform = "Windows"
 ifile=opts[:infile]
 ofile=opts[:outfile]
 lang=opts[:lang]
@@ -116,7 +118,12 @@ preprocessing_file.write(preprocessing_xml)
 
 #Creating the corpus
 template = Nokogiri::XSLT(File.read(File.join(prog_path, 'stylesheets', 'lualatex.xsl')))
-latex = template.transform(preprocessing_xml, ["varFile", "'#{varFile}'", "title", "'#{title}'", "font", "'#{font}'", "platform", "'#{platform}'"])
+latex = template.transform(preprocessing_xml, 
+    ["varFile", "'#{varFile}'", 
+     "title", "'#{title}'", 
+     "font", "'#{font}'", 
+     "platform", "'#{platform}'",
+     "verovio_node_path", "'#{verovio_node_path}'"])
 puts "Creation of corpus TEX file finished."
 
 #Creating the people index
@@ -153,7 +160,7 @@ cmd = 'lualatex -interaction batchmode --enable-write18 -shell-escape example.te
 system( cmd )
 # Run twice to have the correct TOC
 puts "Compiling the TOC ..."
-system( cmd )
+#system( cmd )
 
 if ofile != File.join(temp_path, "example.pdf")
   system( "cp example.pdf #{File.join(prog_path, ofile)}" )

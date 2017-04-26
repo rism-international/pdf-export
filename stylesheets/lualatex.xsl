@@ -6,6 +6,7 @@
   <xsl:param name="title"/>
   <xsl:param name="font"/>
   <xsl:param name="platform"/>
+  <xsl:param name="verovio_node_path"/>
   <xsl:variable name="gVariables" select="document($varFile)"/>
   
   <xsl:template match="/">
@@ -103,7 +104,9 @@
     \commandline{ if [ ! -f <xsl:value-of select="filename"/>.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 <xsl:value-of select="filename"/>.code; fi } <!-- 16.8cm, 25cm: 173pt -->
   </xsl:when>
   <xsl:otherwise>
-    <xsl:message terminate="yes">ERROR Unsupported OS <xsl:value-of select="$platform"/>! Please implement the correct verovio call in lualatex.xsl below line 105 or take the java-jar version of verovio</xsl:message>
+
+    \commandline{ <xsl:value-of select="concat('nodejs ', $verovio_node_path, ' ', filename, '.code')"/> }
+    <!--    <xsl:message terminate="yes">ERROR Unsupported OS <xsl:value-of select="$platform"/>! Please implement the correct verovio call in lualatex.xsl below line 105 or take the java-jar version of verovio</xsl:message> -->
   </xsl:otherwise>
 </xsl:choose>
 \newline \includesvg[width=209pt]{<xsl:value-of select="filename"/>}%</xsl:when>

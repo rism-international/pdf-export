@@ -1,0 +1,31 @@
+{
+  "name": "verovio-node",
+  "version": "1.0.0",
+  "description": "Easy wrapper for standalone verovio calls",
+  "main": "pae.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rism-international/pdf-export.git"
+  },
+  "keywords": [
+    "latex",
+    "pdf",
+    "rism",
+    "svg",
+    "verovio",
+    "nodejs",
+    "music"
+  ],
+  "author": "Stephan Hirsch",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rism-international/pdf-export/issues"
+  },
+  "homepage": "https://github.com/rism-international/pdf-export#readme",
+  "dependencies": {
+    "jsdom": "^10.0.0"
+  }
+}
