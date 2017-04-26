@@ -1,7 +1,9 @@
+//Nodejs Wrapper to call Verovio standalone
+
 var path = require("path");
 const jsdom = require("jsdom");
 const { JSDOM  } = jsdom;
-global.window = (new JSDOM(``, { runScripts: "outside-only"  })).window;
+global.window = (new JSDOM(``, { runScripts: "dangerously"  })).window;
 
 var filename = process.argv[2];
 var outfile = filename.replace(/\.[^/.]+$/, ".svg")

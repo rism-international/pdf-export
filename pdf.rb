@@ -31,6 +31,7 @@ temp_path = Dir.tmpdir()
 prog_path = Dir.pwd
 verovio_node_path = File.join(prog_path, "verovio-node", "pae.js")
 platform = RbConfig::CONFIG["host_os"]
+platform = "Windows"
 ifile=opts[:infile]
 ofile=opts[:outfile]
 lang=opts[:lang]

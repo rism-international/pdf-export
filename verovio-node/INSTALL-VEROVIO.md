@@ -26,7 +26,7 @@ Usage
 ======
 You can render directly by calling the pae.js with 
 ```bash
-nodejs pae.js incipit.code
+node pae.js example.code
 ```
 
 where incipit.code contains the P&E code.

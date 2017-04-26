@@ -28,6 +28,6 @@ in the verovio-node directory.
 https://www.tug.org/texlive/acquire-netinstall.html
 (4 GB)
 
-
+Hint: to find the actual temp-folder (target of the processing) insert '%temp%' in the bottom search field.
 
 

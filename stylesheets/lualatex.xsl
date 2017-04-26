@@ -105,7 +105,7 @@
   </xsl:when>
   <xsl:otherwise>
 
-    \commandline{ <xsl:value-of select="concat('nodejs ', $verovio_node_path, ' ', filename, '.code')"/> }
+    \commandline{ <xsl:value-of select="concat('node ', $verovio_node_path, ' ', filename, '.code')"/> }
     <!--    <xsl:message terminate="yes">ERROR Unsupported OS <xsl:value-of select="$platform"/>! Please implement the correct verovio call in lualatex.xsl below line 105 or take the java-jar version of verovio</xsl:message> -->
   </xsl:otherwise>
 </xsl:choose>
