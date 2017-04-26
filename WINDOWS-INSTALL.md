@@ -1,10 +1,32 @@
 On Windows 10:
 
-1. Ruby and bundler
+1. Download this repository
 
-2. TexLive and Luatex
+2. Install Ruby
+ Use the http://rubyinstaller.org/downloads/ 
+ *IMPORTANT: select "add to path" during installation.*
 
-3. Nodejs
+```bash
+ run gem install bundler
+```
+
+```bash
+ run bundle install
+```
+
+3. Install Nodejs
+See https://nodejs.org/en/download/
+
+run
+```bash
+npm install
+```
+in the verovio-node directory.
+
+
+4. Install TexLive
+https://www.tug.org/texlive/acquire-netinstall.html
+(4 GB)
 
 
 
