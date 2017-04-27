@@ -49,9 +49,9 @@ varFile=File.join(prog_path, "locales", lang, "variables.xml")
 termFile=File.join(prog_path, "locales", lang, "terms.yml")
 terms = YAML.load_file(termFile)
 doc = File.open(ifile) { |f| Nokogiri::XML(f)  }
-=begin
+
 # Replacement according the localization
-#
+
 
 doc.xpath("//marc:record").each do |record|
   record.xpath("marc:datafield[@tag='240' or @tag='130']/marc:subfield").each do |n|
@@ -133,7 +133,7 @@ end
 #Preprocessing
 preprocessing_file=File.new(File.join(temp_path, 'preprocessing.xml'), 'w')
 latex_file=File.new(File.join(temp_path, 'example.tex'), 'w:UTF-8')
-preproc = Nokogiri::XSLT(File.read(File.join(prog_path, 'stylesheets', 'preprocessing.xsl')))
+preproc = Nokogiri::XSLT(File.read(File.join(prog_path, 'stylesheets', 'preprocessing.xsl'), :encoding =>'UTF-8'))
 preprocessing_xml = preproc.transform(doc, ["varFile", "'#{varFile}'", "title", "'#{title}'"])
 preprocessing_file.write(preprocessing_xml)
 

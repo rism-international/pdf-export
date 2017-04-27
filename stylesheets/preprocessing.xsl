@@ -13,10 +13,19 @@
   <xsl:template match="zs:searchRetrieveResponse">
     <document>
       <xsl:apply-templates select="zs:records/zs:record/zs:recordData/marc:record">
-        <xsl:sort select="marc:datafield[@tag=100]/marc:subfield[@code='a'] = false()"/>
+	<xsl:sort select="marc:datafield[@tag=100] = false()" lang="de"/>
+        <xsl:sort select="translate(translate(marc:datafield[@tag=100]/marc:subfield[@code='a'], concat('[]', $apos), ''), 'äöüšÄÖÜŠ', 'aousAOUS')" lang="de"/>
+        <xsl:sort select="translate(translate(marc:datafield[@tag=240 or @tag=130]/marc:subfield[@code='a'], '[]',''), 'äöüšÄÖÜŠ', 'aousAOUS')" lang="de"/>
+
+	      <!--
         <xsl:sort select="translate(translate(marc:datafield[@tag=100]/marc:subfield[@code='a'], concat('[]', $apos), ''), 'äöüšÄÖÜŠ', 'aousAOUS')" lang="de"/>
         <xsl:sort select="translate(translate(marc:datafield[@tag=240]/marc:subfield[@code='a'], '[]',''), 'äöüšÄÖÜŠ', 'aousAOUS')" lang="de"/>
-        <xsl:sort select="translate(translate(marc:datafield[@tag=130]/marc:subfield[@code='a'], '[]',''), 'äöüšÄÖÜŠ', 'aousAOUS')" lang="de"/>
+	<xsl:sort select="translate(translate(marc:datafield[@tag=130]/marc:subfield[@code='a'], '[]',''), 'äöüšÄÖÜŠ', 'aousAOUS')" lang="de"/>
+
+	      <xsl:sort select="marc:datafield[@tag=240 or @tag=130]/marc:subfield[@code='a']" lang="de"/>
+
+
+-->
      </xsl:apply-templates>
     </document>
   </xsl:template>
