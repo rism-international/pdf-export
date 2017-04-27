@@ -152,7 +152,10 @@ latex_file.close
 #It is necessary to call pdflatex from the output directory
 Dir.chdir temp_path
 if opts[:clear]
-  system ( "rm *.svg && rm *.pdf && rm *.pdf_tex && rm *.code" )
+  Dir.glob(File.join(temp_path, '*.svg')).each { |file| File.delete(file) }
+  Dir.glob(File.join(temp_path, '*.pdf')).each { |file| File.delete(file) }
+  Dir.glob(File.join(temp_path, '*.pdf_tex')).each { |file| File.delete(file) }
+  Dir.glob(File.join(temp_path, '*.code')).each { |file| File.delete(file) }
 end
 
 cmd = 'lualatex -interaction batchmode --enable-write18 -shell-escape example.tex'
@@ -162,6 +165,7 @@ puts "Compiling the TOC ..."
 #system( cmd )
 
 if ofile != File.join(temp_path, "example.pdf")
-  system( "cp example.pdf #{File.join(prog_path, ofile)}" )
+  FileUtils.cp(File.join(temp_path, 'example.pdf'), File.join(File.join(prog_path, ofile)))
+  #ystem( "cp example.pdf #{File.join(prog_path, ofile)}" )
 end
 puts "Ready!"
