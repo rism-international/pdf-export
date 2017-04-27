@@ -30,4 +30,7 @@ https://www.tug.org/texlive/acquire-netinstall.html
 
 Hint: to find the actual temp-folder (target of the processing) insert '%temp%' in the bottom search field.
 
+5. Install Inkscape
+Note that path should be c:/Program Files/Inkscape
+
 
