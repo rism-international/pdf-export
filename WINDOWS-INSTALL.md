@@ -17,14 +17,12 @@ On Windows 10:
 3. Install Nodejs
 See https://nodejs.org/en/download/
 
-run
+in the verovio-node subfolder:
 ```bash
 npm install
 ```
-in the verovio-node directory.
 
-
-4. Install TexLive
+4. Install TeX Live 2016
 https://www.tug.org/texlive/acquire-netinstall.html
 (4 GB)
 
