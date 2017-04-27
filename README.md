@@ -22,8 +22,11 @@ Working at least with Ubuntu 16.04
 
 Packages and required software:
 
-1. Latex, LuaLaTex and all included packages
+1. TeX Live 2016 (Latex, LuaLaTex and all included packages)
+see: 
 ```bash
+sudo add-apt-repository ppa:jonathonf/texlive-2016
+sudo apt update
 sudo apt install tex-common texlive-base texlive-binaries texlive-extra-utils texlive-font-utils texlive-fonts-recommended texlive-generic-recommended texlive-latex-base texlive-latex-extra texlive-latex-recommended texlive-pictures texlive-pstricks texlive-lang-german sed texlive-fonts-extra texlive-lang-greek texlive-xetex
 ```
 2. Inkscape

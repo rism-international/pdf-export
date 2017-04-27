@@ -16,6 +16,9 @@
 \usepackage[utf8]{luainputenc}
 \usepackage{newunicodechar}
 \setmainfont[Ligatures=TeX]{<xsl:value-of select="$font"/>}
+\usepackage{luatex85}
+\usepackage{shellesc}
+<xsl:if test="$platform='linux-gnu'">
 \usepackage{ifluatex}
 \ifluatex
   \usepackage{pdftexcmds}
@@ -24,6 +27,9 @@
   \let\pdffilemoddate\pdf@filemoddate
   \makeatother
 \fi
+\let\mypdfximage\pdfximage
+\protected\def\pdfximage{\immediate\mypdfximage}
+</xsl:if>
 \usepackage{textcomp}
 \usepackage{xparse}
 \ExplSyntaxOn
@@ -31,7 +37,15 @@
   { \immediate \write 18 { \tl_to_str:n {#1}  }  }
 \ExplSyntaxOff
 \usepackage{graphicx}
+<xsl:choose>
+  <xsl:when test="$platform='linux-gnu'">
 \usepackage[inkscape={/usr/bin/inkscape -z -C }]{svg}
+  </xsl:when>
+  <xsl:when test="$platform='mingw32'">
+\usepackage{svg}
+\setsvg{inkscape={"C:/Program Files/Inkscape/inkscape.exe"= -z -C}}
+  </xsl:when>
+</xsl:choose>
 \usepackage{import}
 \usepackage{pifont}
 \usepackage{filecontents}
@@ -50,8 +64,6 @@
 \widowpenalty = 10000
 \displaywidowpenalty = 10000
 \tolerance=500
-\let\mypdfximage\pdfximage
-\protected\def\pdfximage{\immediate\mypdfximage}
 \pagestyle{fancy}
 \begin{titlepage}
 \title{<xsl:value-of select="$gVariables/*/var[@code='title']"/> \\ 
@@ -101,12 +113,13 @@
 \end{filecontents*}
 <xsl:choose>
   <xsl:when test="$platform='linux-gnu'">
-    \commandline{ if [ ! -f <xsl:value-of select="filename"/>.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 <xsl:value-of select="filename"/>.code; fi } <!-- 16.8cm, 25cm: 173pt -->
+\commandline{ if [ ! -f <xsl:value-of select="filename"/>.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 <xsl:value-of select="filename"/>.code; fi } <!-- 16.8cm, 25cm: 173pt -->
+  </xsl:when>
+  <xsl:when test="$platform='mingw32'">
+\commandline{ <xsl:value-of select="concat('If not exist ', filename, '.svg ', 'node ', $verovio_node_path, ' ', filename, '.code')"/> }
   </xsl:when>
   <xsl:otherwise>
-
-    \commandline{ <xsl:value-of select="concat('node ', $verovio_node_path, ' ', filename, '.code')"/> }
-    <!--    <xsl:message terminate="yes">ERROR Unsupported OS <xsl:value-of select="$platform"/>! Please implement the correct verovio call in lualatex.xsl below line 105 or take the java-jar version of verovio</xsl:message> -->
+    <xsl:message terminate="yes">ERROR Unsupported OS <xsl:value-of select="$platform"/>! Please implement the correct verovio call in lualatex.xsl below line 118 or take the java-jar version of verovio</xsl:message>
   </xsl:otherwise>
 </xsl:choose>
 \newline \includesvg[width=209pt]{<xsl:value-of select="filename"/>}%</xsl:when>

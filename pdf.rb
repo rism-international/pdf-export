@@ -31,7 +31,6 @@ temp_path = Dir.tmpdir()
 prog_path = Dir.pwd
 verovio_node_path = File.join(prog_path, "verovio-node", "pae.js")
 platform = RbConfig::CONFIG["host_os"]
-platform = "Windows"
 ifile=opts[:infile]
 ofile=opts[:outfile]
 lang=opts[:lang]
@@ -111,7 +110,7 @@ end
 
 #Preprocessing
 preprocessing_file=File.new(File.join(temp_path, 'preprocessing.xml'), 'w')
-latex_file=File.new(File.join(temp_path, 'example.tex'), 'w')
+latex_file=File.new(File.join(temp_path, 'example.tex'), 'w:UTF-8')
 preproc = Nokogiri::XSLT(File.read(File.join(prog_path, 'stylesheets', 'preprocessing.xsl')))
 preprocessing_xml = preproc.transform(doc, ["varFile", "'#{varFile}'", "title", "'#{title}'"])
 preprocessing_file.write(preprocessing_xml)
