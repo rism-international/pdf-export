@@ -51,8 +51,6 @@ terms = YAML.load_file(termFile)
 doc = File.open(ifile) { |f| Nokogiri::XML(f)  }
 
 # Replacement according the localization
-
-
 doc.xpath("//marc:record").each do |record|
   record.xpath("marc:datafield[@tag='240' or @tag='130']/marc:subfield").each do |n|
     if n.attribute("code").value == 'a'
@@ -66,70 +64,43 @@ doc.xpath("//marc:record").each do |record|
         end
       end
     end
-  end
-end
-
-
-
-=begin
-
-doc.xpath("//marc:datafield[@tag='240']/marc:subfield[@code='r']").each do |n|
-  if terms['n240r'][n.content]
-    n.content = terms['n240r'][n.content]
-  end
-end
-
-doc.xpath("//marc:datafield[@tag='031']/marc:subfield[@code='r']").each do |n|
-  if terms['n240r'][n.content]
-    n.content = terms['n240r'][n.content]
-  end
-end
-
-if lang!='en'
-  doc.xpath("//marc:datafield[@tag='240']/marc:subfield[@code='k']").each do |n|
-    if terms['n240k'][n.content]
-      n.content = terms['n240k'][n.content]
+    if n.attribute("code").value == 'r'
+      if terms['n240r'][n.content]
+        n.content = terms['n240r'][n.content]
+      end
+    end
+    if n.attribute("code").value == 'k'
+      if terms['n240k'][n.content]
+        n.content = terms['n240k'][n.content]
+      end
     end
   end
-end
 
-doc.xpath("//marc:datafield[@tag='130' or @tag='240']/marc:subfield[@code='a']").each do |n|
-  terms['n240a'].each do |k,v|
-    if n.content.include?(k)
-      if n.content =~ /^[0-9]/
-        n.content = n.content.gsub(k,v[1])
-      else
-        n.content = n.content.gsub(k,v[0])
+  if lang!='en'
+    record.xpath("marc:datafield[@tag='300']/marc:subfield[@code='a']").each do |n|
+      terms['n300a'].each do |k,v|
+        if n.content.include?(k)
+          n.content = n.content.gsub(k,v)
+        end
+      end
+    end
+    record.xpath("marc:datafield[@tag='593']/marc:subfield[@code='a']").each do |n|
+      terms['n593a'].each do |k,v|
+        if n.content.include?(k)
+          n.content = n.content.gsub(k,v)
+        end
+      end
+    end
+    record.xpath("//marc:datafield[@tag='700' or @tag='710']/marc:subfield[@code='4']").each do |n|
+      terms['relator_codes'].each do |k,v|
+        if n.content.include?(k)
+          n.content = n.content.gsub(k,v)
+        end
       end
     end
   end
 end
 
-if lang!='en'
-  doc.xpath("//marc:datafield[@tag='300']/marc:subfield[@code='a']").each do |n|
-    terms['n300a'].each do |k,v|
-      if n.content.include?(k)
-        n.content = n.content.gsub(k,v)
-      end
-    end
-  end
-  doc.xpath("//marc:datafield[@tag='593']/marc:subfield[@code='a']").each do |n|
-    terms['n593a'].each do |k,v|
-      if n.content.include?(k)
-        n.content = n.content.gsub(k,v)
-      end
-    end
-  end
-  doc.xpath("//marc:datafield[@tag='700' or @tag='710']/marc:subfield[@code='4']").each do |n|
-    terms['relator_codes'].each do |k,v|
-      if n.content.include?(k)
-        n.content = n.content.gsub(k,v)
-      end
-    end
-  end
-
-end
-=end
 #Preprocessing
 preprocessing_file=File.new(File.join(temp_path, 'preprocessing.xml'), 'w')
 latex_file=File.new(File.join(temp_path, 'example.tex'), 'w:UTF-8')
