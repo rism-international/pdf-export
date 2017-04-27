@@ -12,38 +12,77 @@ Features
 * Configurable with XSLT preprocessing.
 * Multilanguage support (currently english and german)
 * Optional font selection
+* Cross-platform support (tested with Linux and MS Windows 10)
 
 Installation
 ============
 
-Requirements
--------------
-Working at least with Ubuntu 16.04
+Overall Requirements
+--------------------
+* Ruby 
+* TeX Live 2016
+* Inkscape
+* Verovio notation engraving library
+Optional:
+* Nodejs (if compiling of the C++ executable of Verovio not possible)
 
+Installation on Linux
+-----------------------
 Packages and required software:
 
-1. TeX Live 2016 (Latex, LuaLaTex and all included packages)
+1. Ruby >= v2.1.1 
+```bash
+sudo apt install ruby
+```
+2. TeX Live 2016 (Latex, LuaLaTex and all included packages)
 see: 
 ```bash
 sudo add-apt-repository ppa:jonathonf/texlive-2016
 sudo apt update
 sudo apt install tex-common texlive-base texlive-binaries texlive-extra-utils texlive-font-utils texlive-fonts-recommended texlive-generic-recommended texlive-latex-base texlive-latex-extra texlive-latex-recommended texlive-pictures texlive-pstricks texlive-lang-german sed texlive-fonts-extra texlive-lang-greek texlive-xetex
 ```
-2. Inkscape
+3. Inkscape
 ```bash
 sudo apt install inkscape 
 ```
-3. Verovio (called from commandline)
+4. Verovio (called from commandline)
 see: https://github.com/rism-ch/verovio/wiki/Building-instructions
 
-4. Set ulimit
-For using lualatex set new size of opening files:
+5. Set ulimit
+For using lualatex set new size of opening files is required:
 ```bash
 ulimit –n 64000
 ```
-Install
+Installation on Windows 10
+--------------------------
+1. Install Ruby
+ Use the http://rubyinstaller.org/downloads/ 
+ *IMPORTANT: select "add to path" during installation.*
+
+After this open a command line window and execute:
+```bash
+gem install bundler
+```
+Then add the necessary libraries:
+```bash
+bundle install
+```
+2. Install TeX Live 2016
+https://www.tug.org/texlive/acquire-netinstall.html
+(4 GB)
+Hint: to find the actual temp-folder (target of the processing) insert '%temp%' in the bottom search field.
+
+3. Install Inkscape
+https://inkscape.org/en/download/
+Note that path should be c:/Program Files/Inkscape
+
+4. Install Nodejs
+See https://nodejs.org/en/download/
+
+
+Install the PDF-exporter
 --------
-* Clone: First clone this repository...
+* Clone this repository...
 ```bash
 git clone https://github.com/rism-international/pdf-export.git
 ```
@@ -53,8 +92,12 @@ git clone https://github.com/rism-international/pdf-export.git
 cd pdf-export
 bundle install
 ```
-* Test: ...test if everything works
+If you need nodejs support for Verovio execute in the verovio-node subfolder:
+```bash
+npm install
+```
 
+* Test: ...test if everything works
 ```bash
  ruby pdf.rb --lang="de" --outfile="coburg.pdf" --infile="example/example.xml" --title="Kunstsammlungen der Veste Coburg" --font="serif"
 ```
