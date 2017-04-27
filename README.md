@@ -63,10 +63,6 @@ After this open a command line window and execute:
 ```bash
 gem install bundler
 ```
-Then add the necessary libraries:
-```bash
-bundle install
-```
 2. Install TeX Live 2016
 https://www.tug.org/texlive/acquire-netinstall.html
 (4 GB)
