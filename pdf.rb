@@ -162,7 +162,7 @@ cmd = 'lualatex -interaction batchmode --enable-write18 -shell-escape example.te
 system( cmd )
 # Run twice to have the correct TOC
 puts "Compiling the TOC ..."
-#system( cmd )
+system( cmd )
 
 if ofile != File.join(temp_path, "example.pdf")
   FileUtils.cp(File.join(temp_path, 'example.pdf'), File.join(File.join(prog_path, ofile)))
