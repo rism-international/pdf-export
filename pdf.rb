@@ -65,14 +65,20 @@ tmp_doc = Nokogiri::XML::Builder.new(:encoding => 'UTF-8') do |xml|
 end
 
 each_record(ifile) do |record|
+
+  record.xpath("//marc:datafield[@tag='031']/marc:subfield[@code='r']").each do |n|
+    if terms['n240r'][n.content]
+          n.content = terms['n240r'][n.content]
+    end
+  end
   record.xpath("//marc:datafield[@tag='240' or @tag='130']/marc:subfield").each do |n|
     if n.attribute("code").value == 'a'
       terms['n240a'].each do |k,v|
         if n.content.include?(k)
           if n.content =~ /^[0-9]/
-            n.content.gsub!(k,v[1])
+            n.content = n.content.gsub(k,v[1])
           else
-            n.content.gsub!(k,v[0])
+            n.content = n.content.gsub(k,v[0])
           end
         end
       end
