@@ -10,9 +10,9 @@
   <xsl:variable name="quote">"</xsl:variable>
   <xsl:variable name="apos">'</xsl:variable>
 
-  <xsl:template match="zs:searchRetrieveResponse">
+  <xsl:template match="/">
     <document>
-      <xsl:apply-templates select="zs:records/zs:record/zs:recordData/marc:record">
+      <xsl:apply-templates select="//marc:record">
 	<xsl:sort select="marc:datafield[@tag=100] = false()" lang="de"/>
         <xsl:sort select="translate(translate(marc:datafield[@tag=100]/marc:subfield[@code='a'], concat('[]', $apos), ''), 'äöüšÄÖÜŠ', 'aousAOUS')" lang="de"/>
         <xsl:sort select="translate(translate(marc:datafield[@tag=240 or @tag=130]/marc:subfield[@code='a'], '[]',''), 'äöüšÄÖÜŠ', 'aousAOUS')" lang="de"/>
@@ -32,7 +32,7 @@
     </document>
   </xsl:template>
 
-  <xsl:template match="zs:records/zs:record/zs:recordData/marc:record">
+  <xsl:template match="marc:record">
     <record>
       <xsl:attribute name="position"><xsl:value-of select="position()"/></xsl:attribute>
       <xsl:attribute name="rismid"><xsl:value-of select="marc:controlfield[@tag='001']"/></xsl:attribute>

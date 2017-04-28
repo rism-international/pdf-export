@@ -58,20 +58,23 @@ end
 varFile=File.join(prog_path, "locales", lang, "variables.xml")
 termFile=File.join(prog_path, "locales", lang, "terms.yml")
 terms = YAML.load_file(termFile)
-doc = File.open(ifile) { |f| Nokogiri::XML(f)  }
 # Replacement according the localization
-cnt = 0
 
+tmp_doc = Nokogiri::XML::Builder.new(:encoding => 'UTF-8') do |xml|
+  xml.collection('xmlns:zs' => "http://www.loc.gov/zing/srw/", 'xmlns:marc' => "http://www.loc.gov/MARC21/slim")
+end
+
+cnt = 0
 each_record(ifile) do |record|
   puts cnt+=1
-  record.xpath("marc:datafield[@tag='240' or @tag='130']/marc:subfield").each do |n|
+  record.xpath("//marc:datafield[@tag='240' or @tag='130']/marc:subfield").each do |n|
     if n.attribute("code").value == 'a'
       terms['n240a'].each do |k,v|
         if n.content.include?(k)
           if n.content =~ /^[0-9]/
-            n.content = n.content.gsub(k,v[1])
+            n.content.gsub!(k,v[1])
           else
-            n.content = n.content.gsub(k,v[0])
+            n.content.gsub!(k,v[0])
           end
         end
       end
@@ -87,16 +90,15 @@ each_record(ifile) do |record|
       end
     end
   end
-
   if lang!='en'
-    record.xpath("marc:datafield[@tag='300']/marc:subfield[@code='a']").each do |n|
+    record.xpath("//marc:datafield[@tag='300']/marc:subfield[@code='a']").each do |n|
       terms['n300a'].each do |k,v|
         if n.content.include?(k)
           n.content = n.content.gsub(k,v)
         end
       end
     end
-    record.xpath("marc:datafield[@tag='593']/marc:subfield[@code='a']").each do |n|
+    record.xpath("//marc:datafield[@tag='593']/marc:subfield[@code='a']").each do |n|
       terms['n593a'].each do |k,v|
         if n.content.include?(k)
           n.content = n.content.gsub(k,v)
@@ -111,14 +113,17 @@ each_record(ifile) do |record|
       end
     end
   end
+  tmp_doc.doc.root << record.root.to_xml
 end
+File.new("/tmp/x.xml", "w").write(tmp_doc.to_xml)
+doc = tmp_doc.doc
+
 #Preprocessing
 preprocessing_file=File.new(File.join(temp_path, 'preprocessing.xml'), 'w')
 latex_file=File.new(File.join(temp_path, 'example.tex'), 'w:UTF-8')
 preproc = Nokogiri::XSLT(File.read(File.join(prog_path, 'stylesheets', 'preprocessing.xsl'), :encoding =>'UTF-8'))
 preprocessing_xml = preproc.transform(doc, ["varFile", "'#{varFile}'", "title", "'#{title}'"])
 preprocessing_file.write(preprocessing_xml)
-
 #Creating the corpus
 template = Nokogiri::XSLT(File.read(File.join(prog_path, 'stylesheets', 'lualatex.xsl')))
 latex = template.transform(preprocessing_xml, 
