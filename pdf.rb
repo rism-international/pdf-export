@@ -44,14 +44,26 @@ elsif sfont == "sans"
 else
   font = "Linux Libertine O"
 end
-  
+# Performance boost 
+def each_record(filename, &block)
+  File.open(filename) do |file|
+    Nokogiri::XML::Reader.from_io(file).each do |node|
+      if node.name == 'record' || node.name == 'marc:record' and node.node_type == Nokogiri::XML::Reader::TYPE_ELEMENT
+        yield(Nokogiri::XML(node.outer_xml, nil, "UTF-8"))
+      end
+    end
+  end
+end
+
 varFile=File.join(prog_path, "locales", lang, "variables.xml")
 termFile=File.join(prog_path, "locales", lang, "terms.yml")
 terms = YAML.load_file(termFile)
 doc = File.open(ifile) { |f| Nokogiri::XML(f)  }
-
 # Replacement according the localization
-doc.xpath("//marc:record").each do |record|
+cnt = 0
+
+each_record(ifile) do |record|
+  puts cnt+=1
   record.xpath("marc:datafield[@tag='240' or @tag='130']/marc:subfield").each do |n|
     if n.attribute("code").value == 'a'
       terms['n240a'].each do |k,v|
@@ -100,7 +112,6 @@ doc.xpath("//marc:record").each do |record|
     end
   end
 end
-
 #Preprocessing
 preprocessing_file=File.new(File.join(temp_path, 'preprocessing.xml'), 'w')
 latex_file=File.new(File.join(temp_path, 'example.tex'), 'w:UTF-8')
