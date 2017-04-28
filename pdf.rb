@@ -115,7 +115,6 @@ each_record(ifile) do |record|
   end
   tmp_doc.doc.root << record.root.to_xml
 end
-File.new("/tmp/x.xml", "w").write(tmp_doc.to_xml)
 doc = tmp_doc.doc
 
 #Preprocessing
