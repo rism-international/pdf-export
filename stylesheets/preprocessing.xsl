@@ -16,6 +16,8 @@
 	<xsl:sort select="marc:datafield[@tag=100] = false()" lang="de"/>
         <xsl:sort select="translate(translate(marc:datafield[@tag=100]/marc:subfield[@code='a'], concat('[]', $apos), ''), 'äöüšÄÖÜŠ', 'aousAOUS')" lang="de"/>
         <xsl:sort select="translate(translate(marc:datafield[@tag=240 or @tag=130]/marc:subfield[@code='a'], '[]',''), 'äöüšÄÖÜŠ', 'aousAOUS')" lang="de"/>
+        <xsl:sort select="translate(marc:datafield[@tag=240 or @tag=130]/marc:subfield[@code='r'], 'CcDdEeFfGgAaBb', '0123456789ABCD')" lang="de"/>
+
 
 	      <!--
         <xsl:sort select="translate(translate(marc:datafield[@tag=100]/marc:subfield[@code='a'], concat('[]', $apos), ''), 'äöüšÄÖÜŠ', 'aousAOUS')" lang="de"/>

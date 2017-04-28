@@ -132,10 +132,16 @@ template = Nokogiri::XSLT(File.read(File.join(prog_path, 'stylesheets', 'index_t
 titles = template.transform(pre, ["varFile", "'#{varFile}'", "title", "'#{title}'"])
 puts "Creation of title index finished."
 
+# Creating the literature
+template = Nokogiri::XSLT(File.read(File.join(prog_path, 'stylesheets', 'index_catalogue.xsl')))
+cat = template.transform(doc, ["varFile", "'#{varFile}'", "title", "'#{title}'"])
+puts "Creation of literature index finished."
+
 #Combining corpus and index together
 latex_file.write(latex.children.to_s)
 latex_file.write(regis.children.to_s)
 latex_file.write(titles.children.to_s)
+latex_file.write(cat.children.to_s)
 
 #Finishing
 latex_file.write("\n")
