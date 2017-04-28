@@ -64,9 +64,7 @@ tmp_doc = Nokogiri::XML::Builder.new(:encoding => 'UTF-8') do |xml|
   xml.collection('xmlns:zs' => "http://www.loc.gov/zing/srw/", 'xmlns:marc' => "http://www.loc.gov/MARC21/slim")
 end
 
-cnt = 0
 each_record(ifile) do |record|
-  puts cnt+=1
   record.xpath("//marc:datafield[@tag='240' or @tag='130']/marc:subfield").each do |n|
     if n.attribute("code").value == 'a'
       terms['n240a'].each do |k,v|
