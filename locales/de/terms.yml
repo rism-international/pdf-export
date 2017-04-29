@@ -67,6 +67,9 @@ n240a:
   Madrigals: 
     - Madrigal
     - Madrigale
+  Marches:
+    - Marsch
+    - Märsche
   Masses: 
     - Messe
     - Messen
@@ -85,6 +88,12 @@ n240a:
   Quartets:
     - Quartett
     - Quartette
+  Quintets:
+    - Quintett
+    - Quintette
+  Serenades:
+    - Serenade
+    - Serenaden
   Solfeggios: 
     - Solfeggio
     - Solfeggien
@@ -130,8 +139,9 @@ relator_codes:
   fmo: Vorbesitzer
   oth: Sonstige
   lyr: Textdichter
-  perf: Interpret
+  prf: Interpret
   dte: Widmungsträger
+  pbl: Verleger
 
 
 
