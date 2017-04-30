@@ -27,15 +27,8 @@
   \let\pdffilemoddate\pdf@filemoddate
   \makeatother
 \fi
-\let\mypdfximage\pdfximage
-\protected\def\pdfximage{\immediate\mypdfximage}
 </xsl:if>
 \usepackage{textcomp}
-\usepackage{xparse}
-\ExplSyntaxOn
-\NewDocumentCommand{\commandline}{v}
-  { \immediate \write 18 { \tl_to_str:n {#1}  }  }
-\ExplSyntaxOff
 \usepackage{graphicx}
 <xsl:choose>
   <xsl:when test="$platform='linux-gnu'">
@@ -113,7 +106,7 @@
 \end{filecontents*}
 <xsl:choose>
   <xsl:when test="$platform='linux-gnu'">
-\commandline{ if [ ! -f <xsl:value-of select="filename"/>.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 <xsl:value-of select="filename"/>.code; fi } <!-- 16.8cm, 25cm: 173pt -->
+\ShellEscape{ if [ ! -f <xsl:value-of select="filename"/>.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 <xsl:value-of select="filename"/>.code; fi } <!-- 16.8cm, 25cm: 173pt -->
   </xsl:when>
   <xsl:when test="$platform='mingw32'">
 \commandline{ <xsl:value-of select="concat('If not exist ', filename, '.svg ', 'node ', $verovio_node_path, ' ', filename, '.code')"/> }
