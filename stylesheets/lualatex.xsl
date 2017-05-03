@@ -109,7 +109,7 @@
 \ShellEscape{ if [ ! -f <xsl:value-of select="filename"/>.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 <xsl:value-of select="filename"/>.code; fi } <!-- 16.8cm, 25cm: 173pt -->
   </xsl:when>
   <xsl:when test="$platform='mingw32'">
-\commandline{ <xsl:value-of select="concat('If not exist ', filename, '.svg ', 'node ', $verovio_node_path, ' ', filename, '.code')"/> }
+\ShellEscape{ <xsl:value-of select="concat('If not exist ', filename, '.svg ', 'node ', $verovio_node_path, ' ', filename, '.code')"/> }
   </xsl:when>
   <xsl:otherwise>
     <xsl:message terminate="yes">ERROR Unsupported OS <xsl:value-of select="$platform"/>! Please implement the correct verovio call in lualatex.xsl below line 118 or take the java-jar version of verovio</xsl:message>
