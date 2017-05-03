@@ -5,6 +5,9 @@
 \usepackage[utf8]{luainputenc}
 \usepackage{newunicodechar}
 \setmainfont[Ligatures=TeX]{Linux Libertine O}
+\usepackage{luatex85}
+\usepackage{shellesc}
+
 \usepackage{ifluatex}
 \ifluatex
   \usepackage{pdftexcmds}
@@ -13,14 +16,12 @@
   \let\pdffilemoddate\pdf@filemoddate
   \makeatother
 \fi
+
 \usepackage{textcomp}
-\usepackage{xparse}
-\ExplSyntaxOn
-\NewDocumentCommand{\commandline}{v}
-  { \immediate \write 18 { \tl_to_str:n {#1}  }  }
-\ExplSyntaxOff
 \usepackage{graphicx}
+
 \usepackage[inkscape={/usr/bin/inkscape -z -C }]{svg}
+  
 \usepackage{import}
 \usepackage{pifont}
 \usepackage{filecontents}
@@ -39,8 +40,6 @@
 \widowpenalty = 10000
 \displaywidowpenalty = 10000
 \tolerance=500
-\let\mypdfximage\pdfximage
-\protected\def\pdfximage{\immediate\mypdfximage}
 \pagestyle{fancy}
 \begin{titlepage}
 \title{RISM Musikquellen \\ 
@@ -83,7 +82,8 @@
 @timesig:4/4
 @data:{8DEFD}/4BBB{8AG}/{FE}4D8{FGAF}/''4DDD{8C'B}/{AG}4F{8B''CD'A}/
 \end{filecontents*}
-\commandline{ if [ ! -f 1-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 1-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 1-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 1-1.code; fi } 
 \newline \includesvg[width=209pt]{1-1}%
 \par Das Notenblatt enthält nur 4 Takte (+Auftakt), eine Akkolade mit freihändig gezogenen Notenlinien.
 \par Unter den Noten: {\textquotedbl}Zur Erinnerung an | Eugen d'Albert | Coburg. 2 Sept. 1889.{\textquotedbl} (Im Katalog korrigiert in 1887 und Zusatz {\textquotedbl}Kammerherr{\textquotedbl}).\newline Pawel-Rammingen, Baron von  (Widmungsträger)
@@ -98,216 +98,229 @@
 @timesig:3/4
 @data:4-8-6''{GA}{bB'''CDE}/{8FC}{6CDC''bB}{8A6AB}/
 \end{filecontents*}
-\commandline{ if [ ! -f 2-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 2-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 2-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 2-1.code; fi } 
 \newline \includesvg[width=209pt]{2-1}%
 \par 2 Notenzeilen, darunter: M. Aicher | Prof. der Flöte
 \par Jeder Instrumentalist hat auf seinem Albumblatt ein kurzes Motiv für sein jeweiliges Instrument notiert. Es ist nicht klar, ob diese Motive alle aus dem {\textquotedbl}Divertissement{\textquotedbl} von Czerny oder aus der Oper {\textquotedbl}Casilda{\textquotedbl} stammen, oder ob sie von den betreffenden Musikern frei erfunden sind.
 \par Comment on scoring: no indication\newline Ernst II., Herzog von Sachsen-Coburg und Gotha  (Widmungsträger)
 \par RISM-ID: 450109897\newline D-Cv  A.V.1202,(4)\newline $\rightarrow$ In Sammlung 78 (450109893)
       
-\par \vspace{16pt} \textcolor{darkblue}{\textbf{Anonymus  }}\hfillplus{[3]}\newline Albumblatt - F-Dur\newline ob
-\par \begin{itshape}[heading:] Oboe\end{itshape} 
-\par \textcolor{darkblue}{\ding{\numexpr181 + 01}}  Stimme: ob  (1f.); 31 x 24,5 cm\newline Abschrift\newline Schreiber: Baumberg, J. C.
-\par 1.1.1  ob, F-Dur  
-\begin{filecontents*}{3-1.code}
-@clef:G-2
-@keysig:bB
-@timesig:c
-@data:4-2G4nBtqq{6AB}r/4''C2Cqq{6DC'nB}r{8''CD}/
-\end{filecontents*}
-\commandline{ if [ ! -f 3-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 3-1.code; fi } 
-\newline \includesvg[width=209pt]{3-1}%
-\par 2 Notenzeilen, darunter: J. Baumberg | Professor d. Oboe.
-\par Jeder Instrumentalist hat auf seinem Albumblatt ein kurzes Motiv für sein jeweiliges Instrument notiert. Es ist nicht klar, ob diese Motive alle aus dem {\textquotedbl}Divertissement{\textquotedbl} von Czerny oder aus der Oper {\textquotedbl}Casilda{\textquotedbl} stammen, oder ob sie von den betreffenden Musikern frei erfunden sind.
-\par Comment on scoring: no indication\newline Ernst II., Herzog von Sachsen-Coburg und Gotha  (Widmungsträger)
-\par RISM-ID: 450109898\newline D-Cv  A.V.1202,(5)\newline $\rightarrow$ In Sammlung 78 (450109893)
-      
-\par \vspace{16pt} \textcolor{darkblue}{\textbf{Anonymus  }}\hfillplus{[4]}\newline Albumblatt - B-Dur\newline vl
-\par \begin{itshape}[heading:] Violino\end{itshape} 
-\par \textcolor{darkblue}{\ding{\numexpr181 + 01}}  Stimme: vl  (1f.); 31 x 24,5 cm\newline Abschrift\newline Schreiber: Beneš, Josef
-\par 1.1.1  vl, B-Dur  
-\begin{filecontents*}{4-1.code}
-@clef:G-2
-@keysig:bBE
-@timesig:6/8
-@data:'''8{CDC}gC{''BAB}/4A8FgG{FEF}/
-\end{filecontents*}
-\commandline{ if [ ! -f 4-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 4-1.code; fi } 
-\newline \includesvg[width=209pt]{4-1}%
-\par 2 Notenzeilen, darunter: Joseph Benesch | Mitglied der k.k. Hofkapelle | Orchester Director des k.k. | Hofburgtheaters und | Professor der Academie | der Tonkunst.
-\par Jeder Instrumentalist hat auf seinem Albumblatt ein kurzes Motiv für sein jeweiliges Instrument notiert. Es ist nicht klar, ob diese Motive alle aus dem {\textquotedbl}Divertissement{\textquotedbl} von Czerny oder aus der Oper {\textquotedbl}Casilda{\textquotedbl} stammen, oder ob sie von den betreffenden Musikern frei erfunden sind.
-\par Comment on scoring: no indication\newline Ernst II., Herzog von Sachsen-Coburg und Gotha  (Widmungsträger)
-\par RISM-ID: 450109899\newline D-Cv  A.V.1202,(6)\newline $\rightarrow$ In Sammlung 78 (450109893)
-      
-\par \vspace{16pt} \textcolor{darkblue}{\textbf{Anonymus  }}\hfillplus{[5]}\newline Albumblatt - F-Dur\newline pf
-\par \begin{itshape}[heading:] Piano Forte. I.\end{itshape} 
-\par \textcolor{darkblue}{\ding{\numexpr181 + 01}}  Stimme: pf 1  (1f.); 31 x 24,5 cm\newline Abschrift\newline Schreiber: Bocklet, Carl Maria von
-\par 1.1.1  pf 1, F-Dur  
-\begin{filecontents*}{5-1.code}
-@clef:G-2
-@keysig:bB
-@timesig:c
-@data:'''2F'{8..F3A}{''CFA'''CFA''''C}/8F-4-2-/
-\end{filecontents*}
-\commandline{ if [ ! -f 5-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 5-1.code; fi } 
-\newline \includesvg[width=209pt]{5-1}%
-\par 1 Akkolade mit 2 Notensystemen (nur 2 Takte), darunter: Karl Edler von | Bocklet | Professor der | Akademie der Tonkunst | in Wien.
-\par Jeder Instrumentalist hat auf seinem Albumblatt ein kurzes Motiv für sein jeweiliges Instrument notiert. Es ist nicht klar, ob diese Motive alle aus dem {\textquotedbl}Divertissement{\textquotedbl} von Czerny oder aus der Oper {\textquotedbl}Casilda{\textquotedbl} stammen, oder ob sie von den betreffenden Musikern frei erfunden sind.
-\par Comment on scoring: no indication\newline Ernst II., Herzog von Sachsen-Coburg und Gotha  (Widmungsträger)
-\par RISM-ID: 450109900\newline D-Cv  A.V.1202,(7)\newline $\rightarrow$ In Sammlung 78 (450109893)
-      
-\par \vspace{16pt} \textcolor{darkblue}{\textbf{Anonymus  }}\hfillplus{[6]}\newline Albumblatt - C-Dur\newline pf
+\par \vspace{16pt} \textcolor{darkblue}{\textbf{Anonymus  }}\hfillplus{[3]}\newline Albumblatt - C-Dur\newline pf
 \par \begin{itshape}[heading:] Piano II.\end{itshape} 
 \par \textcolor{darkblue}{\ding{\numexpr181 + 01}}  Stimme: pf 2  (1f.); 31 x 24,5 cm\newline Abschrift\newline Schreiber: Capponi, Anna
 \par 1.1.1  pf, C-Dur  
-\begin{filecontents*}{6-1.code}
+\begin{filecontents*}{3-1.code}
 @clef:G-2
 @keysig:
 @timesig:c
 @data:''(8{CDE})/({FFG})({AB'''C})({D''B'''C})({DbEnE}})/
 \end{filecontents*}
-\commandline{ if [ ! -f 6-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 6-1.code; fi } 
-\newline \includesvg[width=209pt]{6-1}%
+
+\ShellEscape{ if [ ! -f 3-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 3-1.code; fi } 
+\newline \includesvg[width=209pt]{3-1}%
 \par 1 Akkolade mit 2 Notensystemen (nur 1 Takt mit Auftakt), darunter: Anna Capponi | Professorin des Pianof: | an der Akademie der | Tonkunst in Wien.
 \par Jeder Instrumentalist hat auf seinem Albumblatt ein kurzes Motiv für sein jeweiliges Instrument notiert. Es ist nicht klar, ob diese Motive alle aus dem {\textquotedbl}Divertissement{\textquotedbl} von Czerny oder aus der Oper {\textquotedbl}Casilda{\textquotedbl} stammen, oder ob sie von den betreffenden Musikern frei erfunden sind.
 \par Comment on scoring: no indication\newline Ernst II., Herzog von Sachsen-Coburg und Gotha  (Widmungsträger)
 \par RISM-ID: 450109901\newline D-Cv  A.V.1202,(8)\newline $\rightarrow$ In Sammlung 78 (450109893)
       
-\par \vspace{16pt} \textcolor{darkblue}{\textbf{Anonymus  }}\hfillplus{[7]}\newline Albumblatt - C-Dur\newline cor
+\par \vspace{16pt} \textcolor{darkblue}{\textbf{Anonymus  }}\hfillplus{[4]}\newline Albumblatt - C-Dur\newline cor
 \par \begin{itshape}[heading:] Corno.\end{itshape} 
 \par \textcolor{darkblue}{\ding{\numexpr181 + 01}}  Stimme: cor  (1f.); 31 x 24,5 cm\newline Abschrift\newline Schreiber: Chott, Franz
 \par 1.1.1  cor, C-Dur  
-\begin{filecontents*}{7-1.code}
+\begin{filecontents*}{4-1.code}
 @clef:G-2
 @keysig:
 @timesig:c
 @data:{8G8.A6G}/''4.C'8B{AB''CF}/2F+{8FE'B''C}/
 \end{filecontents*}
-\commandline{ if [ ! -f 7-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 7-1.code; fi } 
-\newline \includesvg[width=209pt]{7-1}%
+
+\ShellEscape{ if [ ! -f 4-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 4-1.code; fi } 
+\newline \includesvg[width=209pt]{4-1}%
 \par 2 Notensysteme, darunter: Franz Chott. | Prof. des Horns.
 \par Jeder Instrumentalist hat auf seinem Albumblatt ein kurzes Motiv für sein jeweiliges Instrument notiert. Es ist nicht klar, ob diese Motive alle aus dem {\textquotedbl}Divertissement{\textquotedbl} von Czerny oder aus der Oper {\textquotedbl}Casilda{\textquotedbl} stammen, oder ob sie von den betreffenden Musikern frei erfunden sind.
 \par Comment on scoring: no indication\newline Ernst II., Herzog von Sachsen-Coburg und Gotha  (Widmungsträger)
 \par RISM-ID: 450109902\newline D-Cv  A.V.1203,(1)\newline $\rightarrow$ In Sammlung 78 (450109893)
       
-\par \vspace{16pt} \textcolor{darkblue}{\textbf{Anonymus  }}\hfillplus{[8]}\newline Albumblatt - Es-Dur\newline vlc
-\par \begin{itshape}[heading:] Violoncello.\end{itshape} 
-\par \textcolor{darkblue}{\ding{\numexpr181 + 01}}  Stimme: vlc  (1f.); 31 x 24,5 cm\newline Abschrift\newline Schreiber: Hartinger, Josef
-\par 1.1.1  vlc, Es-Dur  
-\begin{filecontents*}{8-1.code}
-@clef:F-4
-@keysig:bBEA
-@timesig:3/4
-@data:,{8.G6A}/2B4B/%C-4 2'Etqq{6CD}r{8.G6F}/
-\end{filecontents*}
-\commandline{ if [ ! -f 8-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 8-1.code; fi } 
-\newline \includesvg[width=209pt]{8-1}%
-\par 2 Notensysteme, darunter: Josef Hartinger. | Rofesor[!] der Akademie | Mitglied der k.k. Hofkapele | und des k.k. Hofopern Theaters
-\par Jeder Instrumentalist hat auf seinem Albumblatt ein kurzes Motiv für sein jeweiliges Instrument notiert. Es ist nicht klar, ob diese Motive alle aus dem {\textquotedbl}Divertissement{\textquotedbl} von Czerny oder aus der Oper {\textquotedbl}Casilda{\textquotedbl} stammen, oder ob sie von den betreffenden Musikern frei erfunden sind.
-\par Comment on scoring: no indication\newline Ernst II., Herzog von Sachsen-Coburg und Gotha  (Widmungsträger)
-\par RISM-ID: 450109903\newline D-Cv  A.V.1203,(2)\newline $\rightarrow$ In Sammlung 78 (450109893)
-      
-\par \vspace{16pt} \textcolor{darkblue}{\textbf{Anonymus  }}\hfillplus{[9]}\newline Albumblatt - C-Dur\newline timp
+\par \vspace{16pt} \textcolor{darkblue}{\textbf{Anonymus  }}\hfillplus{[5]}\newline Albumblatt - C-Dur\newline timp
 \par \begin{itshape}[heading:] Pauke\end{itshape} 
 \par \textcolor{darkblue}{\ding{\numexpr181 + 01}}  Stimme: timp  (1f.); 31 x 24,5 cm\newline Abschrift\newline Schreiber: Hudler, Anton
 \par 1.1.1  timp, C-Dur  
-\begin{filecontents*}{9-1.code}
+\begin{filecontents*}{5-1.code}
 @clef:F-4
 @keysig:
 @timesig:6/8
 @data:48,C---/C-C-/{8CCC}{CCC}/2.Ct/,,4F8-4-8-/
 \end{filecontents*}
-\commandline{ if [ ! -f 9-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 9-1.code; fi } 
-\newline \includesvg[width=209pt]{9-1}%
+
+\ShellEscape{ if [ ! -f 5-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 5-1.code; fi } 
+\newline \includesvg[width=209pt]{5-1}%
 \par 2 Notensysteme, darunter: Anton Hudler | Profesor der Akademie.
 \par Jeder Instrumentalist hat auf seinem Albumblatt ein kurzes Motiv für sein jeweiliges Instrument notiert. Es ist nicht klar, ob diese Motive alle aus dem {\textquotedbl}Divertissement{\textquotedbl} von Czerny oder aus der Oper {\textquotedbl}Casilda{\textquotedbl} stammen, oder ob sie von den betreffenden Musikern frei erfunden sind.
 \par Comment on scoring: no indication\newline Ernst II., Herzog von Sachsen-Coburg und Gotha  (Widmungsträger)
 \par RISM-ID: 450109904\newline D-Cv  A.V.1203,(3)\newline $\rightarrow$ In Sammlung 78 (450109893)
       
-\par \vspace{16pt} \textcolor{darkblue}{\textbf{Anonymus  }}\hfillplus{[10]}\newline Albumblatt - F-Dur\newline cb
+\par \vspace{16pt} \textcolor{darkblue}{\textbf{Anonymus  }}\hfillplus{[6]}\newline Albumblatt - Es-Dur\newline vlc
+\par \begin{itshape}[heading:] Violoncello.\end{itshape} 
+\par \textcolor{darkblue}{\ding{\numexpr181 + 01}}  Stimme: vlc  (1f.); 31 x 24,5 cm\newline Abschrift\newline Schreiber: Hartinger, Josef
+\par 1.1.1  vlc, Es-Dur  
+\begin{filecontents*}{6-1.code}
+@clef:F-4
+@keysig:bBEA
+@timesig:3/4
+@data:,{8.G6A}/2B4B/%C-4 2'Etqq{6CD}r{8.G6F}/
+\end{filecontents*}
+
+\ShellEscape{ if [ ! -f 6-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 6-1.code; fi } 
+\newline \includesvg[width=209pt]{6-1}%
+\par 2 Notensysteme, darunter: Josef Hartinger. | Rofesor[!] der Akademie | Mitglied der k.k. Hofkapele | und des k.k. Hofopern Theaters
+\par Jeder Instrumentalist hat auf seinem Albumblatt ein kurzes Motiv für sein jeweiliges Instrument notiert. Es ist nicht klar, ob diese Motive alle aus dem {\textquotedbl}Divertissement{\textquotedbl} von Czerny oder aus der Oper {\textquotedbl}Casilda{\textquotedbl} stammen, oder ob sie von den betreffenden Musikern frei erfunden sind.
+\par Comment on scoring: no indication\newline Ernst II., Herzog von Sachsen-Coburg und Gotha  (Widmungsträger)
+\par RISM-ID: 450109903\newline D-Cv  A.V.1203,(2)\newline $\rightarrow$ In Sammlung 78 (450109893)
+      
+\par \vspace{16pt} \textcolor{darkblue}{\textbf{Anonymus  }}\hfillplus{[7]}\newline Albumblatt - F-Dur\newline ob
+\par \begin{itshape}[heading:] Oboe\end{itshape} 
+\par \textcolor{darkblue}{\ding{\numexpr181 + 01}}  Stimme: ob  (1f.); 31 x 24,5 cm\newline Abschrift\newline Schreiber: Baumberg, J. C.
+\par 1.1.1  ob, F-Dur  
+\begin{filecontents*}{7-1.code}
+@clef:G-2
+@keysig:bB
+@timesig:c
+@data:4-2G4nBtqq{6AB}r/4''C2Cqq{6DC'nB}r{8''CD}/
+\end{filecontents*}
+
+\ShellEscape{ if [ ! -f 7-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 7-1.code; fi } 
+\newline \includesvg[width=209pt]{7-1}%
+\par 2 Notenzeilen, darunter: J. Baumberg | Professor d. Oboe.
+\par Jeder Instrumentalist hat auf seinem Albumblatt ein kurzes Motiv für sein jeweiliges Instrument notiert. Es ist nicht klar, ob diese Motive alle aus dem {\textquotedbl}Divertissement{\textquotedbl} von Czerny oder aus der Oper {\textquotedbl}Casilda{\textquotedbl} stammen, oder ob sie von den betreffenden Musikern frei erfunden sind.
+\par Comment on scoring: no indication\newline Ernst II., Herzog von Sachsen-Coburg und Gotha  (Widmungsträger)
+\par RISM-ID: 450109898\newline D-Cv  A.V.1202,(5)\newline $\rightarrow$ In Sammlung 78 (450109893)
+      
+\par \vspace{16pt} \textcolor{darkblue}{\textbf{Anonymus  }}\hfillplus{[8]}\newline Albumblatt - F-Dur\newline pf
+\par \begin{itshape}[heading:] Piano Forte. I.\end{itshape} 
+\par \textcolor{darkblue}{\ding{\numexpr181 + 01}}  Stimme: pf 1  (1f.); 31 x 24,5 cm\newline Abschrift\newline Schreiber: Bocklet, Carl Maria von
+\par 1.1.1  pf 1, F-Dur  
+\begin{filecontents*}{8-1.code}
+@clef:G-2
+@keysig:bB
+@timesig:c
+@data:'''2F'{8..F3A}{''CFA'''CFA''''C}/8F-4-2-/
+\end{filecontents*}
+
+\ShellEscape{ if [ ! -f 8-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 8-1.code; fi } 
+\newline \includesvg[width=209pt]{8-1}%
+\par 1 Akkolade mit 2 Notensystemen (nur 2 Takte), darunter: Karl Edler von | Bocklet | Professor der | Akademie der Tonkunst | in Wien.
+\par Jeder Instrumentalist hat auf seinem Albumblatt ein kurzes Motiv für sein jeweiliges Instrument notiert. Es ist nicht klar, ob diese Motive alle aus dem {\textquotedbl}Divertissement{\textquotedbl} von Czerny oder aus der Oper {\textquotedbl}Casilda{\textquotedbl} stammen, oder ob sie von den betreffenden Musikern frei erfunden sind.
+\par Comment on scoring: no indication\newline Ernst II., Herzog von Sachsen-Coburg und Gotha  (Widmungsträger)
+\par RISM-ID: 450109900\newline D-Cv  A.V.1202,(7)\newline $\rightarrow$ In Sammlung 78 (450109893)
+      
+\par \vspace{16pt} \textcolor{darkblue}{\textbf{Anonymus  }}\hfillplus{[9]}\newline Albumblatt - F-Dur\newline cb
 \par \begin{itshape}[heading:] Contrabass.\end{itshape} 
 \par \textcolor{darkblue}{\ding{\numexpr181 + 01}}  Stimme: cb  (1f.); 31 x 24,5 cm\newline Abschrift\newline Schreiber: Janausch, Adalbert
 \par 1.1.1  cb, \begin{itshape}Allegro\end{itshape}, F-Dur  
-\begin{filecontents*}{10-1.code}
+\begin{filecontents*}{9-1.code}
 @clef:F-4
 @keysig:bB
 @timesig:c
 @data:=4/,4F-F-/,,B,DF-/G-,,G-/
 \end{filecontents*}
-\commandline{ if [ ! -f 10-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 10-1.code; fi } 
-\newline \includesvg[width=209pt]{10-1}%
+
+\ShellEscape{ if [ ! -f 9-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 9-1.code; fi } 
+\newline \includesvg[width=209pt]{9-1}%
 \par 2 Notensysteme, darunter: Adalbert Janausch | Professor der | Akademie der Tonkunst.
 \par Jeder Instrumentalist hat auf seinem Albumblatt ein kurzes Motiv für sein jeweiliges Instrument notiert. Es ist nicht klar, ob diese Motive alle aus dem {\textquotedbl}Divertissement{\textquotedbl} von Czerny oder aus der Oper {\textquotedbl}Casilda{\textquotedbl} stammen, oder ob sie von den betreffenden Musikern frei erfunden sind.
 \par Comment on scoring: no indication\newline Ernst II., Herzog von Sachsen-Coburg und Gotha  (Widmungsträger)
 \par RISM-ID: 450109905\newline D-Cv  A.V.1203,(4)\newline $\rightarrow$ In Sammlung 78 (450109893)
       
-\par \vspace{16pt} \textcolor{darkblue}{\textbf{Anonymus  }}\hfillplus{[11]}\newline Albumblatt - F-Dur\newline flügelhorn
+\par \vspace{16pt} \textcolor{darkblue}{\textbf{Anonymus  }}\hfillplus{[10]}\newline Albumblatt - F-Dur\newline flügelhorn
 \par \begin{itshape}[heading:] Flügelhorn in C.\end{itshape} 
 \par \textcolor{darkblue}{\ding{\numexpr181 + 01}}  Stimme: flügelhorn  (1f.); 31 x 24,5 cm\newline Abschrift\newline Schreiber: Netrefa, Cölestin
 \par 1.1.1  flügelhorn, \begin{itshape}Un poco moderato\end{itshape}, F-Dur  
-\begin{filecontents*}{11-1.code}
+\begin{filecontents*}{10-1.code}
 @clef:G-2
 @keysig:bB
 @timesig:c
 @data:{8.F6F}/4FB''4..D6C/8.6'{BABG}4F8D6-F/
 \end{filecontents*}
-\commandline{ if [ ! -f 11-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 11-1.code; fi } 
-\newline \includesvg[width=209pt]{11-1}%
+
+\ShellEscape{ if [ ! -f 10-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 10-1.code; fi } 
+\newline \includesvg[width=209pt]{10-1}%
 \par 2 Notensysteme, darunter: Cölestin Netrefa | Professor der Akademie | der Tonkunst in Wien.
 \par Jeder Instrumentalist hat auf seinem Albumblatt ein kurzes Motiv für sein jeweiliges Instrument notiert. Es ist nicht klar, ob diese Motive alle aus dem {\textquotedbl}Divertissement{\textquotedbl} von Czerny oder aus der Oper {\textquotedbl}Casilda{\textquotedbl} stammen, oder ob sie von den betreffenden Musikern frei erfunden sind.
 \par Comment on scoring: no indication\newline Ernst II., Herzog von Sachsen-Coburg und Gotha  (Widmungsträger)
 \par RISM-ID: 450109906\newline D-Cv  A.V.1203,(5)\newline $\rightarrow$ In Sammlung 78 (450109893)
       
-\par \vspace{16pt} \textcolor{darkblue}{\textbf{Anonymus  }}\hfillplus{[12]}\newline Albumblatt - F-Dur\newline trb
+\par \vspace{16pt} \textcolor{darkblue}{\textbf{Anonymus  }}\hfillplus{[11]}\newline Albumblatt - F-Dur\newline trb
 \par \begin{itshape}[heading:] Posaune\end{itshape} 
 \par \textcolor{darkblue}{\ding{\numexpr181 + 01}}  Stimme: trb  (1f.); 31 x 24,5 cm\newline Abschrift\newline Schreiber: Seegner, Franz Gregor
 \par 1.1.1  trb, F-Dur  
-\begin{filecontents*}{12-1.code}
+\begin{filecontents*}{11-1.code}
 @clef:F-4
 @keysig:bB
 @timesig:c
 @data:,1F+/8F-4-2-/1C+/8C-4-2-/,,1F+/8F-4-2-//
 \end{filecontents*}
-\commandline{ if [ ! -f 12-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 12-1.code; fi } 
-\newline \includesvg[width=209pt]{12-1}%
+
+\ShellEscape{ if [ ! -f 11-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 11-1.code; fi } 
+\newline \includesvg[width=209pt]{11-1}%
 \par 2 Notensysteme, darunter: Franz Gregor Seegner | Professor der Posaune | an der Akademie der | Tonkunst.
 \par Jeder Instrumentalist hat auf seinem Albumblatt ein kurzes Motiv für sein jeweiliges Instrument notiert. Es ist nicht klar, ob diese Motive alle aus dem {\textquotedbl}Divertissement{\textquotedbl} von Czerny oder aus der Oper {\textquotedbl}Casilda{\textquotedbl} stammen, oder ob sie von den betreffenden Musikern frei erfunden sind.
 \par Comment on scoring: no indication\newline Ernst II., Herzog von Sachsen-Coburg und Gotha  (Widmungsträger)
 \par RISM-ID: 450109907\newline D-Cv  A.V.1203,(6)\newline $\rightarrow$ In Sammlung 78 (450109893)
       
-\par \vspace{16pt} \textcolor{darkblue}{\textbf{Anonymus  }}\hfillplus{[13]}\newline Albumblatt - F-Dur\newline cl
+\par \vspace{16pt} \textcolor{darkblue}{\textbf{Anonymus  }}\hfillplus{[12]}\newline Albumblatt - F-Dur\newline cl
 \par \begin{itshape}[heading:] Clarinetto.\end{itshape} 
 \par \textcolor{darkblue}{\ding{\numexpr181 + 01}}  Stimme: cl  (1f.); 31 x 24,5 cm\newline Abschrift\newline Schreiber: Wagner, Wenzel
 \par 1.1.1  cl, F-Dur  
-\begin{filecontents*}{13-1.code}
+\begin{filecontents*}{12-1.code}
 @clef:G-2
 @keysig:bB
 @timesig:3/4
 @data:4EG''C/'2E{8.A6B}/2''C4C/{8.F3GF}{8EFAG}/
 \end{filecontents*}
-\commandline{ if [ ! -f 13-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 13-1.code; fi } 
-\newline \includesvg[width=209pt]{13-1}%
+
+\ShellEscape{ if [ ! -f 12-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 12-1.code; fi } 
+\newline \includesvg[width=209pt]{12-1}%
 \par 2 Notensysteme, darunter: Wenzel Wagner | Professor der | Clarinette | in der Akade= | mie der Tonkunst.
 \par Jeder Instrumentalist hat auf seinem Albumblatt ein kurzes Motiv für sein jeweiliges Instrument notiert. Es ist nicht klar, ob diese Motive alle aus dem {\textquotedbl}Divertissement{\textquotedbl} von Czerny oder aus der Oper {\textquotedbl}Casilda{\textquotedbl} stammen, oder ob sie von den betreffenden Musikern frei erfunden sind.
 \par Comment on scoring: no indication\newline Ernst II., Herzog von Sachsen-Coburg und Gotha  (Widmungsträger)
 \par RISM-ID: 450109908\newline D-Cv  A.V.1203,(7)\newline $\rightarrow$ In Sammlung 78 (450109893)
       
-\par \vspace{16pt} \textcolor{darkblue}{\textbf{Anonymus  }}\hfillplus{[14]}\newline Albumblatt - F-Dur\newline fag
+\par \vspace{16pt} \textcolor{darkblue}{\textbf{Anonymus  }}\hfillplus{[13]}\newline Albumblatt - F-Dur\newline fag
 \par \begin{itshape}[heading:] Fagott.\end{itshape} 
 \par \textcolor{darkblue}{\ding{\numexpr181 + 01}}  Stimme: fag  (1f.); 31 x 24,5 cm\newline Abschrift\newline Schreiber: Wittmann, Anton
 \par 1.1.1  fag, F-Dur  
-\begin{filecontents*}{14-1.code}
+\begin{filecontents*}{13-1.code}
 @clef:F-4
 @keysig:bB
 @timesig:c
 @data:,,2F,F/4FF2F/4C{8DE}{FGAnB}/'C-C-,F-4-//
 \end{filecontents*}
-\commandline{ if [ ! -f 14-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 14-1.code; fi } 
-\newline \includesvg[width=209pt]{14-1}%
+
+\ShellEscape{ if [ ! -f 13-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 13-1.code; fi } 
+\newline \includesvg[width=209pt]{13-1}%
 \par 2 Notensysteme, darunter: Ant. Wittmann | Prof. der Akademie | der Tonkunst.
 \par Jeder Instrumentalist hat auf seinem Albumblatt ein kurzes Motiv für sein jeweiliges Instrument notiert. Es ist nicht klar, ob diese Motive alle aus dem {\textquotedbl}Divertissement{\textquotedbl} von Czerny oder aus der Oper {\textquotedbl}Casilda{\textquotedbl} stammen, oder ob sie von den betreffenden Musikern frei erfunden sind.
 \par Comment on scoring: no indication\newline Ernst II., Herzog von Sachsen-Coburg und Gotha  (Widmungsträger)
 \par RISM-ID: 450109909\newline D-Cv  A.V.1203,(8)\newline $\rightarrow$ In Sammlung 78 (450109893)
+      
+\par \vspace{16pt} \textcolor{darkblue}{\textbf{Anonymus  }}\hfillplus{[14]}\newline Albumblatt - B-Dur\newline vl
+\par \begin{itshape}[heading:] Violino\end{itshape} 
+\par \textcolor{darkblue}{\ding{\numexpr181 + 01}}  Stimme: vl  (1f.); 31 x 24,5 cm\newline Abschrift\newline Schreiber: Beneš, Josef
+\par 1.1.1  vl, B-Dur  
+\begin{filecontents*}{14-1.code}
+@clef:G-2
+@keysig:bBE
+@timesig:6/8
+@data:'''8{CDC}gC{''BAB}/4A8FgG{FEF}/
+\end{filecontents*}
+
+\ShellEscape{ if [ ! -f 14-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 14-1.code; fi } 
+\newline \includesvg[width=209pt]{14-1}%
+\par 2 Notenzeilen, darunter: Joseph Benesch | Mitglied der k.k. Hofkapelle | Orchester Director des k.k. | Hofburgtheaters und | Professor der Academie | der Tonkunst.
+\par Jeder Instrumentalist hat auf seinem Albumblatt ein kurzes Motiv für sein jeweiliges Instrument notiert. Es ist nicht klar, ob diese Motive alle aus dem {\textquotedbl}Divertissement{\textquotedbl} von Czerny oder aus der Oper {\textquotedbl}Casilda{\textquotedbl} stammen, oder ob sie von den betreffenden Musikern frei erfunden sind.
+\par Comment on scoring: no indication\newline Ernst II., Herzog von Sachsen-Coburg und Gotha  (Widmungsträger)
+\par RISM-ID: 450109899\newline D-Cv  A.V.1202,(6)\newline $\rightarrow$ In Sammlung 78 (450109893)
       
 \par \vspace{16pt} \textcolor{darkblue}{\textbf{August Emil Leopold, Herzog von Sachsen-Gotha-Altenburg  1772-1822}}\hfillplus{[15]}\newline Beim kindlichen Strahl des erwachenden Phoibos. Arr, J 153 - Es-Dur\newline winds
 \par \begin{itshape}[caption title:] Beim Kindlichen Strahl des erwachenden | Phoibos.\end{itshape} 
@@ -319,7 +332,8 @@
 @timesig:6/8
 @data:8F/6.3{GFGFGA}4B8F/{6.3GFGFGF}4E8-/
 \end{filecontents*}
-\commandline{ if [ ! -f 15-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 15-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 15-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 15-1.code; fi } 
 \newline \includesvg[width=209pt]{15-1}%
 \par 1.1.2  cl 1, Es-Dur  
 \begin{filecontents*}{15-2.code}
@@ -328,7 +342,8 @@
 @timesig:6/8
 @data:8-/=1/48--G/8.68{BAG}{''C'BA}/{BAG}''{8C'B}-/
 \end{filecontents*}
-\commandline{ if [ ! -f 15-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 15-2.code; fi } 
+
+\ShellEscape{ if [ ! -f 15-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 15-2.code; fi } 
 \newline \includesvg[width=209pt]{15-2}%\newline Weber, Carl Maria von  (arr)
 \par RISM-ID: 450109865\newline D-Cv  A.V,1111,(2),2\newline $\rightarrow$ In Sammlung 80 (450109860)
       
@@ -342,7 +357,8 @@
 @timesig:3/4
 @data:''2(D)4-/'{8BABAB''D}/4C'F-/''{8C'B''C'B''CE}/4D--/
 \end{filecontents*}
-\commandline{ if [ ! -f 16-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 16-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 16-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 16-1.code; fi } 
 \newline \includesvg[width=209pt]{16-1}%
 \par 1.1.2  fl, B-Dur  
 \begin{filecontents*}{16-2.code}
@@ -351,7 +367,8 @@
 @timesig:3/4
 @data:''2(B)4-/=14/2E{8DE}/4F{8ED}4E/{8B'''C''BbA}4G/
 \end{filecontents*}
-\commandline{ if [ ! -f 16-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 16-2.code; fi } 
+
+\ShellEscape{ if [ ! -f 16-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 16-2.code; fi } 
 \newline \includesvg[width=209pt]{16-2}%\newline Weber, Carl Maria von  (arr)
 \par RISM-ID: 450109864\newline D-Cv  A.V,1111,(2),2\newline $\rightarrow$ In Sammlung 80 (450109860)
       
@@ -365,7 +382,8 @@
 @timesig:2/4
 @data:''4(A)8-C/{CCD'nB}/''4CF/{8EDC'B}/4A''F/{8EC'GG}/
 \end{filecontents*}
-\commandline{ if [ ! -f 17-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 17-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 17-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 17-1.code; fi } 
 \newline \includesvg[width=209pt]{17-1}%\newline Weber, Carl Maria von  (arr)
 \par RISM-ID: 450109862\newline D-Cv  A.V,1111,(2),2\newline $\rightarrow$ In Sammlung 80 (450109860)
       
@@ -379,7 +397,8 @@
 @timesig:3/4
 @data:{8.G6A}/4.B{8B''CD}/{8.E6'B}4B{8BG}/''4.C'{8BAG}/4GF
 \end{filecontents*}
-\commandline{ if [ ! -f 18-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 18-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 18-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 18-1.code; fi } 
 \newline \includesvg[width=209pt]{18-1}%\newline Weber, Carl Maria von  (arr)
 \par RISM-ID: 450109863\newline D-Cv  A.V,1111,(2),2\newline $\rightarrow$ In Sammlung 80 (450109860)
       
@@ -393,7 +412,8 @@
 @timesig:c
 @data:8'E-G-''C-4-/8'C-''C-C-4-/
 \end{filecontents*}
-\commandline{ if [ ! -f 19-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 19-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 19-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 19-1.code; fi } 
 \newline \includesvg[width=209pt]{19-1}%
 \par Bemerkung in der Bach-Quellendatenbank (http://www.bach.gwdg.de/det\_beschr/dcvv03.html): {\textquotedbl}Revision: J. S. Bach{\textquotedbl}. In der neueren Version der Datenbank (http://www.bach-digital.de/receive/BachDigitalSource\_source\_00002707) ist Bach nur noch undifferenziert als 2. Schreiber angegeben.
 \par Die Stimme enthält NBA zufolge Zusätze von J.S. Bachs Hand.\newline Bach, Johann Sebastian  (Sonstige)\newline Nägeli, Hans Georg  (Vorbesitzer)\newline Schulz, Hermann  (Vorbesitzer)\newline Literatur: NBA  ser.1, vol.30 (Kritischer Bericht), p.23, 26, 31
@@ -408,7 +428,8 @@
 @timesig:3/4
 @data:{8.G''6E}q8C4.n'Bt''8C/4.C6{'BA}{''C'BAG}/{AGA''C}{'B''bDDC}{C'BB''C}/{C'nB''CE}
 \end{filecontents*}
-\commandline{ if [ ! -f 20-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 20-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 20-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 20-1.code; fi } 
 \newline \includesvg[width=209pt]{20-1}%
 \par Die Skizze enthält nur die ersten viereinhalb Takte der Oberstimme. Sie ist auf der Rückseite der vlne-Stimme von BWV 241 notiert (hier das erste Stück der {\textquotedbl}collection{\textquotedbl}: vgl RISM ID no. 450106266).\newline Bach, Carl Philipp Emanuel  (Vorbesitzer)\newline Kittel, Johann Christian  (Vorbesitzer)\newline Poelchau, Georg Johann Daniel  (Vorbesitzer)\newline Literatur: KobayashiC 1988  p.58
 \par RISM-ID: 450106267\newline D-Cv  A.V,1109,(1),1b\newline $\rightarrow$ In Sammlung 79 (450106265)
@@ -424,7 +445,8 @@
 @timesig:12/8
 @data:2.''D+{3DGFE}4D+{3DC'BA}4G+/{3G''GFE}4D
 \end{filecontents*}
-\commandline{ if [ ! -f 21-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 21-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 21-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 21-1.code; fi } 
 \newline \includesvg[width=209pt]{21-1}%
 \par 1.1.2  S, G-Dur\newline \begin{footnotesize} Süßer Trost mein Jesus kommt \end{footnotesize}  
 \begin{filecontents*}{21-2.code}
@@ -433,7 +455,8 @@
 @timesig:12/8
 @data:=11/''2.D+{6DG8F}E4.D+/{6DG8F}E4.D+8D'B''C{DE}C/'4.A
 \end{filecontents*}
-\commandline{ if [ ! -f 21-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 21-2.code; fi } 
+
+\ShellEscape{ if [ ! -f 21-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 21-2.code; fi } 
 \newline \includesvg[width=209pt]{21-2}%
 \par 1.2.1  B, \begin{itshape}Recitativo.\end{itshape}, D-Dur\newline \begin{footnotesize} Erfreue dich mein Herz den jetzo weicht der Schmerz \end{footnotesize}  
 \begin{filecontents*}{21-3.code}
@@ -442,7 +465,8 @@
 @timesig:c
 @data:,4-8-A{6FDEFGAB'C}/8D,AFA4B8-B/GGFE'4C6-
 \end{filecontents*}
-\commandline{ if [ ! -f 21-3.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 21-3.code; fi } 
+
+\ShellEscape{ if [ ! -f 21-3.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 21-3.code; fi } 
 \newline \includesvg[width=209pt]{21-3}%
 \par 1.3.1  A, \begin{itshape}Aria. Andante\end{itshape}, e-Moll\newline \begin{footnotesize} In Jesu Demut kann ich Trost \end{footnotesize}  
 \begin{filecontents*}{21-4.code}
@@ -451,7 +475,8 @@
 @timesig:c/
 @data:=8/4-8-'B{G''C}{'BA}/{xDA}{GF}{,B'G}{FE}/4''D8-
 \end{filecontents*}
-\commandline{ if [ ! -f 21-4.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 21-4.code; fi } 
+
+\ShellEscape{ if [ ! -f 21-4.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 21-4.code; fi } 
 \newline \includesvg[width=209pt]{21-4}%
 \par 1.4.1  T, \begin{itshape}Recitativo.\end{itshape}\newline \begin{footnotesize} Du treuer Gottessohn nun hast du mir den Himmel aufgemacht \end{footnotesize}  
 \begin{filecontents*}{21-5.code}
@@ -460,7 +485,8 @@
 @timesig:c
 @data:4-8-,,B,FE8.xCt6D/8D6-D8xC,,B,E6-,,A,EEFG/4F8-
 \end{filecontents*}
-\commandline{ if [ ! -f 21-5.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 21-5.code; fi } 
+
+\ShellEscape{ if [ ! -f 21-5.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 21-5.code; fi } 
 \newline \includesvg[width=209pt]{21-5}%
 \par 1.5.1  Coro S, \begin{itshape}Choral.\end{itshape}, G-Dur\newline \begin{footnotesize} Heut' schleußt er wieder auf die Tür \end{footnotesize}  
 \begin{filecontents*}{21-6.code}
@@ -469,7 +495,8 @@
 @timesig:c
 @data:'G/''DDDD/E{8DC}'4(B)
 \end{filecontents*}
-\commandline{ if [ ! -f 21-6.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 21-6.code; fi } 
+
+\ShellEscape{ if [ ! -f 21-6.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 21-6.code; fi } 
 \newline \includesvg[width=209pt]{21-6}%
 \par Spätere Ergänzung, f.1r: {\textquotedbl}Von Johann Sebastian Bach und dessen Hand geschrieben / André.{\textquotedbl}
 \par Umschlag von C.P.E. Bach und Pölchau beschriftet; eigene Signatur: A.V,1109,(1),2c\newline André, Johann Anton  (Vorbesitzer)\newline André, Julius  (Vorbesitzer)\newline Bach, Carl Philipp Emanuel  (Sonstige)\newline Bach, Carl Philipp Emanuel  (Vorbesitzer)\newline Gerber, Ernst Ludwig  (Vorbesitzer)\newline Poelchau, Georg Johann Daniel  (Sonstige)\newline Literatur: NBA  ser.1, vol.3.1 (Kritischer Bericht), p.146-178; BachCatalog 1790  p.74, no.10; ZirnbauerB 1950  \newline Olim: 40
@@ -477,65 +504,71 @@
 \par \vspace{16pt} \textcolor{darkblue}{\textbf{Beethoven, Ludwig van  1770-1827}}\hfillplus{[22]}\newline Der Glorreiche Augenblick, op.136\newline V (4), Coro, orch
 \par \begin{itshape}[caption title:] Der glorreiche Augenblick: Cantate von L:v: Beethoven.\end{itshape} 
 \par \textcolor{darkblue}{\ding{\numexpr181 + 01}}  Particell: 42f.; 24,5 x 33 cm\newline \begin{small} Chorstimmen in Partitur (S und T je 2 Stimmen auf einer Notenzeile) und Klaviersatz; zusätzlich ein auf f.35v aufgenähtes Blatt (Rückseite leer), nur leere Notensysteme: f.6v, 9v, 20v\end{small} \newline Abschrift\newline Wasserzeichen: T.D. WIRTZ [countermark: standing lion with orb]  18141201-18151231\newline Schreiber: Diabelli, Anton
-\par 1.1.1  Coro S 1, \begin{itshape}N|r|o 1.. Allegro man non troppo\end{itshape}, A-Dur\newline \begin{footnotesize} Europa steht \end{footnotesize}  
+\par 1.1.1  Coro S 1, \begin{itshape}N\textsuperscript{r}\textsuperscript{o} 1.. Allegro man non troppo\end{itshape}, A-Dur\newline \begin{footnotesize} Europa steht \end{footnotesize}  
 \begin{filecontents*}{22-1.code}
 @clef:C-1
 @keysig:xFCG
 @timesig:c/
 @data:2-''E/2.E4E/1E+/E+/4E-2-/
 \end{filecontents*}
-\commandline{ if [ ! -f 22-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 22-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 22-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 22-1.code; fi } 
 \newline \includesvg[width=209pt]{22-1}%
-\par 1.2.1  B, \begin{itshape}N|r|o 2. Recitativo. Andante\end{itshape}, D-Dur\newline \begin{footnotesize} O seht sie nah und näher treten \end{footnotesize}  
+\par 1.2.1  B, \begin{itshape}N\textsuperscript{r}\textsuperscript{o} 2. Recitativo. Andante\end{itshape}, D-Dur\newline \begin{footnotesize} O seht sie nah und näher treten \end{footnotesize}  
 \begin{filecontents*}{22-2.code}
 @clef:F-4
 @keysig:xFC
 @timesig:c/
 @data:=3/,4A8FG8.6AA(B)A/8FF-2-/
 \end{filecontents*}
-\commandline{ if [ ! -f 22-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 22-2.code; fi } 
+
+\ShellEscape{ if [ ! -f 22-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 22-2.code; fi } 
 \newline \includesvg[width=209pt]{22-2}%
-\par 1.3.1  S 1, \begin{itshape}N|r|o 3. Recitativo.. Allegro\end{itshape}, B-Dur\newline \begin{footnotesize} O Himmel welch Entzücken \end{footnotesize}  
+\par 1.3.1  S 1, \begin{itshape}N\textsuperscript{r}\textsuperscript{o} 3. Recitativo.. Allegro\end{itshape}, B-Dur\newline \begin{footnotesize} O Himmel welch Entzücken \end{footnotesize}  
 \begin{filecontents*}{22-3.code}
 @clef:C-1
 @keysig:bBE
 @timesig:c
 @data:=3/4-8-''D4FF/2-4.F8F/8DD-
 \end{filecontents*}
-\commandline{ if [ ! -f 22-3.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 22-3.code; fi } 
+
+\ShellEscape{ if [ ! -f 22-3.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 22-3.code; fi } 
 \newline \includesvg[width=209pt]{22-3}%
-\par 1.4.1  S 2, \begin{itshape}N|r|o 4. Recit|v|o.\end{itshape}, H-Dur\newline \begin{footnotesize} Das Auge schaut in dessen Wimpergleise die Sonnen auf und nieder gehn \end{footnotesize}  
+\par 1.4.1  S 2, \begin{itshape}N\textsuperscript{r}\textsuperscript{o} 4. Recit\textsuperscript{v}\textsuperscript{o}.\end{itshape}, H-Dur\newline \begin{footnotesize} Das Auge schaut in dessen Wimpergleise die Sonnen auf und nieder gehn \end{footnotesize}  
 \begin{filecontents*}{22-4.code}
 @clef:C-1
 @keysig:xFCGDA
 @timesig:c
 @data:2-8-''F8.F6F/4D6-DDEFFF3FG8.F6F/2G+8GE'BG/E
 \end{filecontents*}
-\commandline{ if [ ! -f 22-4.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 22-4.code; fi } 
+
+\ShellEscape{ if [ ! -f 22-4.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 22-4.code; fi } 
 \newline \includesvg[width=209pt]{22-4}%
-\par 1.5.1  S 2, \begin{itshape}N|r|o 5. Recitativ. Allegro\end{itshape}, A-Dur\newline \begin{footnotesize} Der den Bund in Sturme festgehalten \end{footnotesize}  
+\par 1.5.1  S 2, \begin{itshape}N\textsuperscript{r}\textsuperscript{o} 5. Recitativ. Allegro\end{itshape}, A-Dur\newline \begin{footnotesize} Der den Bund in Sturme festgehalten \end{footnotesize}  
 \begin{filecontents*}{22-5.code}
 @clef:C-1
 @keysig:xFCG
 @timesig:c
 @data:=1/2-4-''E+/8E'A''CC'8.A6A8AB/''CC4-2-/
 \end{filecontents*}
-\commandline{ if [ ! -f 22-5.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 22-5.code; fi } 
+
+\ShellEscape{ if [ ! -f 22-5.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 22-5.code; fi } 
 \newline \includesvg[width=209pt]{22-5}%
-\par 1.6.1  Coro S 1, \begin{itshape}N|r|o 6. | Chor der Frauen. Poco Allegro\end{itshape}, C-Dur\newline \begin{footnotesize} Es treten hervor die Scharen der Frauen \end{footnotesize}  
+\par 1.6.1  Coro S 1, \begin{itshape}N\textsuperscript{r}\textsuperscript{o} 6. | Chor der Frauen. Poco Allegro\end{itshape}, C-Dur\newline \begin{footnotesize} Es treten hervor die Scharen der Frauen \end{footnotesize}  
 \begin{filecontents*}{22-6.code}
 @clef:C-1
 @keysig:
 @timesig:2/4
 @data:=8/4-8-''G/4G8GG/{FE}{DG}/{ED}CD/'4B8GG/
 \end{filecontents*}
-\commandline{ if [ ! -f 22-6.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 22-6.code; fi } 
+
+\ShellEscape{ if [ ! -f 22-6.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 22-6.code; fi } 
 \newline \includesvg[width=209pt]{22-6}%
 \par Auf der ersten Notenseite unten von Beethovens Hand: {\textquotedbl}die Kantate ist - ebenfalls zum stechen, | geschieht solches nicht recht, so wird es nicht | allein Stiche sondern auch Hiebe | absetzen. - ludwig van | Beethoven.{\textquotedbl} (zunächst abgeschnitten, dann wieder angefügt, vgl. Schmidt-GörgB, pt.7, vol.1, p.336)
 \par Spätere Ergänzungen mit Bleistift, z.B. italienische Satztitel durchgestrichen und durch deutsche ersetzt (2.B. {\textquotedbl}Recitativ{\textquotedbl} statt {\textquotedbl}Recitativo{\textquotedbl})
 \par Comment on scoring: original von Diabelli {\textquotedbl}Cembalo{\textquotedbl}, in Satz 1 und 2 durchgestrichen mit Bleistift und darüber notiert: {\textquotedbl}Pianoforte{\textquotedbl}\newline Weißenbach, Aloys  (Textdichter)\newline Literatur: Schmidt-GörgB 1961  pt.7, vol.1, p.153-315; Schmidt-GörgB 1961  pt.7, vol.1, p.336
 \par RISM-ID: 450106288\newline D-Cv  A.V,1112,(2),3
-\par \vspace{16pt} \textcolor{darkblue}{\textbf{Beethoven, Ludwig van  1770-1827}}\hfillplus{[23]}\newline Fidelio. Sketches, op.72/15\newline V (2), orch
+\par \vspace{16pt} \textcolor{darkblue}{\textbf{Beethoven, Ludwig van  1770-1827}}\hfillplus{[23]}\newline Fidelio. Skizzen, op.72/15\newline V (2), orch
 \par \begin{itshape}[at bottom, left:] aus Beethovens Fidelio eigenhändig zugeschrieben\end{itshape} 
 \par \textcolor{darkblue}{\ding{\numexpr181 + 01}}  Partitur: 1f.; 22,5 x 30 cm\newline \begin{small} in der Mitte früherer Falz erkennbar\end{small} \newline Autograph\newline Wasserzeichen: [without watermark]  1814
 \par 1.1.1  S, G-Dur\newline \begin{footnotesize} [O namenlose Freude] \end{footnotesize}  
@@ -545,7 +578,8 @@
 @timesig:c
 @data:=4/4-''D{8D'B}{B''D}/{DG}4G4.G8F/4AG
 \end{filecontents*}
-\commandline{ if [ ! -f 23-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 23-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 23-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 23-1.code; fi } 
 \newline \includesvg[width=209pt]{23-1}%
 \par 1.1.2  i, G-Dur  
 \begin{filecontents*}{23-2.code}
@@ -554,7 +588,8 @@
 @timesig:c
 @data:4G-''{8FA}{A'''C}/2-8{''G'''C}{CE}/1E/D/
 \end{filecontents*}
-\commandline{ if [ ! -f 23-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 23-2.code; fi } 
+
+\ShellEscape{ if [ ! -f 23-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 23-2.code; fi } 
 \newline \includesvg[width=209pt]{23-2}%\newline Sonnleithner, Joseph  (Textdichter)\newline Treitschke, Georg Friedrich  (Textdichter)\newline Literatur: SchmidtB 1969  no.319
 \par RISM-ID: 450106659\newline D-Cv  A.V,1112,(1),1
 \par \vspace{16pt} \textcolor{darkblue}{\textbf{Beethoven, Ludwig van  1770-1827}}\hfillplus{[24]}\newline Quartett, op.131 - cis-Moll\newline vl (2), vla, vlc
@@ -567,7 +602,8 @@
 @timesig:c/
 @data:4C-2-/4-{8CE}4G{8AC}/,4xB-2-/
 \end{filecontents*}
-\commandline{ if [ ! -f 24-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 24-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 24-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 24-1.code; fi } 
 \newline \includesvg[width=209pt]{24-1}%
 \par 1.2.1  vl 1, cis-Moll  
 \begin{filecontents*}{24-2.code}
@@ -576,7 +612,8 @@
 @timesig:c
 @data:=2/2-4AF/2'B''E/4DEFG/A-2-/4GFDC/2CF/
 \end{filecontents*}
-\commandline{ if [ ! -f 24-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 24-2.code; fi } 
+
+\ShellEscape{ if [ ! -f 24-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 24-2.code; fi } 
 \newline \includesvg[width=209pt]{24-2}%
 \par 1.3.1  vl 1, \begin{itshape}tempo I.\end{itshape}, cis-Moll  
 \begin{filecontents*}{24-3.code}
@@ -585,7 +622,8 @@
 @timesig:c/
 @data:''D'AFA/2''DG/4EG4.A8B/'''4C
 \end{filecontents*}
-\commandline{ if [ ! -f 24-3.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 24-3.code; fi } 
+
+\ShellEscape{ if [ ! -f 24-3.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 24-3.code; fi } 
 \newline \includesvg[width=209pt]{24-3}%
 \par Nach JohnsonB 1985 Wasserzeichen Typ 34, Welhartiz-Papier.
 \par Freundliche Mittelung von Julia Ronge, Bonn, nach JohnsonB 1985: {\textquotedbl}V, 1-96 + 5 unused bars, 141=67 followed by d.c.{\textquotedbl}. Das meint: 5. Satz, Skizzen zu T. 1-96, aber in loser Folge, sowie zu T. 141-167 in fortlaufender Folge, dazwischen ungenutztes Material. Das 14zeilige Papier verwendete Beethoven für frühe Skizzen, je weiter er fortschritt, umso weniger Systeme hatte das Papier. Demnach wäre das Blatt mit 1825 zu datieren.\newline Literatur: SchmidtB 1969  no.318; JohnsonB 1985  p.486
@@ -593,14 +631,15 @@
 \par \vspace{16pt} \textcolor{darkblue}{\textbf{Böhner, Johann Ludwig  1787-1860}}\hfillplus{[25]}\newline Louise und Carolo im romantischen Mühltale\newline V (4), Coro, orch
 \par \begin{itshape}[title page:] Louise und Carolo | im romantischen Mühlthale; Eine ganz neue | tragik-komische Oper in 1 Act, | mit vollständigem großen Orchester. | Jn Musik gesetzt und dichterisch bearbeitet | von | Johann Louis Böhner. | Seiner Exellenz, | des Herrn Herrn Hofmarschall, Herrn | Grafen etc[?] von Salisch, hochgebohrn Gnaden | am Hofe in Gotha, in Ehrerbietigster | Ehr furchtsvollster Submission, unterthänig | gewidmet und dankbarlichst verehrt | der Componiste JLouis Böhner. | Ende Dezember 1824. | Neues Manuscript.\end{itshape} 
 \par \textcolor{darkblue}{\ding{\numexpr181 + 01}}  Partitur: 141p.; 33 x 19,5 cm\newline \begin{small} p.29-38 (38 leer): Eingelegter Faszikel (32 x 19,5 cm) mit Überschrift {\textquotedbl}Beilage zum Quartett zum Schlusse G dur{\textquotedbl}\end{small} \newline Autograph\newline Wasserzeichen: ICK [countermark: heart, crowned]  1824
-\par 1.1.1  vl 1, \begin{itshape}N|o 1 Romanze. Andantino\end{itshape}, E-Dur  
+\par 1.1.1  vl 1, \begin{itshape}N\textsuperscript{o} 1 Romanze. Andantino\end{itshape}, E-Dur  
 \begin{filecontents*}{25-1.code}
 @clef:G-2
 @keysig:xFCGD
 @timesig:6/8
 @data:{8GGG}{GGG}/{GGG}{G''C'B}/4B8xA''4D8E/
 \end{filecontents*}
-\commandline{ if [ ! -f 25-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 25-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 25-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 25-1.code; fi } 
 \newline \includesvg[width=209pt]{25-1}%
 \par 1.1.2  T, E-Dur\newline \begin{footnotesize} Einsam saß ich in dem Tale an dem schroffen Felsenhang \end{footnotesize}  
 \begin{filecontents*}{25-2.code}
@@ -609,79 +648,88 @@
 @timesig:6/8
 @data:=5/4-8--,BB/48BG'ED/DC{8C,AG}/4F8xF{FBA}/4G8-
 \end{filecontents*}
-\commandline{ if [ ! -f 25-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 25-2.code; fi } 
+
+\ShellEscape{ if [ ! -f 25-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 25-2.code; fi } 
 \newline \includesvg[width=209pt]{25-2}%
-\par 1.2.1  S, \begin{itshape}N|o 2. Romanze. Andante\end{itshape}, A-Dur\newline \begin{footnotesize} Es gehen die Töne ins fühlende Herz \end{footnotesize}  
+\par 1.2.1  S, \begin{itshape}N\textsuperscript{o} 2. Romanze. Andante\end{itshape}, A-Dur\newline \begin{footnotesize} Es gehen die Töne ins fühlende Herz \end{footnotesize}  
 \begin{filecontents*}{25-3.code}
 @clef:G-2
 @keysig:xFCG
 @timesig:2/4
 @data:4-8-A/4A8E''C/4C'8A''E/{6ExDnD'B}{''ExDnD'B}/{6B''C}'4A
 \end{filecontents*}
-\commandline{ if [ ! -f 25-3.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 25-3.code; fi } 
+
+\ShellEscape{ if [ ! -f 25-3.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 25-3.code; fi } 
 \newline \includesvg[width=209pt]{25-3}%
-\par 1.3.1  S, \begin{itshape}N|o 3. Quartett. Poco Allegretto ma piu Andante con moto\end{itshape}, g-Moll\newline \begin{footnotesize} Im ferneren Lande da kämpfen \end{footnotesize}  
+\par 1.3.1  S, \begin{itshape}N\textsuperscript{o} 3. Quartett. Poco Allegretto ma piu Andante con moto\end{itshape}, g-Moll\newline \begin{footnotesize} Im ferneren Lande da kämpfen \end{footnotesize}  
 \begin{filecontents*}{25-4.code}
 @clef:G-2
 @keysig:bBE
 @timesig:6/8
 @data:=1/4-8''DDDD/DC'BBBB/BAGGGG/
 \end{filecontents*}
-\commandline{ if [ ! -f 25-4.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 25-4.code; fi } 
+
+\ShellEscape{ if [ ! -f 25-4.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 25-4.code; fi } 
 \newline \includesvg[width=209pt]{25-4}%
-\par 1.4.1  B, \begin{itshape}N|o 4. Arie von Michel. Moderato assai\end{itshape}, D-Dur\newline \begin{footnotesize} Die Mädchen sie gleichen bei meiner Treu' \end{footnotesize}  
+\par 1.4.1  B, \begin{itshape}N\textsuperscript{o} 4. Arie von Michel. Moderato assai\end{itshape}, D-Dur\newline \begin{footnotesize} Die Mädchen sie gleichen bei meiner Treu' \end{footnotesize}  
 \begin{filecontents*}{25-5.code}
 @clef:F-4
 @keysig:xFCG
 @timesig:3/4
 @data:4--8-,A/{AF}'4.D,8A/{FD}4.A8F/4.B8G'{D,B}/{6ABAG}4F
 \end{filecontents*}
-\commandline{ if [ ! -f 25-5.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 25-5.code; fi } 
+
+\ShellEscape{ if [ ! -f 25-5.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 25-5.code; fi } 
 \newline \includesvg[width=209pt]{25-5}%
-\par 1.5.1  S, \begin{itshape}N|o 5. Große Scene von Louisen. Largo\end{itshape}, Es-Dur\newline \begin{footnotesize} Carolo schlägt dein Herz noch für Louise \end{footnotesize}  
+\par 1.5.1  S, \begin{itshape}N\textsuperscript{o} 5. Große Scene von Louisen. Largo\end{itshape}, Es-Dur\newline \begin{footnotesize} Carolo schlägt dein Herz noch für Louise \end{footnotesize}  
 \begin{filecontents*}{25-6.code}
 @clef:G-2
 @keysig:bBEA
 @timesig:c
 @data:=4/{8.B6F}4F''{8.(D)6'B}4B/''4.D8'B2(B)/
 \end{filecontents*}
-\commandline{ if [ ! -f 25-6.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 25-6.code; fi } 
+
+\ShellEscape{ if [ ! -f 25-6.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 25-6.code; fi } 
 \newline \includesvg[width=209pt]{25-6}%
-\par 1.6.1  B, \begin{itshape}N|o 6. Duetto, Michel und der Müller. Allegro molto\end{itshape}, D-Dur\newline \begin{footnotesize} Alle Donner alle Wetter alle Teufel \end{footnotesize}  
+\par 1.6.1  B, \begin{itshape}N\textsuperscript{o} 6. Duetto, Michel und der Müller. Allegro molto\end{itshape}, D-Dur\newline \begin{footnotesize} Alle Donner alle Wetter alle Teufel \end{footnotesize}  
 \begin{filecontents*}{25-7.code}
 @clef:F-4
 @keysig:xFC
 @timesig:c
 @data:=1/2-4-8,AA/4AF-'8DD/4D,B-8BB/4BG-
 \end{filecontents*}
-\commandline{ if [ ! -f 25-7.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 25-7.code; fi } 
+
+\ShellEscape{ if [ ! -f 25-7.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 25-7.code; fi } 
 \newline \includesvg[width=209pt]{25-7}%
-\par 1.7.1  Coro S, \begin{itshape}Scene 2. | N|o 7 Marsch. sehr feierlich und langsam\end{itshape}, a-Moll\newline \begin{footnotesize} Er ist da in seiner Gloria \end{footnotesize}  
+\par 1.7.1  Coro S, \begin{itshape}Scene 2. | N\textsuperscript{o} 7 Marsch. sehr feierlich und langsam\end{itshape}, a-Moll\newline \begin{footnotesize} Er ist da in seiner Gloria \end{footnotesize}  
 \begin{filecontents*}{25-8.code}
 @clef:G-2
 @keysig:
 @timesig:c
 @data:2AA/2.''C4-/2'AA/2.''C4-/2E4GG/2G4..xFt{3EF}/1G/
 \end{filecontents*}
-\commandline{ if [ ! -f 25-8.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 25-8.code; fi } 
+
+\ShellEscape{ if [ ! -f 25-8.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 25-8.code; fi } 
 \newline \includesvg[width=209pt]{25-8}%
-\par 1.8.1  Coro S, \begin{itshape}N|o 8. Coro. Poco Allegretto\end{itshape}, C-Dur\newline \begin{footnotesize} Tief aus Tälern aus waldigen Höhen eilen wir freudig heran \end{footnotesize}  
+\par 1.8.1  Coro S, \begin{itshape}N\textsuperscript{o} 8. Coro. Poco Allegretto\end{itshape}, C-Dur\newline \begin{footnotesize} Tief aus Tälern aus waldigen Höhen eilen wir freudig heran \end{footnotesize}  
 \begin{filecontents*}{25-9.code}
 @clef:G-2
 @keysig:
 @timesig:6/8
 @data:=17/4G8B{''CE}'G/{8.G6G}8B''4C8E/'AAA''CCC/4D8-
 \end{filecontents*}
-\commandline{ if [ ! -f 25-9.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 25-9.code; fi } 
+
+\ShellEscape{ if [ ! -f 25-9.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 25-9.code; fi } 
 \newline \includesvg[width=209pt]{25-9}%
-\par 1.9.1  Coro S, \begin{itshape}N|o 9. Finale und Schluß Chor.\end{itshape}, Es-Dur\newline \begin{footnotesize} Freude füllet alle Herzen \end{footnotesize}  
+\par 1.9.1  Coro S, \begin{itshape}N\textsuperscript{o} 9. Finale und Schluß Chor.\end{itshape}, Es-Dur\newline \begin{footnotesize} Freude füllet alle Herzen \end{footnotesize}  
 \begin{filecontents*}{25-10.code}
 @clef:G-2
 @keysig:bBEA
 @timesig:c
 @data:=2/2-4BB/4.8''GEDF/4EG'BB/''CDEC/
 \end{filecontents*}
-\commandline{ if [ ! -f 25-10.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 25-10.code; fi } 
+
+\ShellEscape{ if [ ! -f 25-10.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 25-10.code; fi } 
 \newline \includesvg[width=209pt]{25-10}%\newline Arnold, Ignaz Ferdinand  (Textdichter)
 \par RISM-ID: 450109877\newline D-Cv  A.V,1134,(5),1 (Buch 34)
 \par \vspace{16pt} \textcolor{darkblue}{\textbf{Boieldieu, Louis  1815-1883}}\hfillplus{[26]}\newline Les Deux nuits. Auswahl\newline V (2), orch
@@ -694,7 +742,8 @@
 @timesig:6/8
 @data:''{6BBBBB'''E}/''{3.5B'''C''BG}8E-'G--/D--''{6BBBBB'''F}/''{3.5B'''C''AF}8D-'D--/
 \end{filecontents*}
-\commandline{ if [ ! -f 26-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 26-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 26-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 26-1.code; fi } 
 \newline \includesvg[width=209pt]{26-1}%
 \par 1.1.2  S, Es-Dur\newline \begin{footnotesize} Milord vous avez ma promesse \end{footnotesize}  
 \begin{filecontents*}{26-2.code}
@@ -703,7 +752,8 @@
 @timesig:6/8
 @data:=1/8--6-B{8''E'E}-/=1/4-6-3-B''{8F'6A}3AB6''C'3BA/8xFG-
 \end{filecontents*}
-\commandline{ if [ ! -f 26-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 26-2.code; fi } 
+
+\ShellEscape{ if [ ! -f 26-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 26-2.code; fi } 
 \newline \includesvg[width=209pt]{26-2}%
 \par Hinweis im Katalog in D-Cv: Erster Entwurf eines Duos im 2\textsuperscript{t}\textsuperscript{e}\textsuperscript{n} Acte der Oper „Les deux nuits“ M.A. | M.P.
 \par Unterschrift f.1r, unten: Boieldieu\newline Bouilly, Jean Nicolas  (Textdichter)\newline Scribe, Eugène  (Textdichter)
@@ -718,7 +768,8 @@
 @timesig:c
 @data:4-FGA/''2C'4B-/2B4''CD/2FE+/4EEDC/
 \end{filecontents*}
-\commandline{ if [ ! -f 27-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 27-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 27-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 27-1.code; fi } 
 \newline \includesvg[width=209pt]{27-1}%
 \par 1.1.2  org, B-Dur  
 \begin{filecontents*}{27-2.code}
@@ -727,7 +778,8 @@
 @timesig:c
 @data:2F4GA/''2C'B/B4''CD/2FE+/4EEDC/
 \end{filecontents*}
-\commandline{ if [ ! -f 27-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 27-2.code; fi } 
+
+\ShellEscape{ if [ ! -f 27-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 27-2.code; fi } 
 \newline \includesvg[width=209pt]{27-2}%
 \par Prägestempel {\textquotedbl}EA{\textquotedbl} mit Krone
 \par RISM-ID: 450106264\newline D-Cv  A.V,1119,(2),1
@@ -741,7 +793,8 @@
 @timesig:c
 @data:,,{6EB,EGBGE,,B}{6EB,EGBGE,,B}/{6EB,EGBGE,,B}{6EB,EGBGE,,B}/
 \end{filecontents*}
-\commandline{ if [ ! -f 28-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 28-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 28-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 28-1.code; fi } 
 \newline \includesvg[width=209pt]{28-1}%
 \par 1.1.2  pf right hand, Es-Dur  
 \begin{filecontents*}{28-2.code}
@@ -750,7 +803,8 @@
 @timesig:c
 @data:=1/2''G4FE+/EDbC'B/''2A4GF+/FEC'B/
 \end{filecontents*}
-\commandline{ if [ ! -f 28-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 28-2.code; fi } 
+
+\ShellEscape{ if [ ! -f 28-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 28-2.code; fi } 
 \newline \includesvg[width=209pt]{28-2}%
 \par Kleinformatiges Titelblatt (12,5 x 19,5 cm) vorne auf das Doppel-Notenblatt aufgeklebt.
 \par Notiz nach den Noten, f.2v unten: {\textquotedbl}respectueusement offert | à l'auteur par son très humble | et dévoué serviteur | F. Liszt [on the left:] Coburg 6 Novembre 1842.{\textquotedbl}
@@ -766,7 +820,8 @@
 @timesig:c/
 @data:4E/AA''{8.D6E}4F/E'A''{8.D6E}4F/E{8.D6C}'4B''E/'2.A4-/
 \end{filecontents*}
-\commandline{ if [ ! -f 29-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 29-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 29-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 29-1.code; fi } 
 \newline \includesvg[width=209pt]{29-1}%
 \par 1.1.2  S, a-Moll\newline \begin{footnotesize} Das Fräulein saß und sann \end{footnotesize}  
 \begin{filecontents*}{29-2.code}
@@ -775,7 +830,8 @@
 @timesig:c/
 @data:4-/=3/2-4-E/AA{8AxG}{AB}/''2.C4-/
 \end{filecontents*}
-\commandline{ if [ ! -f 29-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 29-2.code; fi } 
+
+\ShellEscape{ if [ ! -f 29-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 29-2.code; fi } 
 \newline \includesvg[width=209pt]{29-2}%
 \par RISM-ID: 450109875\newline D-Cv  A.V,1133,(5),2
 \par \vspace{16pt} \textcolor{darkblue}{\textbf{Fischhof, Joseph  1804-1857}}\hfillplus{[30]}\newline Sehnsucht - Es-Dur\newline S, pf
@@ -788,7 +844,8 @@
 @timesig:12/8
 @data:4.G8{GAB}4.BE/4-8-{''AB'''bC}2.''B/'4.G8{GAB}4.BE/
 \end{filecontents*}
-\commandline{ if [ ! -f 30-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 30-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 30-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 30-1.code; fi } 
 \newline \includesvg[width=209pt]{30-1}%
 \par 1.1.2  S, Es-Dur\newline \begin{footnotesize} Wo zieht ihr Wolken so eilig hin \end{footnotesize}  
 \begin{filecontents*}{30-2.code}
@@ -797,7 +854,8 @@
 @timesig:12/8
 @data:=5/4.G{8GA}4.B4E8E/''4.E'{8FGA}2.A/
 \end{filecontents*}
-\commandline{ if [ ! -f 30-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 30-2.code; fi } 
+
+\ShellEscape{ if [ ! -f 30-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 30-2.code; fi } 
 \newline \includesvg[width=209pt]{30-2}%
 \par Datumsangabe auf f.1v, oben rechts.\newline Schweizer, Carl Friedrich von  (Textdichter)
 \par RISM-ID: 450109874\newline D-Cv  A.V,1133,(5),1
@@ -811,7 +869,8 @@
 @timesig:3/4
 @data:8GG4AG/2B4A/
 \end{filecontents*}
-\commandline{ if [ ! -f 31-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 31-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 31-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 31-1.code; fi } 
 \newline \includesvg[width=209pt]{31-1}%
 \par Auf dem Blatt (Rückseite leer) sind nur die beiden ersten Takte der Singstimme notiert, rechts daneben {\textquotedbl}etc{\textquotedbl}, darunter: {\textquotedbl}Mit freundlichen Grüssen | Halle d. 2. Jul. 92. | Rob. Franz.{\textquotedbl}\newline Geibel, Emanuel  (Textdichter)
 \par RISM-ID: 450109878\newline D-Cv  A.V,1134,(8),2
@@ -838,7 +897,8 @@
 @timesig:c
 @data:2G+GgnB/{8''C6'nB''C}+{CEDC}gxF{8G'G}4-/8{B''G+}{6GbDC'B}{8BtbA}''4F/
 \end{filecontents*}
-\commandline{ if [ ! -f 33-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 33-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 33-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 33-1.code; fi } 
 \newline \includesvg[width=209pt]{33-1}%
 \par 1.1.2  b, c-Moll  
 \begin{filecontents*}{33-2.code}
@@ -847,7 +907,8 @@
 @timesig:c
 @data:'{8CCCC}{,BBBB}/{bAAAA}{GGGG}/{nEEEE}{FFFF}/
 \end{filecontents*}
-\commandline{ if [ ! -f 33-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 33-2.code; fi } 
+
+\ShellEscape{ if [ ! -f 33-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 33-2.code; fi } 
 \newline \includesvg[width=209pt]{33-2}%
 \par 1.2.1  fl, \begin{itshape}Allegro\end{itshape}, c-Moll  
 \begin{filecontents*}{33-3.code}
@@ -856,7 +917,8 @@
 @timesig:2/4
 @data:4''CG/'''4.C''{6BA}/{8G6FE}{8DG}/{ECbAC}/
 \end{filecontents*}
-\commandline{ if [ ! -f 33-3.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 33-3.code; fi } 
+
+\ShellEscape{ if [ ! -f 33-3.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 33-3.code; fi } 
 \newline \includesvg[width=209pt]{33-3}%
 \par 1.3.1  fl, \begin{itshape}Presto\end{itshape}, c-Moll  
 \begin{filecontents*}{33-4.code}
@@ -865,99 +927,108 @@
 @timesig:6/8
 @data:''{6EF8G'G}/{AnB''C}/{FEDt}/{6ED8CG}/
 \end{filecontents*}
-\commandline{ if [ ! -f 33-4.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 33-4.code; fi } 
+
+\ShellEscape{ if [ ! -f 33-4.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 33-4.code; fi } 
 \newline \includesvg[width=209pt]{33-4}%
 \par Comment on scoring: cemb: bc
 \par RISM-ID: 450111001\newline D-Cv  A.I,179,(1),17\newline $\rightarrow$ In Sammlung 32 (450111000)
       
-\par \vspace{16pt} \textcolor{darkblue}{\textbf{Friedrich II., der Große, König von Preußen  1712-1786}}\hfillplus{[34]}\newline Sonate, SpiF 55 - E-Dur\newline fl, bc
-\par \begin{itshape}[caption title:] No 161 Solo per il Flauto Traverso [on the right:] di Frederico\end{itshape} 
-\par \textcolor{darkblue}{\ding{\numexpr181 + 01}}  Partitur: f.3r-4v\newline \begin{small} Der Schluss des 3. Satzes steht in den beiden untersten Akkoladen von f.3r\end{small} \newline Autograph
-\par 1.1.1  fl, \begin{itshape}Arioso\end{itshape}, E-Dur  
-\begin{filecontents*}{34-1.code}
-@clef:G-2
-@keysig:xFCGD
-@timesig:3/8
-@data:{6.B3''G}{6G8F3ED}/{6Et3DC}8'B-/{6''CE'B''E'A''F}/'8{AtG}-/
-\end{filecontents*}
-\commandline{ if [ ! -f 34-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 34-1.code; fi } 
-\newline \includesvg[width=209pt]{34-1}%
-\par 1.1.2  b, E-Dur  
-\begin{filecontents*}{34-2.code}
-@clef:F-4
-@keysig:xFCGD
-@timesig:3/8
-@data:8,{EEF}/{GG}-/{AGF}/{6.3E,,EGB,E,,B}/
-\end{filecontents*}
-\commandline{ if [ ! -f 34-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 34-2.code; fi } 
-\newline \includesvg[width=209pt]{34-2}%
-\par 1.2.1  fl, \begin{itshape}Allegro\end{itshape}, E-Dur  
-\begin{filecontents*}{34-3.code}
-@clef:G-2
-@keysig:xFCGD
-@timesig:c
-@data:''{8B6AG}8{FE}gE4.Dt8E/'{8.A3B''C}'{8BA}{G''GFE}/'{8.A3B''C}'{8BA}{G''BAG}/
-\end{filecontents*}
-\commandline{ if [ ! -f 34-3.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 34-3.code; fi } 
-\newline \includesvg[width=209pt]{34-3}%
-\par 1.3.1  fl, \begin{itshape}Allegro assai\end{itshape}, E-Dur  
-\begin{filecontents*}{34-4.code}
-@clef:G-2
-@keysig:xFCGD
-@timesig:2/4
-@data:8B/q6''F{8E6DE}{'8B''G}/q6G8{F6EF}'8{B''D}/q6F{8E6DE}'8{B''G}/
-\end{filecontents*}
-\commandline{ if [ ! -f 34-4.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 34-4.code; fi } 
-\newline \includesvg[width=209pt]{34-4}%
-\par Comment on scoring: cemb: bc
-\par RISM-ID: 450111002\newline D-Cv  A.I,179,(1),17\newline $\rightarrow$ In Sammlung 32 (450111000)
-      
-\par \vspace{16pt} \textcolor{darkblue}{\textbf{Friedrich II., der Große, König von Preußen  1712-1786}}\hfillplus{[35]}\newline Sonate, SpiF 18 - D-Dur\newline fl, bc
+\par \vspace{16pt} \textcolor{darkblue}{\textbf{Friedrich II., der Große, König von Preußen  1712-1786}}\hfillplus{[34]}\newline Sonate, SpiF 18 - D-Dur\newline fl, bc
 \par \begin{itshape}[caption title:] No 123 Solo per il Flauto Traverso [on the right:] di Federico.\end{itshape} 
 \par \textcolor{darkblue}{\ding{\numexpr181 + 01}}  Partitur: f.5r-6v\newline Partial autograph
 \par 1.1.1  fl, \begin{itshape}Adagio et Cantabile\end{itshape}, D-Dur  
-\begin{filecontents*}{35-1.code}
+\begin{filecontents*}{34-1.code}
 @clef:G-2
 @keysig:xFC
 @timesig:3/8
 @data:''{6.DgE3CgC6.D3'A}{6.B3''G}/'q8A{6.Gt5FG8F}-/
 \end{filecontents*}
-\commandline{ if [ ! -f 35-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 35-1.code; fi } 
-\newline \includesvg[width=209pt]{35-1}%
+
+\ShellEscape{ if [ ! -f 34-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 34-1.code; fi } 
+\newline \includesvg[width=209pt]{34-1}%
 \par 1.1.2  b, D-Dur  
-\begin{filecontents*}{35-2.code}
+\begin{filecontents*}{34-2.code}
 @clef:F-4
 @keysig:xFC
 @timesig:3/8
 @data:8{,DFG}/{CD}-/{FGxG}/{A,,A,F}/
 \end{filecontents*}
-\commandline{ if [ ! -f 35-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 35-2.code; fi } 
-\newline \includesvg[width=209pt]{35-2}%
+
+\ShellEscape{ if [ ! -f 34-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 34-2.code; fi } 
+\newline \includesvg[width=209pt]{34-2}%
 \par 1.2.1  fl, \begin{itshape}Allegro\end{itshape}, D-Dur  
-\begin{filecontents*}{35-3.code}
+\begin{filecontents*}{34-3.code}
 @clef:G-2
 @keysig:xFC
 @timesig:c
 @data:''{6FG}/8A'''4D6{C''B}{8A6GF}{8ED}/{6BGAF}{GEFD}{8CD}4-/
 \end{filecontents*}
-\commandline{ if [ ! -f 35-3.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 35-3.code; fi } 
-\newline \includesvg[width=209pt]{35-3}%
+
+\ShellEscape{ if [ ! -f 34-3.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 34-3.code; fi } 
+\newline \includesvg[width=209pt]{34-3}%
 \par 1.3.1  fl, \begin{itshape}Presto\end{itshape}, D-Dur  
-\begin{filecontents*}{35-4.code}
+\begin{filecontents*}{34-4.code}
 @clef:G-2
 @keysig:xFC
 @timesig:2/4
 @data:6''{FG}/8A4B'''8C+/C4D''8D/{G6AB}{8GE}/{CD}4-/
 \end{filecontents*}
-\commandline{ if [ ! -f 35-4.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 35-4.code; fi } 
-\newline \includesvg[width=209pt]{35-4}%
+
+\ShellEscape{ if [ ! -f 34-4.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 34-4.code; fi } 
+\newline \includesvg[width=209pt]{34-4}%
 \par Nur Satz 1 auf f.5r ist autograph, die beiden Folgesätze von Kopistenhand, jedoch nicht wie auf f.5v unten angegeben von Quantz: {\textquotedbl}diese Noten soll H. Quantz geschrieben haben.{\textquotedbl}
 \par Comment on scoring: cemb: bc\newline Quantz, Johann Joachim  (Sonstige)
 \par RISM-ID: 450111003\newline D-Cv  A.I,179,(1),17\newline $\rightarrow$ In Sammlung 32 (450111000)
       
+\par \vspace{16pt} \textcolor{darkblue}{\textbf{Friedrich II., der Große, König von Preußen  1712-1786}}\hfillplus{[35]}\newline Sonate, SpiF 55 - E-Dur\newline fl, bc
+\par \begin{itshape}[caption title:] No 161 Solo per il Flauto Traverso [on the right:] di Frederico\end{itshape} 
+\par \textcolor{darkblue}{\ding{\numexpr181 + 01}}  Partitur: f.3r-4v\newline \begin{small} Der Schluss des 3. Satzes steht in den beiden untersten Akkoladen von f.3r\end{small} \newline Autograph
+\par 1.1.1  fl, \begin{itshape}Arioso\end{itshape}, E-Dur  
+\begin{filecontents*}{35-1.code}
+@clef:G-2
+@keysig:xFCGD
+@timesig:3/8
+@data:{6.B3''G}{6G8F3ED}/{6Et3DC}8'B-/{6''CE'B''E'A''F}/'8{AtG}-/
+\end{filecontents*}
+
+\ShellEscape{ if [ ! -f 35-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 35-1.code; fi } 
+\newline \includesvg[width=209pt]{35-1}%
+\par 1.1.2  b, E-Dur  
+\begin{filecontents*}{35-2.code}
+@clef:F-4
+@keysig:xFCGD
+@timesig:3/8
+@data:8,{EEF}/{GG}-/{AGF}/{6.3E,,EGB,E,,B}/
+\end{filecontents*}
+
+\ShellEscape{ if [ ! -f 35-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 35-2.code; fi } 
+\newline \includesvg[width=209pt]{35-2}%
+\par 1.2.1  fl, \begin{itshape}Allegro\end{itshape}, E-Dur  
+\begin{filecontents*}{35-3.code}
+@clef:G-2
+@keysig:xFCGD
+@timesig:c
+@data:''{8B6AG}8{FE}gE4.Dt8E/'{8.A3B''C}'{8BA}{G''GFE}/'{8.A3B''C}'{8BA}{G''BAG}/
+\end{filecontents*}
+
+\ShellEscape{ if [ ! -f 35-3.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 35-3.code; fi } 
+\newline \includesvg[width=209pt]{35-3}%
+\par 1.3.1  fl, \begin{itshape}Allegro assai\end{itshape}, E-Dur  
+\begin{filecontents*}{35-4.code}
+@clef:G-2
+@keysig:xFCGD
+@timesig:2/4
+@data:8B/q6''F{8E6DE}{'8B''G}/q6G8{F6EF}'8{B''D}/q6F{8E6DE}'8{B''G}/
+\end{filecontents*}
+
+\ShellEscape{ if [ ! -f 35-4.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 35-4.code; fi } 
+\newline \includesvg[width=209pt]{35-4}%
+\par Comment on scoring: cemb: bc
+\par RISM-ID: 450111002\newline D-Cv  A.I,179,(1),17\newline $\rightarrow$ In Sammlung 32 (450111000)
+      
 \par \vspace{16pt} \textcolor{darkblue}{\textbf{Gluck, Christoph Willibald  1714-1787}}\hfillplus{[36]}\newline Alceste
 \par \begin{itshape}Alceste. Tragedia. Messa in musica dal Cristoforo Gluck. IN VIENNA, NELLA STAMPARIA AULICA DI GIOVANNI TOMASO DE TRATTNERN. MDCCLXIX.\end{itshape} 
-\par \textcolor{darkblue}{\ding{\numexpr181 + 01}}  1 Partitur: 233 p.\newline Musikdruck  1769\newline Trattner, Johann Thomas von  (pbl)
+\par \textcolor{darkblue}{\ding{\numexpr181 + 01}}  1 Partitur: 233 p.\newline Musikdruck  1769\newline Trattner, Johann Thomas von  (Verleger)
 \par RISM-ID: 00000990021791\newline A-Sm; A-Wgm; A-Wmi; A-Wn; A-Wn-h; A-Wst; B-Bc; B-Br; CDN-Vu; CH-BEl; CH-Bm; CH-Wk; CZ-K; CZ-Pk; CZ-Pnm; D-B; D-Cv; D-Dl  Mus.3030.F.36.a; D-F  Mus Wf 15; D-Hs; D-LEm; D-LÜh; D-Mbs; D-MZfederhofer; D-Rp; DK-Kk; DK-Kmk; E-Boc; F-Pc; F-Po; F-Sim; GB-Cpl; GB-Er; GB-Lbl; GB-Lcm; GB-Mp; H-Bl; H-Bn; I-Bc; I-Fc; I-Li; I-MOe; I-Nc; I-OS; I-Tn; I-TScon; NL-DHgm; PL-Cb; RUS-Mrg; S-Skma; S-Smf; S-Sr  Näs gårdsarkiv; S-St; US-Bc; US-BEm; US-BUu; US-CA; US-NH; US-NO; US-NYcu; US-NYp; US-NYpm; US-PRu; US-R; US-U; US-Wc
 \par \vspace{16pt} \textcolor{darkblue}{\textbf{Gluck, Christoph Willibald  1714-1787}}\hfillplus{[37]}\newline Iphigénie en Tauride. Excerpts. Arr, WotG 46\newline V (4)
 \par \begin{itshape}[without title]\end{itshape} 
@@ -969,7 +1040,8 @@
 @timesig:c
 @data:2B''D/CE/nFF/E4D-/
 \end{filecontents*}
-\commandline{ if [ ! -f 37-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 37-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 37-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 37-1.code; fi } 
 \newline \includesvg[width=209pt]{37-1}%
 \par Hinweis auf der Mappe: Versetzung der Hymne für Frauenstimmen aus Gluck’s Iphigenia in einen vierstimmigen Satz zum Behufe eines Concertes in Buckingham Palace.
 \par Die Bearbeitung ist ein Ausschnitt aus dem Chor {\textquotedbl}Chaste fille de Latone{\textquotedbl} im 4. Akt.\newline Costa, Michele  (arr)\newline Guillard, Nicolas-François  (Textdichter)
@@ -984,7 +1056,8 @@
 @timesig:c/
 @data:2.B''{8CD}/2D'4FF/GBA''C/4'B--''E/
 \end{filecontents*}
-\commandline{ if [ ! -f 38-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 38-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 38-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 38-1.code; fi } 
 \newline \includesvg[width=209pt]{38-1}%
 \par 1.1.2  S, G-Dur\newline \begin{footnotesize} Domine Deus salutis meae, in die clamavi \end{footnotesize}  
 \begin{filecontents*}{38-2.code}
@@ -993,7 +1066,8 @@
 @timesig:c/
 @data:=8/2.B8''CD/2D'4FF/GBA''C/'B--E/
 \end{filecontents*}
-\commandline{ if [ ! -f 38-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 38-2.code; fi } 
+
+\ShellEscape{ if [ ! -f 38-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 38-2.code; fi } 
 \newline \includesvg[width=209pt]{38-2}%
 \par Datierung am Ende der Partitur: {\textquotedbl}d: 23. Aug. [1]803.{\textquotedbl}
 \par Comment on scoring: org: bc
@@ -1008,7 +1082,8 @@
 @timesig:c
 @data:''2.C4-/'8-E-E-F-F/-E-E-{EG''C}/EEDC}{'BAGF}/
 \end{filecontents*}
-\commandline{ if [ ! -f 39-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 39-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 39-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 39-1.code; fi } 
 \newline \includesvg[width=209pt]{39-1}%
 \par 1.1.2  S, C-Dur\newline \begin{footnotesize} Quand sur les ailes des plaisirs \end{footnotesize}  
 \begin{filecontents*}{39-2.code}
@@ -1017,7 +1092,8 @@
 @timesig:c
 @data:1-/4G8.6GGAGAB/''2C4-{8.C6D}/4E8DC8.6'{BA}GF/6{GFEF}4E
 \end{filecontents*}
-\commandline{ if [ ! -f 39-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 39-2.code; fi } 
+
+\ShellEscape{ if [ ! -f 39-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 39-2.code; fi } 
 \newline \includesvg[width=209pt]{39-2}%
 \par f.1r leer, nur unten links Bleistiftbemerkung: {\textquotedbl}Eckschläger? Himmel V,1111;3{\textquotedbl}
 \par Im Katalog in D-Cv ist das Werk irrtümlich unter dem Namen Carl Maria von Webers eingetragen.
@@ -1034,7 +1110,8 @@
 @timesig:c
 @data:4-4.D{8EFG}/2A4F-/
 \end{filecontents*}
-\commandline{ if [ ! -f 40-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 40-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 40-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 40-1.code; fi } 
 \newline \includesvg[width=209pt]{40-1}%
 \par 1.1.2  vlc, D-Dur  
 \begin{filecontents*}{40-2.code}
@@ -1043,7 +1120,8 @@
 @timesig:c
 @data:,4DDDD/DDDD/
 \end{filecontents*}
-\commandline{ if [ ! -f 40-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 40-2.code; fi } 
+
+\ShellEscape{ if [ ! -f 40-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 40-2.code; fi } 
 \newline \includesvg[width=209pt]{40-2}%
 \par 1.1.3  Coro 1: A, D-Dur\newline \begin{footnotesize} Sanctus, Dominus Deus Sabaoth \end{footnotesize}  
 \begin{filecontents*}{40-3.code}
@@ -1052,7 +1130,8 @@
 @timesig:c
 @data:4-4.D{8EFG}/2A4F-/
 \end{filecontents*}
-\commandline{ if [ ! -f 40-3.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 40-3.code; fi } 
+
+\ShellEscape{ if [ ! -f 40-3.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 40-3.code; fi } 
 \newline \includesvg[width=209pt]{40-3}%
 \par Die 12 Instrumentalstimmen sind in einem Heft zusammengebunden. Die Vokalstimmen sind in je einem weiteren Heft zusammengebunden (hier als eigene Materialart aufgenommen). Die zugehörige Partitur hat eine eigene Signatur, A.V,1109,(1),1a, und wurde deshalb in dieser Datenbank als eigener Datensatz aufgenommen, vgl. RISM ID no. 450106268.
 \par Orgel in D-Dur (Chorton-Notierung), alles übrige in E-Dur.
@@ -1069,7 +1148,8 @@
 @timesig:c
 @data:4-4.D{8EFG}/2A4F-/
 \end{filecontents*}
-\commandline{ if [ ! -f 41-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 41-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 41-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 41-1.code; fi } 
 \newline \includesvg[width=209pt]{41-1}%
 \par 1.1.2  Coro 2: B, D-Dur\newline \begin{footnotesize} Sanctus, Dominus Deus Sabaoth \end{footnotesize}  
 \begin{filecontents*}{41-2.code}
@@ -1078,7 +1158,8 @@
 @timesig:c
 @data:1,D+/D/,,A+/A/
 \end{filecontents*}
-\commandline{ if [ ! -f 41-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 41-2.code; fi } 
+
+\ShellEscape{ if [ ! -f 41-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 41-2.code; fi } 
 \newline \includesvg[width=209pt]{41-2}%
 \par Die zugehörigen Instrumentalstimmen sind in D-Cv unter der Signatur A.V,1109,(1),1b zusammengefasst, die Singstimmen unter A.V,1109,(1),1c, vgl. RISM ID no. 450106266.\newline Bach, Carl Philipp Emanuel  (Vorbesitzer)\newline Bach, Johann Sebastian  (arr)\newline Kittel, Johann Christian  (Vorbesitzer)\newline Poelchau, Georg Johann Daniel  (Vorbesitzer)\newline Literatur: DavidB 1961  p.199-223
 \par RISM-ID: 450106268\newline D-Cv  A.V,1109,(1),1a
@@ -1092,7 +1173,8 @@
 @timesig:3/4
 @data:''2.C+/C/+4C--/-xC-//
 \end{filecontents*}
-\commandline{ if [ ! -f 42-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 42-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 42-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 42-1.code; fi } 
 \newline \includesvg[width=209pt]{42-1}%
 \par Die Besetzung ist nicht eindeutig zu klären. Angenommen wurden je ein C-1-Schlüssel in den beiden oberen Systemen, ein C-4-Schlüssel im dritten System und im unteren System ein Bassschlüssel.
 \par Das Wort {\textquotedbl}alle{\textquotedbl} über allen 4 Systemen deutet darauf hin, dass die ersten 3 Takte solistisch auszuführen sind und nur der Schlussakkord des Ausschnittes chorisch.
@@ -1108,7 +1190,8 @@
 @timesig:3/4
 @data:,2.G/2xC+{8.C6D}/8D-2G/2xC+{8.C6D}/8D-4G{8.D6E}/
 \end{filecontents*}
-\commandline{ if [ ! -f 43-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 43-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 43-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 43-1.code; fi } 
 \newline \includesvg[width=209pt]{43-1}%
 \par Gedrucktes Notenpapier mit 14 Notenzeilen {\textquotedbl}Adolph Nagel in Hannover.{\textquotedbl}\newline Mosenthal, Salomon Hermann von  (Textdichter)
 \par RISM-ID: 450109867\newline D-Cv  A.V,1122,(1),3
@@ -1122,7 +1205,8 @@
 @timesig:c
 @data:2''B8.6-{DFB}/8A-'({8FFF})F-4-/''2G8.6-{ECF}/8D-'(8{BBB})B-4-/
 \end{filecontents*}
-\commandline{ if [ ! -f 44-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 44-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 44-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 44-1.code; fi } 
 \newline \includesvg[width=209pt]{44-1}%
 \par 1.1.2  T, \begin{itshape}Allegretto maestoso\end{itshape}, B-Dur\newline \begin{footnotesize} Es braust und wogt des Volkes Drang \end{footnotesize}  
 \begin{filecontents*}{44-2.code}
@@ -1131,25 +1215,28 @@
 @timesig:c
 @data:=17//=2/4-{8.,B6F}'8D-C-/,B-{8.B6F}'8D-C-/,B
 \end{filecontents*}
-\commandline{ if [ ! -f 44-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 44-2.code; fi } 
+
+\ShellEscape{ if [ ! -f 44-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 44-2.code; fi } 
 \newline \includesvg[width=209pt]{44-2}%
-\par 1.2.1  S, \begin{itshape}2|t|e Strophe | Un Sopran Solo.\end{itshape}, B-Dur\newline \begin{footnotesize} Hier wo der Kunst ein gastlich Dach \end{footnotesize}  
+\par 1.2.1  S, \begin{itshape}2\textsuperscript{t}\textsuperscript{e} Strophe | Un Sopran Solo.\end{itshape}, B-Dur\newline \begin{footnotesize} Hier wo der Kunst ein gastlich Dach \end{footnotesize}  
 \begin{filecontents*}{44-3.code}
 @clef:C-1
 @keysig:bBE
 @timesig:c
 @data:4-'{8.B'6F}8''D-C-/'B-{8.B6F}8''D-C-/'B
 \end{filecontents*}
-\commandline{ if [ ! -f 44-3.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 44-3.code; fi } 
+
+\ShellEscape{ if [ ! -f 44-3.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 44-3.code; fi } 
 \newline \includesvg[width=209pt]{44-3}%
-\par 1.3.1  T, \begin{itshape}3|t|e Strophe. Andantino cantabile\end{itshape}, Es-Dur\newline \begin{footnotesize} Mein Oheim, tönt’s am Tajo fern \end{footnotesize}  
+\par 1.3.1  T, \begin{itshape}3\textsuperscript{t}\textsuperscript{e} Strophe. Andantino cantabile\end{itshape}, Es-Dur\newline \begin{footnotesize} Mein Oheim, tönt’s am Tajo fern \end{footnotesize}  
 \begin{filecontents*}{44-4.code}
 @clef:C-4
 @keysig:bBEA
 @timesig:6/8
 @data:=6/8--,E4B8G/4A8'CD+{6DC},{BA}/8G-
 \end{filecontents*}
-\commandline{ if [ ! -f 44-4.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 44-4.code; fi } 
+
+\ShellEscape{ if [ ! -f 44-4.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 44-4.code; fi } 
 \newline \includesvg[width=209pt]{44-4}%
 \par Bericht von der Uraufführung am 02.01.1840, dem 56. Geburtstag Herzog Ernsts I., in den {\textquotedbl}Vorzimmern Se. Herzoglichen Durchlaucht{\textquotedbl} in der Gothaischen Zeitung vom 04.01.1840; zitiert bei BöckingA 2006, p.92.
 \par In D-Cv, Inv.-Nr. V,1126,5, autographer Begleitbrief Meyerbeers an den Gothaer Theaterdichter und Hofrat Johann Heinrich Millenet vom 20.12.1839 aus Baden. Darin u.a.: {\textquotedbl}Leider kann ich, durch den späten Entschluss auf wenige Stunden beschränkt, nur ein kleines Festlied darbieten.{\textquotedbl} Faksimile und Transkription des Briefes bei BöckingA 2006, p.89-91.\newline Ernst I., Herzog von Sachsen-Coburg-Saalfeld  (Widmungsträger)\newline Millenet, Johann Heinrich  (Sonstige)\newline Millenet, Johann Heinrich  (Textdichter)\newline Literatur: BöckingA 2006  p.86-93\newline Olim: M. N|o 72.
@@ -1164,7 +1251,8 @@
 @timesig:c
 @data:''8C-4.C{6DC}{8'BA}/''F-4F+{6FEAG}{8FE}/
 \end{filecontents*}
-\commandline{ if [ ! -f 45-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 45-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 45-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 45-1.code; fi } 
 \newline \includesvg[width=209pt]{45-1}%
 \par 1.1.2  S, F-Dur\newline \begin{footnotesize} Ah se in ciel benigne stelle \end{footnotesize}  
 \begin{filecontents*}{45-2.code}
@@ -1173,7 +1261,8 @@
 @timesig:c
 @data:=23/''2.C'8{BA}/''2.F4E/2D+{8DxC}{DnC}/{C'B}4A2-/
 \end{filecontents*}
-\commandline{ if [ ! -f 45-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 45-2.code; fi } 
+
+\ShellEscape{ if [ ! -f 45-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 45-2.code; fi } 
 \newline \includesvg[width=209pt]{45-2}%\newline André, Johann Anton  (Vorbesitzer)\newline André, Julius  (Vorbesitzer)\newline Metastasio, Pietro  (Textdichter)\newline Nissen, Georg Nikolaus von  (Vorbesitzer)\newline Weber, Aloysia  (Widmungsträger)\newline Literatur: NMA  1/33/2, no.95; NMA  2/7/2, p.57-78; NMA  2/7/4 (Kritischer Bericht), p.102-108
 \par RISM-ID: 450106275\newline D-Cv  A.V,1109,(2),3
 \par \vspace{16pt} \textcolor{darkblue}{\textbf{Mozart, Wolfgang Amadeus  1756-1791}}\hfillplus{[46]}\newline Il Burbero di buon cuore. Inserts, KV 582 - C-Dur\newline S, orch
@@ -1186,7 +1275,8 @@
 @timesig:c/
 @data:6'G/4G{8E6-''C}4C'{8G6-''E}/{8.F6D}'4B2-/
 \end{filecontents*}
-\commandline{ if [ ! -f 46-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 46-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 46-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 46-1.code; fi } 
 \newline \includesvg[width=209pt]{46-1}%
 \par 1.1.2  S, C-Dur\newline \begin{footnotesize} Chi sà qual sia \end{footnotesize}  
 \begin{filecontents*}{46-2.code}
@@ -1195,7 +1285,8 @@
 @timesig:c/
 @data:6-/=1/2-4-8.-6G/4G8.E''6C4C'8.G''6E/{8.F6D}'4B-
 \end{filecontents*}
-\commandline{ if [ ! -f 46-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 46-2.code; fi } 
+
+\ShellEscape{ if [ ! -f 46-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 46-2.code; fi } 
 \newline \includesvg[width=209pt]{46-2}%
 \par f.1r, unten, mit Bleistift: {\textquotedbl}55.{\textquotedbl}
 \par Beigelegter Zettel (13 x 21 cm) mit folgender Notiz: C dur 4/4 N\textsuperscript{o} 7. 12 Seiten à 10 Linien | Arie in die Oper Il Burbero mit Orchesterbegleitung. | Diese Sopran-Arie der Madame Lucilla ist von Mozart als | Einlage zu einer 1789 beliebten Oper schrieben und reiht | sich in stil und behandlung den andern Compositionen | als Meister aus jener Periode an. Clarinetten u. 1stes Fagott | sind ziemlig obligat behandelt wie dieß Mozart bei | vielen andern Gelegenheiten gethan hat. | Preis 3 Frd'or. | M. 74.\newline André, Johann Anton  (Vorbesitzer)\newline André, Julius  (Vorbesitzer)\newline Martín y Soler, Vicente  (cmp)\newline Nissen, Georg Nikolaus von  (Vorbesitzer)\newline Literatur: NMA  1/33/2, no.66; NMA  2/7/4, p.105-114; NMA  2/7/4 (Kritischer Bericht), p.119-121
@@ -1210,7 +1301,8 @@
 @timesig:c
 @data:'{8C,B}4B-4-8-B/4.B8'C{DE}{nFE}/{ED}4D-D/8.6{EC}{FD}4.(G)qq{6AGFE}r{6DC}/q4E2D4-
 \end{filecontents*}
-\commandline{ if [ ! -f 47-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 47-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 47-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 47-1.code; fi } 
 \newline \includesvg[width=209pt]{47-1}%
 \par 1.2.1  vl 1, \begin{itshape}[No 23 Rondo]. Larghetto\end{itshape}, F-Dur  
 \begin{filecontents*}{47-2.code}
@@ -1219,7 +1311,8 @@
 @timesig:3/8
 @data:8''{A'''C''E}/8F4C/{6.A3F8D}{6.B3G}/{8.F6G}6E-/
 \end{filecontents*}
-\commandline{ if [ ! -f 47-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 47-2.code; fi } 
+
+\ShellEscape{ if [ ! -f 47-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 47-2.code; fi } 
 \newline \includesvg[width=209pt]{47-2}%
 \par 1.2.2  S, F-Dur\newline \begin{footnotesize} Non più di fiori vaghe catene \end{footnotesize}  
 \begin{filecontents*}{47-3.code}
@@ -1228,7 +1321,8 @@
 @timesig:3/8
 @data:=4/8'A''C'E/F4C/{6.A3F}8D{6.B3G}/{8.F6G}E-/
 \end{filecontents*}
-\commandline{ if [ ! -f 47-3.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 47-3.code; fi } 
+
+\ShellEscape{ if [ ! -f 47-3.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 47-3.code; fi } 
 \newline \includesvg[width=209pt]{47-3}%
 \par Titeleinträge von Nissen.
 \par Die Entwürfe der beiden Nummern aus der Oper enthalten No.1 (Duetto), Takte 29-73 und No.23 (Rondo), 45 Takte. Die Takte 1-28 von No.1 sind überliefert in S-Uu, Signatur Vok.mus.hs. 133
@@ -1245,7 +1339,8 @@
 @timesig:2/4
 @data:=1/4-8-6'C,B/8AAAA/{8.A6B}8G-/4F+6FGAB/4A8G-/
 \end{filecontents*}
-\commandline{ if [ ! -f 48-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 48-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 48-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 48-1.code; fi } 
 \newline \includesvg[width=209pt]{48-1}%
 \par 1.1.2  b, F-Dur  
 \begin{filecontents*}{48-2.code}
@@ -1254,7 +1349,8 @@
 @timesig:2/4
 @data:4,FF/F-/8-{FAF}/4C+8C-/
 \end{filecontents*}
-\commandline{ if [ ! -f 48-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 48-2.code; fi } 
+
+\ShellEscape{ if [ ! -f 48-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 48-2.code; fi } 
 \newline \includesvg[width=209pt]{48-2}%
 \par Die Angabe im Titel (von Nissen) bezieht sich auf Cahier V der bei Breitkopf \& Härtel in Leipzig erschienen {\textquotedbl}Oeuvres complettes{\textquotedbl} (vgl. NMA 10/30/4, p.245).
 \par Auf den Recto-Seiten unten: Rundstempel mit Krone {\textquotedbl}V C{\textquotedbl} [Veste Coburg].
@@ -1271,7 +1367,8 @@
 @timesig:c
 @data:4-2''C4C/q8xC2D+{8D6EF}8ED/q4D2C4-
 \end{filecontents*}
-\commandline{ if [ ! -f 49-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 49-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 49-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 49-1.code; fi } 
 \newline \includesvg[width=209pt]{49-1}%
 \par 1.1.2  S, C-Dur\newline \begin{footnotesize} Glorificamus te \end{footnotesize}  
 \begin{filecontents*}{49-2.code}
@@ -1280,7 +1377,8 @@
 @timesig:c
 @data:''4C2C{8DE}/1F+/F+/F+/2F'bE/
 \end{filecontents*}
-\commandline{ if [ ! -f 49-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 49-2.code; fi } 
+
+\ShellEscape{ if [ ! -f 49-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 49-2.code; fi } 
 \newline \includesvg[width=209pt]{49-2}%
 \par Titeleintrag von Johann Anton André; Zusatz von Nissen.
 \par Der Partiturentwurf enthält nur die Takte 71-87 und 123-138, ausgeführt in den Stimmen S, vl 1 und b; in zweieinhalb Takten zusätzlich vl 2 und vla; in einem Takt 2 Varianten zur S-Stimme.\newline André, Johann Anton  (Vorbesitzer)\newline André, Julius  (Vorbesitzer)\newline Nissen, Georg Nikolaus von  (Sonstige)\newline Literatur: NMA  1/1/1/5, p.166-169; NMA  NMA 1/1/1/3-5 (Kritischer Bericht), p.e/7; NMA  10/33/2, no.56\newline Olim: 210
@@ -1295,7 +1393,8 @@
 @timesig:c
 @data:'''4D8-(6{DC''B})4A8-{3AGFE}/4D8-(6{DC'B})4A8-{3AGFE}/
 \end{filecontents*}
-\commandline{ if [ ! -f 50-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 50-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 50-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 50-1.code; fi } 
 \newline \includesvg[width=209pt]{50-1}%
 \par 1.1.2  T, D-Dur\newline \begin{footnotesize} Müßt ich auch durch tausend Drachen \end{footnotesize}  
 \begin{filecontents*}{50-2.code}
@@ -1304,7 +1403,8 @@
 @timesig:c
 @data:=2/'2.4D,A/'FD/GE/4CC2-/
 \end{filecontents*}
-\commandline{ if [ ! -f 50-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 50-2.code; fi } 
+
+\ShellEscape{ if [ ! -f 50-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 50-2.code; fi } 
 \newline \includesvg[width=209pt]{50-2}%
 \par Die Signaturen A.V,1109,(2),4-7 waren im handschriftlichen Bandkatalog in D-Cv in einer abweichenden Reihenfolge eingetragen und durchnummeriert. Am 20.03.2012 wurden die Nummerierungen im Bandkatalog angeglichen an die Nummerierungen auf den Quellen, die auch den RISM-Titelaufnahmen zugrunde liegen. Diese Quelle trug im Bandkatalog ursprünglich die Signatur A.V,1109,(2),6.\newline André, Johann Anton  (Vorbesitzer)\newline Nissen, Georg Nikolaus von  (Vorbesitzer)\newline Literatur: NMA  1/33/2, no.56; NMA  2/7/4, p.162-167; NMA  2/7/4 (Kritischer Bericht), p.137-138; NMA  10/30/4, p.91-98, 244
 \par RISM-ID: 450106271\newline D-Cv  A.V,1109,(2),4
@@ -1318,7 +1418,8 @@
 @timesig:c
 @data:{8.C6D}{8CC}{6xCD}4D8D/{6EFGA}{BGFE}8F-4-/
 \end{filecontents*}
-\commandline{ if [ ! -f 51-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 51-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 51-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 51-1.code; fi } 
 \newline \includesvg[width=209pt]{51-1}%
 \par 1.1.2  A, F-Dur\newline \begin{footnotesize} Ombra felice tornerò a rivederti \end{footnotesize}  
 \begin{filecontents*}{51-2.code}
@@ -1327,7 +1428,8 @@
 @timesig:c
 @data:1-/2-'4F8C,A/BB-'6GA8BBB''C/'AA4-2-/
 \end{filecontents*}
-\commandline{ if [ ! -f 51-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 51-2.code; fi } 
+
+\ShellEscape{ if [ ! -f 51-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 51-2.code; fi } 
 \newline \includesvg[width=209pt]{51-2}%
 \par 1.2.1  A, \begin{itshape}Aria en Ronadeau. Andante moderato\end{itshape}, F-Dur\newline \begin{footnotesize} Io ti lascio e questo addio \end{footnotesize}  
 \begin{filecontents*}{51-3.code}
@@ -1336,7 +1438,8 @@
 @timesig:c/
 @data:4'A{8BG}/4FEFG/4.C8D4C-/
 \end{filecontents*}
-\commandline{ if [ ! -f 51-3.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 51-3.code; fi } 
+
+\ShellEscape{ if [ ! -f 51-3.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 51-3.code; fi } 
 \newline \includesvg[width=209pt]{51-3}%
 \par Der Text ist der Oper Arsace von Mortellari entnommen.\newline De Gamerra, Giovanni  (Textdichter)\newline Fortini, Francesco  (Widmungsträger)\newline Gleissner, Franz  (Vorbesitzer)\newline Mortellari, Michele  (cmp)\newline Nissen, Georg Nikolaus von  (Vorbesitzer)\newline Literatur: NMA  1/33/2, no.35; NMA  2/7/2, p.3-14; NMA  2/7/4 (Kritischer Bericht), p.105-107
 \par RISM-ID: 450106274\newline D-Cv  A.V,1109,(2),2
@@ -1350,7 +1453,8 @@
 @timesig:c
 @data:2'''(E)//,{6G'E,B'G}{EBG''E}{'B''GEB}{AGFE}/{8.A6F}4D2-/
 \end{filecontents*}
-\commandline{ if [ ! -f 52-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 52-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 52-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 52-1.code; fi } 
 \newline \includesvg[width=209pt]{52-1}%
 \par 1.2.1  vl, \begin{itshape}Cadenza per L'andante..\end{itshape}, c-Moll  
 \begin{filecontents*}{52-2.code}
@@ -1359,7 +1463,8 @@
 @timesig:3/4
 @data:'''2(C)'4G/''C+{6CDED}gF{8E6DC}/4C'nBG/''D+{6DEFE}gG{8F6ED}/
 \end{filecontents*}
-\commandline{ if [ ! -f 52-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 52-2.code; fi } 
+
+\ShellEscape{ if [ ! -f 52-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 52-2.code; fi } 
 \newline \includesvg[width=209pt]{52-2}%
 \par Titeleinträge von fremder Hand, Satzüberschriften (s. Incipits) autograph.
 \par vl steht in Satz 1 in E\textsuperscript{b} und die vla in D, Satz 2 vl in c und vla in b.
@@ -1375,7 +1480,8 @@
 @timesig:
 @data:{6CEDE}{FGEF}{DFEF}{GAFG}/{EGFG}{AbBGA}{FAGA}{B''C'AB}/
 \end{filecontents*}
-\commandline{ if [ ! -f 53-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 53-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 53-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 53-1.code; fi } 
 \newline \includesvg[width=209pt]{53-1}%
 \par RISM-ID: 450106279\newline D-Cv  A.V,1109,(2),7\newline $\rightarrow$ In Sammlung 82 (450106283)
       
@@ -1389,7 +1495,8 @@
 @timesig:
 @data:''{6EGFE}{AEFC}{DFED}{GDE'B}/''{CEDC}{FCD'A}{B''DC'B}{''E'B''C'G}/
 \end{filecontents*}
-\commandline{ if [ ! -f 54-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 54-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 54-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 54-1.code; fi } 
 \newline \includesvg[width=209pt]{54-1}%
 \par RISM-ID: 450106281\newline D-Cv  A.V,1109,(2),7\newline $\rightarrow$ In Sammlung 82 (450106283)
       
@@ -1403,7 +1510,8 @@
 @timesig:
 @data:{6EGCD}{ECAG}{FADE}{FDbBA}/{GbBEF}{GE''C'B}{A''C'FG}{AF''DC}/
 \end{filecontents*}
-\commandline{ if [ ! -f 55-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 55-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 55-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 55-1.code; fi } 
 \newline \includesvg[width=209pt]{55-1}%
 \par RISM-ID: 450106282\newline D-Cv  A.V,1109,(2),7\newline $\rightarrow$ In Sammlung 82 (450106283)
       
@@ -1417,97 +1525,104 @@
 @timesig:c
 @data:2C{8DCEC}/{FCGC}{ACBC}/
 \end{filecontents*}
-\commandline{ if [ ! -f 56-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 56-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 56-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 56-1.code; fi } 
 \newline \includesvg[width=209pt]{56-1}%
 \par Die Signaturen A.V,1109,(2),4-7 waren im handschriftlichen Bandkatalog in D-Cv in einer abweichenden Reihenfolge eingetragen und durchnummeriert. Am 20.03.2012 wurden die Nummerierungen im Bandkatalog angeglichen an die Nummerierungen auf den Quellen, die auch diesen Titelaufnahmen zugrunde liegen. Diese Quelle trug im Bandkatalog ursprünglich die Signatur A.V,1109,(2),5.
 \par Bemerkungen mit roter Tinte, rechts oben: {\textquotedbl}Solfeggi.{\textquotedbl}, darunter: {\textquotedbl}N\textsuperscript{o} 161.{\textquotedbl}, weiter unten, zwischen den Systemen: {\textquotedbl}unvollendte Sache{\textquotedbl}\newline André, Johann Anton  (Vorbesitzer)\newline André, Julius  (Vorbesitzer)\newline Weber, Aloysia  (Widmungsträger)
 \par RISM-ID: 450106284\newline D-Cv  A.V,1109,(2),7\newline $\rightarrow$ In Sammlung 82 (450106283)
       
-\par \vspace{16pt} \textcolor{darkblue}{\textbf{Mozart, Wolfgang Amadeus  1756-1791}}\hfillplus{[57]}\newline Solfeggio, KV 393/5 - B-Dur\newline S
-\par \begin{itshape}[caption title:] 1. Solfeggio per la mia cara consorte [later added, on the left:] N.116. [crossed out, corrected in:] N.36.  [centre:] 3.\end{itshape} 
-\par \textcolor{darkblue}{\ding{\numexpr181 + 01}}  Stimme: S  (f.2r-2v)\newline Autograph  17820801-17820831
-\par 1.1.1  S, \begin{itshape}Andante\end{itshape}, B-Dur  
+\par \vspace{16pt} \textcolor{darkblue}{\textbf{Mozart, Wolfgang Amadeus  1756-1791}}\hfillplus{[57]}\newline Solfeggio, KV 393/5d - C-Dur\newline S
+\par \begin{itshape}[left before stave:] 4\end{itshape} 
+\par \textcolor{darkblue}{\ding{\numexpr181 + 01}}  Stimme: S  (f.1r)\newline Autograph
+\par 1.1.1  S, C-Dur  
 \begin{filecontents*}{57-1.code}
 @clef:C-1
-@keysig:bBE
-@timesig:2/4
-@data:2'B/''C/D/4EF/4.G{3FEDC}/
+@keysig:
+@timesig:
+@data:''{6EDCD}{EFGA}{GAGF}{EDC'B}/{''C'BAB}{''CDEF}{EFED}{C'BAG}/
 \end{filecontents*}
-\commandline{ if [ ! -f 57-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 57-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 57-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 57-1.code; fi } 
 \newline \includesvg[width=209pt]{57-1}%
-\par Die Signaturen A.V,1109,(2),4-7 waren im handschriftlichen Bandkatalog in D-Cv in einer abweichenden Reihenfolge eingetragen und durchnummeriert. Am 20.03.2012 wurden die Nummerierungen im Bandkatalog angeglichen an die Nummerierungen auf den Quellen, die auch diesen Titelaufnahmen zugrunde liegen. Diese Quelle trug im Bandkatalog ursprünglich die Signatur A.V,1109,(2),5.\newline André, Johann Anton  (Vorbesitzer)\newline André, Julius  (Vorbesitzer)\newline Weber, Aloysia  (Widmungsträger)
-\par RISM-ID: 450106285\newline D-Cv  A.V,1109,(2),7\newline $\rightarrow$ In Sammlung 82 (450106283)
+\par RISM-ID: 450109894\newline D-Cv  A.V,1109,(2),7\newline $\rightarrow$ In Sammlung 82 (450106283)
       
-\par \vspace{16pt} \textcolor{darkblue}{\textbf{Mozart, Wolfgang Amadeus  1756-1791}}\hfillplus{[58]}\newline Solfeggio, KV 393/5d - C-Dur\newline S
-\par \begin{itshape}[left before stave:] 4\end{itshape} 
+\par \vspace{16pt} \textcolor{darkblue}{\textbf{Mozart, Wolfgang Amadeus  1756-1791}}\hfillplus{[58]}\newline Solfeggio, KV 393/5e - C-Dur\newline S
+\par \begin{itshape}[left before stave:] 5\end{itshape} 
 \par \textcolor{darkblue}{\ding{\numexpr181 + 01}}  Stimme: S  (f.1r)\newline Autograph
 \par 1.1.1  S, C-Dur  
 \begin{filecontents*}{58-1.code}
 @clef:C-1
 @keysig:
 @timesig:
-@data:''{6EDCD}{EFGA}{GAGF}{EDC'B}/{''C'BAB}{''CDEF}{EFED}{C'BAG}/
+@data:6{EGAB}{''CD'B''C}{'ABGA}{FGEF}/{DAB''C}{DECD}{'B''C'AB}{GAFG}/
 \end{filecontents*}
-\commandline{ if [ ! -f 58-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 58-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 58-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 58-1.code; fi } 
 \newline \includesvg[width=209pt]{58-1}%
-\par RISM-ID: 450109894\newline D-Cv  A.V,1109,(2),7\newline $\rightarrow$ In Sammlung 82 (450106283)
+\par RISM-ID: 450109895\newline D-Cv  A.V,1109,(2),7\newline $\rightarrow$ In Sammlung 82 (450106283)
       
-\par \vspace{16pt} \textcolor{darkblue}{\textbf{Mozart, Wolfgang Amadeus  1756-1791}}\hfillplus{[59]}\newline Solfeggio, KV 393/5e - C-Dur\newline S
-\par \begin{itshape}[left before stave:] 5\end{itshape} 
+\par \vspace{16pt} \textcolor{darkblue}{\textbf{Mozart, Wolfgang Amadeus  1756-1791}}\hfillplus{[59]}\newline Solfeggio, KV 393/5f - C-Dur\newline S
+\par \begin{itshape}[left before stave:] 6\end{itshape} 
 \par \textcolor{darkblue}{\ding{\numexpr181 + 01}}  Stimme: S  (f.1r)\newline Autograph
 \par 1.1.1  S, C-Dur  
 \begin{filecontents*}{59-1.code}
 @clef:C-1
 @keysig:
 @timesig:
-@data:6{EGAB}{''CD'B''C}{'ABGA}{FGEF}/{DAB''C}{DECD}{'B''C'AB}{GAFG}/
-\end{filecontents*}
-\commandline{ if [ ! -f 59-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 59-1.code; fi } 
-\newline \includesvg[width=209pt]{59-1}%
-\par RISM-ID: 450109895\newline D-Cv  A.V,1109,(2),7\newline $\rightarrow$ In Sammlung 82 (450106283)
-      
-\par \vspace{16pt} \textcolor{darkblue}{\textbf{Mozart, Wolfgang Amadeus  1756-1791}}\hfillplus{[60]}\newline Solfeggio, KV 393/5f - C-Dur\newline S
-\par \begin{itshape}[left before stave:] 6\end{itshape} 
-\par \textcolor{darkblue}{\ding{\numexpr181 + 01}}  Stimme: S  (f.1r)\newline Autograph
-\par 1.1.1  S, C-Dur  
-\begin{filecontents*}{60-1.code}
-@clef:C-1
-@keysig:
-@timesig:
 @data:6''{EGAG}{AGAG}{DGxFG}{FGFG}/{CEnFE}{FEFE}{'B''ExDE}{DEDE}/
 \end{filecontents*}
-\commandline{ if [ ! -f 60-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 60-1.code; fi } 
-\newline \includesvg[width=209pt]{60-1}%
+
+\ShellEscape{ if [ ! -f 59-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 59-1.code; fi } 
+\newline \includesvg[width=209pt]{59-1}%
 \par RISM-ID: 450109896\newline D-Cv  A.V,1109,(2),7\newline $\rightarrow$ In Sammlung 82 (450106283)
       
-\par \vspace{16pt} \textcolor{darkblue}{\textbf{Mozart, Wolfgang Amadeus  1756-1791}}\hfillplus{[61]}\newline Sonate, KV 448 - D-Dur\newline pf (2)
-\par \begin{itshape}[caption title, on the right:] di Wolfgango Amadeo | Mozart mpia [later added, on the left:] a) | bey Artaria und André. [on the right:] gestochen [with red ink:] c/1784. | N\textsuperscript{o} 90.\end{itshape} 
-\par \textcolor{darkblue}{\ding{\numexpr181 + 01}}  Partitur: 13f.; 23,5 x 32 cm\newline Autograph\newline Wasserzeichen: [3 crescents, decreasing] / REAL / A [countermark:] W  17840101-17840228
-\par 1.1.1  pf 1, \begin{itshape}Allegro con spirito\end{itshape}, D-Dur  
-\begin{filecontents*}{61-1.code}
-@clef:G-2
-@keysig:xFC
-@timesig:c
-@data:2'''D''A/4.Ft{6ED}4A8.-(3{'AB''C})/48.6D'{A''D}E{'A''E}/F{DF}4A-/
+\par \vspace{16pt} \textcolor{darkblue}{\textbf{Mozart, Wolfgang Amadeus  1756-1791}}\hfillplus{[60]}\newline Solfeggio, KV 393/5 - B-Dur\newline S
+\par \begin{itshape}[caption title:] 1. Solfeggio per la mia cara consorte [later added, on the left:] N.116. [crossed out, corrected in:] N.36.  [centre:] 3.\end{itshape} 
+\par \textcolor{darkblue}{\ding{\numexpr181 + 01}}  Stimme: S  (f.2r-2v)\newline Autograph  17820801-17820831
+\par 1.1.1  S, \begin{itshape}Andante\end{itshape}, B-Dur  
+\begin{filecontents*}{60-1.code}
+@clef:C-1
+@keysig:bBE
+@timesig:2/4
+@data:2'B/''C/D/4EF/4.G{3FEDC}/
 \end{filecontents*}
-\commandline{ if [ ! -f 61-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 61-1.code; fi } 
-\newline \includesvg[width=209pt]{61-1}%
-\par Die Signaturen A.V,1109,(2),4-7 waren im handschriftlichen Bandkatalog in D-Cv in einer abweichenden Reihenfolge eingetragen und durchnummeriert. Am 20.03.2012 wurden die Nummerierungen im Bandkatalog angeglichen an die Nummerierungen auf den Quellen, die auch diesen Titelaufnahmen zugrunde liegen. Diese Quelle trug im Bandkatalog ursprünglich die Signatur A.V,1109,(2),4.\newline André, Johann Anton  (Vorbesitzer)\newline André, Julius  (Vorbesitzer)\newline Nissen, Georg Nikolaus von  (Vorbesitzer)\newline Literatur: NMA  1/33/2, no.56; NMA  9/24/1-2, p.2-38; NMA  9/24/1-2 (Kritischer Bericht), p.9-31
-\par RISM-ID: 450106276\newline D-Cv  A.V,1109,(2),5
-\par \vspace{16pt} \textcolor{darkblue}{\textbf{Mozart, Wolfgang Amadeus  1756-1791}}\hfillplus{[62]}\newline Sonate, KV 328 - C-Dur\newline org, strings
+
+\ShellEscape{ if [ ! -f 60-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 60-1.code; fi } 
+\newline \includesvg[width=209pt]{60-1}%
+\par Die Signaturen A.V,1109,(2),4-7 waren im handschriftlichen Bandkatalog in D-Cv in einer abweichenden Reihenfolge eingetragen und durchnummeriert. Am 20.03.2012 wurden die Nummerierungen im Bandkatalog angeglichen an die Nummerierungen auf den Quellen, die auch diesen Titelaufnahmen zugrunde liegen. Diese Quelle trug im Bandkatalog ursprünglich die Signatur A.V,1109,(2),5.\newline André, Johann Anton  (Vorbesitzer)\newline André, Julius  (Vorbesitzer)\newline Weber, Aloysia  (Widmungsträger)
+\par RISM-ID: 450106285\newline D-Cv  A.V,1109,(2),7\newline $\rightarrow$ In Sammlung 82 (450106283)
+      
+\par \vspace{16pt} \textcolor{darkblue}{\textbf{Mozart, Wolfgang Amadeus  1756-1791}}\hfillplus{[61]}\newline Sonate, KV 328 - C-Dur\newline org, strings
 \par \begin{itshape}[caption title:] N\textsuperscript{o} 9.[crossed out and corrected:] 11. Sonata [later added:] N\textsuperscript{r}\textsuperscript{o} 2. [on the right, red ink:] 158. | [black ink:] 177- | gut.\end{itshape} 
 \par \textcolor{darkblue}{\ding{\numexpr181 + 01}}  Partitur: 6f.; 16,5 x 23,5 cm\newline \begin{small} f.6 only blank staves\end{small} \newline Autograph\newline Wasserzeichen: [illegible, partially cut off]  17790101-17790630
 \par 1.1.1  vl 1, \begin{itshape}Allegro\end{itshape}, C-Dur  
-\begin{filecontents*}{62-1.code}
+\begin{filecontents*}{61-1.code}
 @clef:G-2
 @keysig:
 @timesig:c
 @data:8''C-E-G-E/8.6{FEDC}'4B8.-6B/8''C-'xG-A-xF/8.6{GAFG}4E-/
 \end{filecontents*}
-\commandline{ if [ ! -f 62-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 62-1.code; fi } 
-\newline \includesvg[width=209pt]{62-1}%
+
+\ShellEscape{ if [ ! -f 61-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 61-1.code; fi } 
+\newline \includesvg[width=209pt]{61-1}%
 \par Die Signaturen A.V,1109,(2),4-7 waren im handschriftlichen Bandkatalog in D-Cv in einer abweichenden Reihenfolge eingetragen und durchnummeriert. Am 20.03.2012 wurden die Nummerierungen im Bandkatalog angeglichen an die Nummerierungen auf den Quellen, die auch diesen Titelaufnahmen zugrunde liegen. Diese Quelle trug im Bandkatalog ursprünglich die Signatur A.V,1109,(2),7.\newline Literatur: NMA  6/16, p.60-64; NMA  6/16 (Kritischer Bericht), p.i/28-30
 \par RISM-ID: 450106277\newline D-Cv  A.V,1109,(2),6
+\par \vspace{16pt} \textcolor{darkblue}{\textbf{Mozart, Wolfgang Amadeus  1756-1791}}\hfillplus{[62]}\newline Sonate, KV 448 - D-Dur\newline pf (2)
+\par \begin{itshape}[caption title, on the right:] di Wolfgango Amadeo | Mozart mpia [later added, on the left:] a) | bey Artaria und André. [on the right:] gestochen [with red ink:] c/1784. | N\textsuperscript{o} 90.\end{itshape} 
+\par \textcolor{darkblue}{\ding{\numexpr181 + 01}}  Partitur: 13f.; 23,5 x 32 cm\newline Autograph\newline Wasserzeichen: [3 crescents, decreasing] / REAL / A [countermark:] W  17840101-17840228
+\par 1.1.1  pf 1, \begin{itshape}Allegro con spirito\end{itshape}, D-Dur  
+\begin{filecontents*}{62-1.code}
+@clef:G-2
+@keysig:xFC
+@timesig:c
+@data:2'''D''A/4.Ft{6ED}4A8.-(3{'AB''C})/48.6D'{A''D}E{'A''E}/F{DF}4A-/
+\end{filecontents*}
+
+\ShellEscape{ if [ ! -f 62-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 62-1.code; fi } 
+\newline \includesvg[width=209pt]{62-1}%
+\par Die Signaturen A.V,1109,(2),4-7 waren im handschriftlichen Bandkatalog in D-Cv in einer abweichenden Reihenfolge eingetragen und durchnummeriert. Am 20.03.2012 wurden die Nummerierungen im Bandkatalog angeglichen an die Nummerierungen auf den Quellen, die auch diesen Titelaufnahmen zugrunde liegen. Diese Quelle trug im Bandkatalog ursprünglich die Signatur A.V,1109,(2),4.\newline André, Johann Anton  (Vorbesitzer)\newline André, Julius  (Vorbesitzer)\newline Nissen, Georg Nikolaus von  (Vorbesitzer)\newline Literatur: NMA  1/33/2, no.56; NMA  9/24/1-2, p.2-38; NMA  9/24/1-2 (Kritischer Bericht), p.9-31
+\par RISM-ID: 450106276\newline D-Cv  A.V,1109,(2),5
 \par \vspace{16pt} \textcolor{darkblue}{\textbf{Nicolai, Otto  1810-1849}}\hfillplus{[63]}\newline Die lustigen Weiber von Windsor. Excerpts. Arr - C-Dur\newline S, pf
 \par \begin{itshape}[title page:] Herrn H.S. v. Mosenthal | Romanze | aus der Oper {\textquotedbl}die lustigen | Weiber von Windsor{\textquotedbl} | von | Otto Nicolai.\end{itshape} 
 \par \textcolor{darkblue}{\ding{\numexpr181 + 01}}  Partitur: 2f.; 25,5 x 36,5 cm\newline \begin{small} gedrucktes Notenpapier,  9 Systeme, {\textquotedbl}M.T.2.{\textquotedbl}, türkisfarbene Notenlinien\end{small} \newline Autograph  1845
@@ -1518,7 +1633,8 @@
 @timesig:6/8
 @data:=1/4''C8'GgB6AxG8A''C/2.E+/4.E'B/
 \end{filecontents*}
-\commandline{ if [ ! -f 63-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 63-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 63-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 63-1.code; fi } 
 \newline \includesvg[width=209pt]{63-1}%
 \par 1.1.2  pf, C-Dur  
 \begin{filecontents*}{63-2.code}
@@ -1527,7 +1643,8 @@
 @timesig:6/8
 @data:'''8Ct--Ct--/'{6CEGECE}{CFAFCF}/{,B'ExGECE}{CEAECE}/
 \end{filecontents*}
-\commandline{ if [ ! -f 63-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 63-2.code; fi } 
+
+\ShellEscape{ if [ ! -f 63-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 63-2.code; fi } 
 \newline \includesvg[width=209pt]{63-2}%\newline Mosenthal, Salomon Hermann von  (Textdichter)
 \par RISM-ID: 450109876\newline D-Cv  A.V,1134,(3),1
 \par \vspace{16pt} \textcolor{darkblue}{\textbf{Paganini, Nicolò  1782-1840}}\hfillplus{[64]}\newline Sonate - A-Dur\newline vl, guit
@@ -1540,7 +1657,8 @@
 @timesig:c
 @data:4''A8-{6FE}{8xDEnD'B}/4A--{8.''F6E}/'4B-''4.C'8B}/4B--{8.B''6C}/
 \end{filecontents*}
-\commandline{ if [ ! -f 64-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 64-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 64-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 64-1.code; fi } 
 \newline \includesvg[width=209pt]{64-1}%
 \par 1.2.1  guit, \begin{itshape}Adagio espressivo\end{itshape}, a-Moll  
 \begin{filecontents*}{64-2.code}
@@ -1549,7 +1667,8 @@
 @timesig:3/4
 @data:gxG{8AA}gB''{8CC}{xDD}/4E-{8F6.E3D}/
 \end{filecontents*}
-\commandline{ if [ ! -f 64-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 64-2.code; fi } 
+
+\ShellEscape{ if [ ! -f 64-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 64-2.code; fi } 
 \newline \includesvg[width=209pt]{64-2}%
 \par 1.3.1  guit, \begin{itshape}Rondeau. con brio\end{itshape}, A-Dur  
 \begin{filecontents*}{64-3.code}
@@ -1558,7 +1677,8 @@
 @timesig:6/8
 @data:{8EE}/''{C'BA}{AGA}/4xA8B-{EE}/''{EFE}{DC'B}/gB''4C'8A-
 \end{filecontents*}
-\commandline{ if [ ! -f 64-3.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 64-3.code; fi } 
+
+\ShellEscape{ if [ ! -f 64-3.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 64-3.code; fi } 
 \newline \includesvg[width=209pt]{64-3}%
 \par Auf dem Schutzumschlag in D-Cv steht {\textquotedbl}S.1146{\textquotedbl}, ist jedoch im Katalog S.1145, Rückseite.\newline Di Negro, Emilia  (Widmungsträger)
 \par RISM-ID: 450109890\newline D-Cv  A.V,1145,(4),1
@@ -1572,7 +1692,8 @@
 @timesig:c
 @data:'4D8{C,A}xF4E8D/{xCDnC,,A}xF4D8C/2,,,B
 \end{filecontents*}
-\commandline{ if [ ! -f 65-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 65-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 65-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 65-1.code; fi } 
 \newline \includesvg[width=209pt]{65-1}%
 \par Untere Zeile mit Datum: {\textquotedbl}den 8. Februar 1877{\textquotedbl}, darüber Unterschrift: {\textquotedbl}Ant. Rubinstein{\textquotedbl}
 \par Nur 5 Takte sind notiert auf freihändig gezogenen Notensystemen, beginnend mit 3 Takten im unteren System im Bassschlüssel.
@@ -1587,7 +1708,8 @@
 @timesig:2/4
 @data:''6C/{8.C'6B}{AB''CD}/4.E8E/6{EAEC}{ED'BG}/4B8A-/
 \end{filecontents*}
-\commandline{ if [ ! -f 66-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 66-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 66-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 66-1.code; fi } 
 \newline \includesvg[width=209pt]{66-1}%
 \par 1.1.2  S, A-Dur\newline \begin{footnotesize} Reviens plaisir d'amour reviens secher mes larmes \end{footnotesize}  
 \begin{filecontents*}{66-2.code}
@@ -1596,7 +1718,8 @@
 @timesig:2/4
 @data:6-/=3/4-8-''C/8.C6'B{AB}{''CD}/4E8-E/{6FE}{DC}{FE}{DC}/8C'B4-/
 \end{filecontents*}
-\commandline{ if [ ! -f 66-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 66-2.code; fi } 
+
+\ShellEscape{ if [ ! -f 66-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 66-2.code; fi } 
 \newline \includesvg[width=209pt]{66-2}%\newline Literatur: AngermüllerS 1976  p.177, no.250; AngermüllerS 1976  p.185-188
 \par RISM-ID: 450109883\newline D-Cv  A.V,1145,(1),2
 \par \vspace{16pt} \textcolor{darkblue}{\textbf{Salieri, Antonio  1750-1825}}\hfillplus{[67]}\newline Bella arciera per che fiera, AngS 260 - C-Dur\newline S, pf
@@ -1609,7 +1732,8 @@
 @timesig:6/8
 @data:''8{EF}/q6A{8GxF}4G{8AB}/'''q6D{8C''B}'''4C''{8BA}/{GEC}{FD'B}/''4.D4C8-/
 \end{filecontents*}
-\commandline{ if [ ! -f 67-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 67-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 67-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 67-1.code; fi } 
 \newline \includesvg[width=209pt]{67-1}%
 \par 1.1.2  S, C-Dur\newline \begin{footnotesize} Bella arciera perche fiera \end{footnotesize}  
 \begin{filecontents*}{67-2.code}
@@ -1618,7 +1742,8 @@
 @timesig:6/8
 @data:8--/=3/4-8--''ED/q8D{8C'B}4''C8FE/q6E{8DxC}4D8GF/{ED}Cq6D{8C'B}''C/
 \end{filecontents*}
-\commandline{ if [ ! -f 67-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 67-2.code; fi } 
+
+\ShellEscape{ if [ ! -f 67-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 67-2.code; fi } 
 \newline \includesvg[width=209pt]{67-2}%
 \par Die 3 Strophen sind jede auf einer eigenen Notenzeile mit Noten und unterlegtem Text notiert. Insgesamt ergeben sich dadurch eine Partitur-Anordnung mit 5-zeiligen Akkoladen, 3 für die Gesangsstrophen und 2 für die Klavierbegleitung.\newline Literatur: AngermüllerS 1976  p.168, no.29
 \par RISM-ID: 450109886\newline D-Cv  A.V,1145,(1),1\newline $\rightarrow$ In Sammlung 81 (450109884)
@@ -1633,7 +1758,8 @@
 @timesig:c/
 @data:4BBBB/1B/2.A4-/''DDDD/1D/2.C4-/
 \end{filecontents*}
-\commandline{ if [ ! -f 68-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 68-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 68-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 68-1.code; fi } 
 \newline \includesvg[width=209pt]{68-1}%
 \par Nur eine Stimme ist notiert. Sie ist in 3 Zeilen so untereinander geschrieben, dass die Zusammenklänge erkennbar sind.
 \par Bemerkung über der ersten Notenzeile: {\textquotedbl}Il canone, che segue fu composto dal Salieri | ritornando con alcuni amici a piedi fra li monti | da Heiligen craize a Vienna il giorno 22 sett[embre] 1819{\textquotedbl}\newline Literatur: AngermüllerS 1976  p.174, no.169; AngermüllerS 1976  p.184
@@ -1649,7 +1775,8 @@
 @timesig:c
 @data:E/2B+{8B''C}{D6EC}/'q4B2A4-A/''2F+{8FD'BA}/{G''B}
 \end{filecontents*}
-\commandline{ if [ ! -f 69-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 69-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 69-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 69-1.code; fi } 
 \newline \includesvg[width=209pt]{69-1}%
 \par 1.1.2  S, Es-Dur\newline \begin{footnotesize} Pensieri funesti ah no non tornate \end{footnotesize}  
 \begin{filecontents*}{69-2.code}
@@ -1658,7 +1785,8 @@
 @timesig:c
 @data:4-/=6/2-4-8-B/2B+{8B''C}D{6EC}/'8B4.A4-8-A/''2F+{8FD}'BA/4GG-
 \end{filecontents*}
-\commandline{ if [ ! -f 69-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 69-2.code; fi } 
+
+\ShellEscape{ if [ ! -f 69-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 69-2.code; fi } 
 \newline \includesvg[width=209pt]{69-2}%
 \par Vermutlich erfolgte die Bearbeitung des Satzes bei einem dokumentierten Aufenthalt in Weidlingau am 10.06.1814, bei dem 2 weitere Gelegenheitskompositionen entstanden sind; vgl. AngermüllerS 2000, p.69.\newline Casti, Giovanni Battista  (Textdichter)\newline Literatur: AngermüllerS 2000  p.69
 \par RISM-ID: 450109885\newline D-Cv  A.V,1145,(1),1\newline $\rightarrow$ In Sammlung 81 (450109884)
@@ -1673,7 +1801,8 @@
 @timesig:c/
 @data:4A8AB/''4CCD8DD/8.C'6B4A8-''FFF/8.F'6nB4.B''8FFF/
 \end{filecontents*}
-\commandline{ if [ ! -f 70-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 70-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 70-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 70-1.code; fi } 
 \newline \includesvg[width=209pt]{70-1}%
 \par Datierung bei AngermüllerS 2000: 09.06.1813; das könnte möglicherweise das Datum auf dem zweiten Autograph des Werke in A-Wgm sein.\newline Literatur: AngermüllerS 1976  p.179, no.296; AngermüllerS 2000  p.57
 \par RISM-ID: 450109887\newline D-Cv  A.V,1145,(1),1\newline $\rightarrow$ In Sammlung 81 (450109884)
@@ -1688,7 +1817,8 @@
 @timesig:c/
 @data:2-B/BB/4.B8BBBBB/''4E8EEEEE'nA/4BB
 \end{filecontents*}
-\commandline{ if [ ! -f 71-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 71-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 71-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 71-1.code; fi } 
 \newline \includesvg[width=209pt]{71-1}%
 \par Datierung übernommen von AngermüllerS 2000.\newline Literatur: AngermüllerS 1976  p.181, no.326; AngermüllerS 2000  p.248-249
 \par RISM-ID: 450109888\newline D-Cv  A.V,1145,(1),1\newline $\rightarrow$ In Sammlung 81 (450109884)
@@ -1703,7 +1833,8 @@
 @timesig:2/4
 @data:4B8-B/4''ED/'B
 \end{filecontents*}
-\commandline{ if [ ! -f 72-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 72-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 72-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 72-1.code; fi } 
 \newline \includesvg[width=209pt]{72-1}%
 \par 1.1.2  S, C-Dur\newline \begin{footnotesize} Wenn ihr hinfort euch brav aufführt \end{footnotesize}  
 \begin{filecontents*}{72-2.code}
@@ -1712,12 +1843,13 @@
 @timesig:2/4
 @data:=2/4-8-G/4.G8A/4.G8''D/4CbE/'G
 \end{filecontents*}
-\commandline{ if [ ! -f 72-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 72-2.code; fi } 
+
+\ShellEscape{ if [ ! -f 72-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 72-2.code; fi } 
 \newline \includesvg[width=209pt]{72-2}%
 \par f.1v leere Notensysteme und Bleistifteintrag {\textquotedbl}Gustav Schmidt aus Prinz Eugen.{\textquotedbl}
 \par Der Ausschnitt umfasst 11 Takte auf einer Akkolade mit 7 Notensystemen.
 \par RISM-ID: 450109873\newline D-Cv  A.V,1133,(4),1
-\par \vspace{16pt} \textcolor{darkblue}{\textbf{Schulhoff, Julius  1825-1898}}\hfillplus{[73]}\newline Berceuse. Sketches - As-Dur\newline pf
+\par \vspace{16pt} \textcolor{darkblue}{\textbf{Schulhoff, Julius  1825-1898}}\hfillplus{[73]}\newline Berceuse. Skizzen - As-Dur\newline pf
 \par \begin{itshape}[caption title:] Berceuse\end{itshape} 
 \par \textcolor{darkblue}{\ding{\numexpr181 + 01}}  Stimme: pf  (1f.); 8,5 x 20,5 cm\newline \begin{small} Das Blatt ist aufgeklebt auf eine Pappe (20 x 27 cm)\end{small} \newline Autograph  18500321
 \par 1.1.1  pf, \begin{itshape}Andantino\end{itshape}, As-Dur  
@@ -1727,7 +1859,8 @@
 @timesig:6/8
 @data:4-8-4-6''{EE}/8A-'Aqq{6B''C}r{'8B6-A8B}/''4.C'8A-''{EE}/8A-'Aqq{6B''C}r{8'B6-A8B}/4A8-4-
 \end{filecontents*}
-\commandline{ if [ ! -f 73-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 73-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 73-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 73-1.code; fi } 
 \newline \includesvg[width=209pt]{73-1}%
 \par Nur eine Akkolade mit viereinhalb Takten beschrieben, darunter {\textquotedbl}Wien 21/3/50. J. Schulhoff{\textquotedbl}
 \par Auf der Rückseite der Pappe ist ein Portrait des Komponisten aufgeklebt.
@@ -1742,7 +1875,8 @@
 @timesig:2/4
 @data:''8C4C{6.G3E}/8D4D{6.A3F}/{8EG}{6GEGE}/{8DF}{6FDFD}/
 \end{filecontents*}
-\commandline{ if [ ! -f 74-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 74-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 74-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 74-1.code; fi } 
 \newline \includesvg[width=209pt]{74-1}%
 \par 1.2.1  vl 1, \begin{itshape}Minuetto.\end{itshape}, C-Dur  
 \begin{filecontents*}{74-2.code}
@@ -1751,7 +1885,8 @@
 @timesig:3/4
 @data:2''G(8{EDC})/2D'({8BAG})/''{8C'B}''4D8-D/{DC}4E8-E/
 \end{filecontents*}
-\commandline{ if [ ! -f 74-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 74-2.code; fi } 
+
+\ShellEscape{ if [ ! -f 74-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 74-2.code; fi } 
 \newline \includesvg[width=209pt]{74-2}%
 \par Für den Hinweis auf diese Musikhandschrift danken wir Frau Silvia Böcking, Untersiemau.
 \par Kopistenvermerk vl 1, f.2r, unten rechts: {\textquotedbl}E.3. JJR. cop.{\textquotedbl} ({\textquotedbl}J{\textquotedbl} und {\textquotedbl}R{\textquotedbl} verschlungen). Die Chiffre {\textquotedbl}E.3.{\textquotedbl} bezieht sich auf Rousseaus Register der von ihm zwischen April 1772 und August 1777 kopierten Kompositionen. Danach fasst er jeweils 100 Kompositionen unter einem Buchstaben zusammen; vgl. JansenR 1884.
@@ -1768,7 +1903,8 @@
 @timesig:3/4
 @data:'n8.D6D,4nA'bC+/@3/2 8C,E4A+8AbC4-/
 \end{filecontents*}
-\commandline{ if [ ! -f 75-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 75-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 75-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 75-1.code; fi } 
 \newline \includesvg[width=209pt]{75-1}%
 \par f.1r, unten: {\textquotedbl}Der Bibliothek Seiner Königlichen Hoheit des Herzogs am 1. November 1918. | Richard Strauss.{\textquotedbl}
 \par Auf der Rückseite sind nur 6 Takte (auf 2 Systemen) notiert, danach: {\textquotedbl}weiter siehe Seite 3{\textquotedbl}\newline Hofmannsthal, Hugo von  (Textdichter)\newline Karl Eduard, Herzog von Sachsen-Coburg-Gotha  (Vorbesitzer)\newline Olim: E. 888./18.
@@ -1783,7 +1919,8 @@
 @timesig:6/8
 @data:8-{''6AF8'nB}{''CxCF}/2.'xG
 \end{filecontents*}
-\commandline{ if [ ! -f 76-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 76-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 76-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 76-1.code; fi } 
 \newline \includesvg[width=209pt]{76-1}%
 \par Eingelegt in das Doppelblatt sind 1 Foto und mehrere Zeitunsausschnitte mit Fotographien von Richard Strauss.
 \par Über den Noten: Stempel {\textquotedbl}SCHLOSS EHRENBURG | COBURG{\textquotedbl}
@@ -1799,7 +1936,8 @@
 @timesig:3/4
 @data:''4G/gG4F8E-4G/gG4F8E-{BB}/B-'''C-''nA-/4B8G-4G/
 \end{filecontents*}
-\commandline{ if [ ! -f 77-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 77-1.code; fi } 
+
+\ShellEscape{ if [ ! -f 77-1.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 77-1.code; fi } 
 \newline \includesvg[width=209pt]{77-1}%
 \par 1.1.2  fl, Es-Dur  
 \begin{filecontents*}{77-2.code}
@@ -1808,11 +1946,12 @@
 @timesig:3/4
 @data:4-/=24/''EGnA/B'''{8CD}4E/ECF/{8DECD}''B-/
 \end{filecontents*}
-\commandline{ if [ ! -f 77-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 77-2.code; fi } 
+
+\ShellEscape{ if [ ! -f 77-2.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 77-2.code; fi } 
 \newline \includesvg[width=209pt]{77-2}%\newline Eckschlager, August  (Textdichter)
 \par RISM-ID: 450109861\newline D-Cv  A.V,1111,(2),2\newline $\rightarrow$ In Sammlung 80 (450109860)
       
-\par \vspace{16pt} \textcolor{darkblue}{\textbf{Sammlung}}\hfillplus{78}\newline 13 Albumblätter
+\par \vspace{16pt} \textcolor{darkblue}{\textbf{Sammlung}}\hfillplus{[78]}\newline 13 Albumblätter
 \par \begin{itshape}[cover title:] Concertantes | Divertissement | über beliebte Motive | aus der Oper | Casilda | für 2 Pianoforte, Flöte, Oboe, | Clarinette, Fagott, Horn, Flü= | gelhorn, Violin, Violoncell, | Contrabass, Posaune u. Pauken | von | Carl Czerny | Aufgeführt | in der am 8. Februar [1]852 | Seiner Königl: Hoheit | dem Herzoge | Ernst | zu Sachsen=Coburg=Gotha | zu Ehren, | veranstalteten Matinée | musicale, von den Instrumental=Professoren | der | Academie der Ton= | Kunst in Wien.\end{itshape} 
 \par \textcolor{darkblue}{\ding{\numexpr181 + 01}}  13 Stimmen: vl, vlc, cb, fl, ob, cl, fag, cor, flügelhorn, trb, timp, pf 1, pf 2  (); 31 x 24,5 cm\newline \begin{small} each part: 1f. and f.1v blank\end{small} \newline Abschrift  18520208-18520305\newline Schreiber: Glöggl, Franz
 \par Der Schutzumschlag mit Titel (= f.1r) und der Widmung von Glöggl (f.2r; f.1v und 2v leer) ist ebenso wie die 13 eingelegten Albumblätter auf dickem Papier mit Zierrahmen notiert: {\textquotedbl}Lith. Anst. v.G. Wegelein, Wien.{\textquotedbl}
@@ -1821,22 +1960,22 @@
 \par Jeder Instrumentalist hat auf seinem Albumblatt ein kurzes Motiv für sein jeweiliges Instrument notiert. Es ist nicht klar, ob diese Motive alle aus dem {\textquotedbl}Divertissement{\textquotedbl} von Czerny oder aus der Oper {\textquotedbl}Casilda{\textquotedbl} stammen, oder ob sie von den betreffenden Musikern frei erfunden sind.
 \par Für den Hinweis auf diese Ammlung danken wir Frau Silvia Böcking, Untersiemau.\newline Czerny, Carl  (cmp)\newline Ernst II., Herzog von Sachsen-Coburg und Gotha  (Widmungsträger)\newline Ernst II., Herzog von Sachsen-Coburg und Gotha  (cmp)
 \par RISM-ID: 450109893\newline D-Cv  A.V.1202,(4)-(8) und 1203(1)-(9)
-\par \vspace{16pt} \textcolor{darkblue}{\textbf{Sammlung}}\hfillplus{79}\newline 2 Musikstücke
+\par \vspace{16pt} \textcolor{darkblue}{\textbf{Sammlung}}\hfillplus{[79]}\newline 2 Musikstücke
 \par \begin{itshape}[dust cover title see score, RISM ID no. 450106268]\end{itshape} 
 \par \textcolor{darkblue}{\ding{\numexpr181 + 01}}  12 Stimmen: vl 1, 2, vla 1, 2, 3, vlc, vlne, ob d'amore 1, 2, fag, cemb, org  (1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1f.); 16,5 x 19,5 cm\newline \begin{small} all parts except vlne f.1v blank\end{small} \newline Abschrift  17470701-17480831\newline Schreiber: Bach, Johann Sebastian
 \par Auf der Rückseite von vlne: das zweite Werk, BWV 1079/8, nur die ersten Takte der Oberstimme, vgl. RISM ID no. 450106267.\newline Bach, Carl Philipp Emanuel  (Vorbesitzer)\newline Kittel, Johann Christian  (Vorbesitzer)\newline Poelchau, Georg Johann Daniel  (Vorbesitzer)\newline Literatur: DavidB 1961  p.199-223
 \par RISM-ID: 450106265\newline D-Cv  A.V,1109,(1),1b
-\par \vspace{16pt} \textcolor{darkblue}{\textbf{Sammlung}}\hfillplus{80}\newline 5 Musikstücke für Bläser
+\par \vspace{16pt} \textcolor{darkblue}{\textbf{Sammlung}}\hfillplus{[80]}\newline 5 Musikstücke für Bläser
 \par \begin{itshape}[cover title, printed in gold:] Autograph | von | Carl Maria von Weber. [title page, by later hand:] Autograph | von | Carl Maria von Weber. | I. | Maienblümlein. | Lied gedichtet von August Eckschläger, componirt | von | Carl Maria von Weber, | und zu einem Walzer umgeschmolzen mit neu hinzu= | componirtem Trio. | II. | Vier Lieder, | gedichtet und componirt | von | Sr. Hoheit dem Herzoge Emil Leopold August von | Sachsen=Coburg=Altenburg: | 1.) {\textquotedbl}Ihr kleinen Vögelein{\textquotedbl} | 2.) Serenade. {\textquotedbl}Lebe wohl, mein süßes Leben{\textquotedbl} | 3. Die verliebte Schäferin. | 4.) {\textquotedbl}Beim kindlichen Strahl des erwachenden Phoibos{\textquotedbl} | Sämmtliche Stücke | arrangirt für Harmonie=Musik von C.M. von Weber | zum Geburtsfeste Sr. Hoheit des Herzogs Emil Leopold August von Sachsen=C.=A., | dem 23. Nov. 1812, am 17. Nov. 1812.\end{itshape} 
 \par \textcolor{darkblue}{\ding{\numexpr181 + 01}}  Partitur: 3f.; 27,5 x 32 cm\newline Autograph\newline Wasserzeichen: [no watermark]  1812\newline Schreiber: Weber, Carl Maria von
 \par Bemerkung auf dem Titelblatt, unten: Näheres über Composition und Autograph findet sich in {\textquotedbl}'Carl Maria von Weber in seinen Werken pp{\textquotedbl} von Fr. Wilh. Jähns, unter No.150-153, pag.167, 168 und 169.
 \par Bemerkung f.1r, unten: {\textquotedbl}Original=Handschrift von Carl Maria von Weber. Geschenk der Witwe Weber's an mich. F.W. Jähns. K. Musik=Direktor in Berlin{\textquotedbl}; nach {\textquotedbl}K.{\textquotedbl} mit Einfügungsklammer: {\textquotedbl}Professor und{\textquotedbl}\newline August Emil Leopold, Herzog von Sachsen-Gotha-Altenburg  (Widmungsträger)\newline Brandt-Weber, Caroline von  (Vorbesitzer)\newline Jähns, Friedrich Wilhelm  (Vorbesitzer)
 \par RISM-ID: 450109860\newline D-Cv  A.V,1111,(2),2
-\par \vspace{16pt} \textcolor{darkblue}{\textbf{Sammlung}}\hfillplus{81}\newline 5 Vokalstücke
+\par \vspace{16pt} \textcolor{darkblue}{\textbf{Sammlung}}\hfillplus{[81]}\newline 5 Vokalstücke
 \par \begin{itshape}[without title]\end{itshape} 
 \par \textcolor{darkblue}{\ding{\numexpr181 + 01}}  Partitur: 4f.; 25,5 x 37 cm\newline \begin{small} war mit 3 rosa Bändchen zusammen gebunden, Bindung defekt\end{small} \newline Abschrift  1813-1823\newline Schreiber: Salieri, Antonio
 \par RISM-ID: 450109884\newline D-Cv  A.V,1145,(1),1
-\par \vspace{16pt} \textcolor{darkblue}{\textbf{Sammlung}}\hfillplus{82}\newline 8 Solfeggien
+\par \vspace{16pt} \textcolor{darkblue}{\textbf{Sammlung}}\hfillplus{[82]}\newline 8 Solfeggien
 \par \begin{itshape}[without title]\end{itshape} 
 \par \textcolor{darkblue}{\ding{\numexpr181 + 01}}  Stimme: S  (2f.)\newline \begin{small} f.1v only blank staves\end{small} \newline Abschrift\newline Wasserzeichen: A / HF [countermark: 3 stars in a cartouche (crowned)]; [3 crescents (decreasing)] / REAL [countermark:] GF [crowned]  17820801-17820831\newline Schreiber: Mozart, Wolfgang Amadeus
 \par Im Katalog der Veste Coburg: {\textquotedbl}(für Frau Lange){\textquotedbl}.
@@ -1851,220 +1990,220 @@
 
 
 \newline 
-Albert, Eugen d' ..... [1]
+Albert, Eugen d' ..... 1
 
 \newline 
-André, Johann Anton ..... [21], [45], [46], [47], [48], [49], [50], [56], [57], [61], 82
+André, Johann Anton ..... 21, 45, 46, 47, 48, 49, 50, 56, 60, 62, 82
 
 \newline 
-André, Julius ..... [21], [45], [46], [49], [52], [56], [57], [61], 82
+André, Julius ..... 21, 45, 46, 49, 52, 56, 60, 62, 82
 
 \newline 
-Anonymus ..... [2], [3], [4], [5], [6], [7], [8], [9], [10], [11], [12], [13], [14]
+Anonymus ..... 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14
 
 \newline 
-Arnold, Ignaz Ferdinand ..... [25]
+Arnold, Ignaz Ferdinand ..... 25
 
 \newline 
-August Emil Leopold, Herzog von Sachsen-Gotha-Altenburg ..... [15], [16], [17], [18], 80
+August Emil Leopold, Herzog von Sachsen-Gotha-Altenburg ..... 15, 16, 17, 18, 80
 
 \newline 
-Bach, August Wilhelm ..... [32]
+Bach, August Wilhelm ..... 32
 
 \newline 
-Bach, Carl Philipp Emanuel ..... [20], [21], [40], [41], 79
+Bach, Carl Philipp Emanuel ..... 20, 21, 40, 41, 79
 
 \newline 
-Bach, Johann Sebastian ..... [19], [20], [21], [40], [41]
+Bach, Johann Sebastian ..... 19, 20, 21, 40, 41
 
 \newline 
-Beethoven, Ludwig van ..... [22], [23], [24]
+Beethoven, Ludwig van ..... 22, 23, 24
 
 \newline 
-Böhner, Johann Ludwig ..... [25]
+Böhner, Johann Ludwig ..... 25
 
 \newline 
-Boieldieu, Louis ..... [26]
+Boieldieu, Louis ..... 26
 
 \newline 
-Bouilly, Jean Nicolas ..... [26]
+Bouilly, Jean Nicolas ..... 26
 
 \newline 
 Brandt-Weber, Caroline von ..... 80
 
 \newline 
-Canicoff, Basil von ..... [39]
+Canicoff, Basil von ..... 39
 
 \newline 
-Casti, Giovanni Battista ..... [69]
+Casti, Giovanni Battista ..... 69
 
 \newline 
-Costa, Michele ..... [37]
+Costa, Michele ..... 37
 
 \newline 
-Czerny, Carl ..... [27], 78
+Czerny, Carl ..... 27, 78
 
 \newline 
-De Gamerra, Giovanni ..... [51]
+De Gamerra, Giovanni ..... 51
 
 \newline 
-Di Negro, Emilia ..... [64]
+Di Negro, Emilia ..... 64
 
 \newline 
-Eckschlager, August ..... [77]
+Eckschlager, August ..... 77
 
 \newline 
-Ernst I., Herzog von Sachsen-Coburg-Saalfeld ..... [44]
+Ernst I., Herzog von Sachsen-Coburg-Saalfeld ..... 44
 
 \newline 
-Ernst II., Herzog von Sachsen-Coburg und Gotha ..... [2], [3], [4], [5], [6], [7], [8], [9], [10], [11], [12], [13], [14], [28], 78
+Ernst II., Herzog von Sachsen-Coburg und Gotha ..... 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 28, 78
 
 \newline 
-Fischhof, Joseph ..... [29], [30]
+Fischhof, Joseph ..... 29, 30
 
 \newline 
-Fortini, Francesco ..... [51]
+Fortini, Francesco ..... 51
 
 \newline 
-Franz, Robert ..... [31]
+Franz, Robert ..... 31
 
 \newline 
-Friedrich II., der Große, König von Preußen ..... [32], [33], [34], [35]
+Friedrich II., der Große, König von Preußen ..... 32, 33, 34, 35
 
 \newline 
-Geibel, Emanuel ..... [31]
+Geibel, Emanuel ..... 31
 
 \newline 
-Gerber, Ernst Ludwig ..... [21]
+Gerber, Ernst Ludwig ..... 21
 
 \newline 
-Gleissner, Franz ..... [51]
+Gleissner, Franz ..... 51
 
 \newline 
-Gluck, Christoph Willibald ..... [36], [37]
+Gluck, Christoph Willibald ..... 36, 37
 
 \newline 
-Guillard, Nicolas-François ..... [37]
+Guillard, Nicolas-François ..... 37
 
 \newline 
-Harson, Johann Samuel ..... [32]
+Harson, Johann Samuel ..... 32
 
 \newline 
-Haydn, Michael ..... [38]
+Haydn, Michael ..... 38
 
 \newline 
-Himmel, Friedrich Heinrich ..... [39]
+Himmel, Friedrich Heinrich ..... 39
 
 \newline 
-Hofmannsthal, Hugo von ..... [75]
+Hofmannsthal, Hugo von ..... 75
 
 \newline 
 Jähns, Friedrich Wilhelm ..... 80
 
 \newline 
-Karl Eduard, Herzog von Sachsen-Coburg-Gotha ..... [75]
+Karl Eduard, Herzog von Sachsen-Coburg-Gotha ..... 75
 
 \newline 
-Kerll, Johann Caspar ..... [40], [41]
+Kerll, Johann Caspar ..... 40, 41
 
 \newline 
-Kittel, Johann Christian ..... [20], [40], [41], 79
+Kittel, Johann Christian ..... 20, 40, 41, 79
 
 \newline 
-Krieg, Thilo ..... [76]
+Krieg, Thilo ..... 76
 
 \newline 
-Liszt, Franz ..... [28], [42]
+Liszt, Franz ..... 28, 42
 
 \newline 
-Marschner, Heinrich August ..... [43]
+Marschner, Heinrich August ..... 43
 
 \newline 
-Martín y Soler, Vicente ..... [46]
+Martín y Soler, Vicente ..... 46
 
 \newline 
-Metastasio, Pietro ..... [45]
+Metastasio, Pietro ..... 45
 
 \newline 
-Meyerbeer, Giacomo ..... [44]
+Meyerbeer, Giacomo ..... 44
 
 \newline 
-Millenet, Johann Heinrich ..... [44]
+Millenet, Johann Heinrich ..... 44
 
 \newline 
-Mortellari, Michele ..... [51]
+Mortellari, Michele ..... 51
 
 \newline 
-Mosenthal, Salomon Hermann von ..... [43], [63]
+Mosenthal, Salomon Hermann von ..... 43, 63
 
 \newline 
-Mozart, Wolfgang Amadeus ..... [45], [46], [47], [48], [49], [50], [51], [52], [53], [54], [55], [56], [57], [58], [59], [60], [61], [62]
+Mozart, Wolfgang Amadeus ..... 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62
 
 \newline 
-Nägeli, Hans Georg ..... [19]
+Nägeli, Hans Georg ..... 19
 
 \newline 
-Nicolai, Otto ..... [63]
+Nicolai, Otto ..... 63
 
 \newline 
-Nissen, Georg Nikolaus von ..... [45], [46], [47], [48], [49], [50], [51], [61]
+Nissen, Georg Nikolaus von ..... 45, 46, 47, 48, 49, 50, 51, 62
 
 \newline 
-Paganini, Nicolò ..... [64]
+Paganini, Nicolò ..... 64
 
 \newline 
-Pawel-Rammingen, Baron von ..... [1]
+Pawel-Rammingen, Baron von ..... 1
 
 \newline 
-Poelchau, Georg Johann Daniel ..... [20], [21], [40], [41], 79
+Poelchau, Georg Johann Daniel ..... 20, 21, 40, 41, 79
 
 \newline 
-Quantz, Johann Joachim ..... [32], [35]
+Quantz, Johann Joachim ..... 32, 34
 
 \newline 
-Rubinštejn, Anton Grigor'evič ..... [65]
+Rubinštejn, Anton Grigor'evič ..... 65
 
 \newline 
-Salieri, Antonio ..... [66], [67], [68], [69], [70], [71]
+Salieri, Antonio ..... 66, 67, 68, 69, 70, 71
 
 \newline 
-Schmidt, Gustav ..... [72]
+Schmidt, Gustav ..... 72
 
 \newline 
-Schulhoff, Julius ..... [73]
+Schulhoff, Julius ..... 73
 
 \newline 
-Schulz, Hermann ..... [19]
+Schulz, Hermann ..... 19
 
 \newline 
-Schweizer, Carl Friedrich von ..... [30]
+Schweizer, Carl Friedrich von ..... 30
 
 \newline 
-Scribe, Eugène ..... [26]
+Scribe, Eugène ..... 26
 
 \newline 
-Sonnleithner, Joseph ..... [23]
+Sonnleithner, Joseph ..... 23
 
 \newline 
-Stalder, Joseph Franz Xaver Dominik ..... [74]
+Stalder, Joseph Franz Xaver Dominik ..... 74
 
 \newline 
-Stargardt, Josef A. ..... [32]
+Stargardt, Josef A. ..... 32
 
 \newline 
-Strauss, Richard ..... [75], [76]
+Strauss, Richard ..... 75, 76
 
 \newline 
-Treitschke, Georg Friedrich ..... [23]
+Treitschke, Georg Friedrich ..... 23
 
 \newline 
-Weber, Aloysia ..... [45], [56], [57], 82
+Weber, Aloysia ..... 45, 56, 60, 82
 
 \newline 
-Weber, Carl Maria von ..... [15], [16], [17], [18], [39], [77]
+Weber, Carl Maria von ..... 15, 16, 17, 18, 39, 77
 
 \newline 
-Weißenbach, Aloys ..... [22]
+Weißenbach, Aloys ..... 22
     \clearpage  
     \chapter*{\centering Register der Titel und Texte}
 \addcontentsline{toc}{chapter}{Register der Titel und Texte}
@@ -2073,10 +2212,10 @@ Weißenbach, Aloys ..... [22]
 
 
 \newline 
-[...] gut sei wieder ..... [72]
+[...] gut sei wieder ..... 72
 
 \newline 
-[...] wohl nein ..... [42]
+[...] wohl nein ..... 42
 
 \newline 
 13 Albumblätter ..... 78
@@ -2085,7 +2224,7 @@ Weißenbach, Aloys ..... [22]
 2 Musikstücke ..... 79
 
 \newline 
-3 Sonaten ..... [32]
+3 Sonaten ..... 32
 
 \newline 
 5 Musikstücke für Bläser ..... 80
@@ -2097,281 +2236,405 @@ Weißenbach, Aloys ..... [22]
 8 Solfeggien ..... 82
 
 \newline 
-Ah se in ciel benigne stelle ..... [45]
+Ah se in ciel benigne stelle ..... 45
 
 \newline 
-Albumblatt ..... [2], [3], [4], [5], [6], [7], [8], [9], [10], [11], [12], [13], [14]
+Albumblatt ..... 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14
 
 \newline 
-Alceste ..... [36]
+Alceste ..... 36
 
 \newline 
-Alle Donner alle Wetter alle Teufel ..... [25]
+Alle Donner alle Wetter alle Teufel ..... 25
 
 \newline 
-Appel à l'amour ..... [66]
+Appel à l'amour ..... 66
 
 \newline 
-Beim kindlichen Strahl des erwachenden Phoibos. Arr ..... [15]
+Beim kindlichen Strahl des erwachenden Phoibos. Arr ..... 15
 
 \newline 
-Bella arciera per che fiera ..... [67]
+Bella arciera per che fiera ..... 67
 
 \newline 
-Bella arciera perche fiera ..... [67]
+Bella arciera perche fiera ..... 67
 
 \newline 
-Benedicimus te ..... [49]
+Benedicimus te ..... 49
 
 \newline 
-Berceuse. Sketches ..... [73]
+Berceuse. Skizzen ..... 73
 
 \newline 
-Carolo schlägt dein Herz noch für Louise ..... [25]
+Carolo schlägt dein Herz noch für Louise ..... 25
 
 \newline 
-[Chaste fille de Latone] ..... [37]
+[Chaste fille de Latone] ..... 37
 
 \newline 
-Chi sà qual sia ..... [46]
+Chi sà qual sia ..... 46
 
 \newline 
-Chorsatz. Fragment ..... [42]
+Chorsatz. Fragment ..... 42
 
 \newline 
-[Come ti piace imponi] ..... [47]
+[Come ti piace imponi] ..... 47
 
 \newline 
-Das Auge schaut in dessen Wimpergleise die Sonnen auf und nieder gehn ..... [22]
+Das Auge schaut in dessen Wimpergleise die Sonnen auf und nieder gehn ..... 22
 
 \newline 
-Das Fräulein ..... [29]
+Das Fräulein ..... 29
 
 \newline 
-Das Fräulein saß und sann ..... [29]
+Das Fräulein saß und sann ..... 29
 
 \newline 
-Der Glorreiche Augenblick ..... [22]
+Der Glorreiche Augenblick ..... 22
 
 \newline 
-Der Goldschmied von Ulm. Excerpts. Arr ..... [43]
+Der Goldschmied von Ulm. Excerpts. Arr ..... 43
 
 \newline 
-Der den Bund in Sturme festgehalten ..... [22]
+Der den Bund in Sturme festgehalten ..... 22
 
 \newline 
-Die Gräberinsel der Fürsten zu Gotha. Arr ..... [28]
+Die Gräberinsel der Fürsten zu Gotha. Arr ..... 28
 
 \newline 
-Die Mädchen sie gleichen bei meiner Treu' ..... [25]
+Die Mädchen sie gleichen bei meiner Treu' ..... 25
 
 \newline 
-Die lustigen Weiber von Windsor. Excerpts. Arr ..... [63]
+Die lustigen Weiber von Windsor. Excerpts. Arr ..... 63
 
 \newline 
-Die verliebte Schäferin. Arr ..... [16]
+Die verliebte Schäferin. Arr ..... 16
 
 \newline 
-Domine Deus salutis meae ..... [38]
+Domine Deus salutis meae ..... 38
 
 \newline 
-Domine Deus salutis meae, in die clamavi ..... [38]
+Domine Deus salutis meae, in die clamavi ..... 38
 
 \newline 
-Du treuer Gottessohn nun hast du mir den Himmel aufgemacht ..... [21]
+Du treuer Gottessohn nun hast du mir den Himmel aufgemacht ..... 21
 
 \newline 
-Einsam saß ich in dem Tale an dem schroffen Felsenhang ..... [25]
+Einsam saß ich in dem Tale an dem schroffen Felsenhang ..... 25
 
 \newline 
-Er ist da in seiner Gloria ..... [25]
+Er ist da in seiner Gloria ..... 25
 
 \newline 
-Erfreue dich mein Herz den jetzo weicht der Schmerz ..... [21]
+Erfreue dich mein Herz den jetzo weicht der Schmerz ..... 21
 
 \newline 
-Es braust und wogt des Volkes Drang ..... [44]
+Es braust und wogt des Volkes Drang ..... 44
 
 \newline 
-Es gehen die Töne ins fühlende Herz ..... [25]
+Es gehen die Töne ins fühlende Herz ..... 25
 
 \newline 
-Es treten hervor die Scharen der Frauen ..... [22]
+Es treten hervor die Scharen der Frauen ..... 22
 
 \newline 
-Europa steht ..... [22]
+Europa steht ..... 22
 
 \newline 
-Festlied ..... [44]
+Festlied ..... 44
 
 \newline 
-Fidelio. Sketches ..... [23]
+Fidelio. Skizzen ..... 23
 
 \newline 
-Frau ohne Schatten. Auswahl ..... [75]
+Frau ohne Schatten. Auswahl ..... 75
 
 \newline 
-Freude füllet alle Herzen ..... [25]
+Freude füllet alle Herzen ..... 25
 
 \newline 
-Glorificamus te ..... [49]
+Glorificamus te ..... 49
 
 \newline 
-Herr Gott dich loben alle wir ..... [19]
+Herr Gott dich loben alle wir ..... 19
 
 \newline 
-Heut' schleußt er wieder auf die Tür ..... [21]
+Heut' schleußt er wieder auf die Tür ..... 21
 
 \newline 
-Hier wo der Kunst ein gastlich Dach ..... [44]
+Hier wo der Kunst ein gastlich Dach ..... 44
 
 \newline 
-Horch die Lerche singt im Hain ..... [63]
+Horch die Lerche singt im Hain ..... 63
 
 \newline 
-Ihr kleinen Vögelein. Arr ..... [17]
+Ihr kleinen Vögelein. Arr ..... 17
 
 \newline 
-Il Burbero di buon cuore. Inserts ..... [46]
+Il Burbero di buon cuore. Inserts ..... 46
 
 \newline 
-Im ferneren Lande da kämpfen ..... [25]
+Im ferneren Lande da kämpfen ..... 25
 
 \newline 
-In Jesu Demut kann ich Trost ..... [21]
+In Jesu Demut kann ich Trost ..... 21
 
 \newline 
-Io ti lascio e questo addio ..... [51]
+Io ti lascio e questo addio ..... 51
 
 \newline 
-Iphigénie en Tauride. Excerpts. Arr ..... [37]
+Iphigénie en Tauride. Excerpts. Arr ..... 37
 
 \newline 
-Klavierstück. Auswahl ..... [1], [65]
+Klavierstück. Auswahl ..... 1, 65
 
 \newline 
-La Clemenza di Tito. Excerpts. Arr ..... [47]
+La Clemenza di Tito. Excerpts. Arr ..... 47
 
 \newline 
-Lebe wohl mein süßes Leben. Arr ..... [18]
+Lebe wohl mein süßes Leben. Arr ..... 18
 
 \newline 
-Les Deux nuits. Auswahl ..... [26]
+Les Deux nuits. Auswahl ..... 26
 
 \newline 
-Louise und Carolo im romantischen Mühltale ..... [25]
+Louise und Carolo im romantischen Mühltale ..... 25
 
 \newline 
-Maienblümlein. Arr ..... [77]
+Maienblümlein. Arr ..... 77
 
 \newline 
-Männer suchen stets zu naschen ..... [48]
+Männer suchen stets zu naschen ..... 48
 
 \newline 
-Männer suchen stets zu naschen läßt man sie allein ..... [48]
+Männer suchen stets zu naschen läßt man sie allein ..... 48
 
 \newline 
-Mein Oheim, tönt’s am Tajo fern ..... [44]
+Mein Oheim, tönt’s am Tajo fern ..... 44
 
 \newline 
-Messe. Auswahl ..... [49]
+Messe. Auswahl ..... 49
 
 \newline 
-Milord vous avez ma promesse ..... [26]
+Milord vous avez ma promesse ..... 26
 
 \newline 
-Missa superba. Excerpts. Arr ..... [40], [41]
+Missa superba. Excerpts. Arr ..... 40, 41
 
 \newline 
-Moderata durant ..... [68]
+Moderata durant ..... 68
 
 \newline 
-Musikalisches Opfer. Fragment ..... [20]
+Musikalisches Opfer. Fragment ..... 20
 
 \newline 
-Müßt ich auch durch tausend Drachen ..... [50]
+Müßt ich auch durch tausend Drachen ..... 50
 
 \newline 
-Non più di fiori vaghe catene ..... [47]
+Non più di fiori vaghe catene ..... 47
 
 \newline 
-Nun die Schatten dunkeln ..... [31]
+Nun die Schatten dunkeln ..... 31
 
 \newline 
-O Himmel welch Entzücken ..... [22]
+O Himmel welch Entzücken ..... 22
 
 \newline 
-[O namenlose Freude] ..... [23]
+[O namenlose Freude] ..... 23
 
 \newline 
-O seht sie nah und näher treten ..... [22]
+O seht sie nah und näher treten ..... 22
 
 \newline 
-Ombra felice tornerò a rivederti ..... [51]
+Ombra felice tornerò a rivederti ..... 51
 
 \newline 
-Pensieri funesti ah no non tornate ..... [69]
+Pensieri funesti ah no non tornate ..... 69
 
 \newline 
-Prima la musica e poi le parole. Excerpts. Arr ..... [69]
+Prima la musica e poi le parole. Excerpts. Arr ..... 69
 
 \newline 
-Prinz Eugen der edle Ritter. Auswahl ..... [72]
+Prinz Eugen der edle Ritter. Auswahl ..... 72
 
 \newline 
-Quand sur les ailes des plaisirs ..... [39]
+Quand sur les ailes des plaisirs ..... 39
 
 \newline 
-Quartett ..... [24]
+Quartett ..... 24
 
 \newline 
-Reviens plaisir d'amour reviens secher mes larmes ..... [66]
+Reviens plaisir d'amour reviens secher mes larmes ..... 66
 
 \newline 
-Salvator mundi ..... [27]
+Salvator mundi ..... 27
 
 \newline 
-Salvator mundi, salva nos omnes ..... [27]
+Salvator mundi, salva nos omnes ..... 27
 
 \newline 
-Sanctus, Dominus Deus Sabaoth ..... [40], [41]
+Sanctus, Dominus Deus Sabaoth ..... 40, 41
 
 \newline 
-Sehnsucht ..... [30]
+Sehnsucht ..... 30
 
 \newline 
-Sinfonie concertantes. Auswahl ..... [52]
+Sinfonie concertantes. Auswahl ..... 52
 
 \newline 
-Solfeggio ..... [53], [54], [55], [56], [57], [58], [59], [60]
+Solfeggio ..... 53, 54, 55, 56, 57, 58, 59, 60
 
 \newline 
-Sonate ..... [33], [34], [35], [61], [62], [64]
+Sonate ..... 33, 34, 35, 61, 62, 64
 
 \newline 
-Süßer Trost mein Jesus kommt ..... [21]
+Süßer Trost mein Jesus kommt ..... 21
 
 \newline 
-Tief aus Tälern aus waldigen Höhen eilen wir freudig heran ..... [25]
+Tief aus Tälern aus waldigen Höhen eilen wir freudig heran ..... 25
 
 \newline 
-Till Eulenspiegels lustige Streiche. Auswahl ..... [76]
+Till Eulenspiegels lustige Streiche. Auswahl ..... 76
 
 \newline 
-Trioonatas ..... [74]
+Trioonatas ..... 74
 
 \newline 
-Tutte le volte che in villa trovomi ..... [70]
+Tutte le volte che in villa trovomi ..... 70
 
 \newline 
-Wenn ihr hinfort euch brav aufführt ..... [72]
+Wenn ihr hinfort euch brav aufführt ..... 72
 
 \newline 
-Wo zieht ihr Wolken so eilig hin ..... [30]
+Wo zieht ihr Wolken so eilig hin ..... 30
 
 \newline 
-Zum che diavolo è mai ..... [71]
+Zum che diavolo è mai ..... 71
 
 \newline 
-wehe dir weh uns allen ..... [75]
+wehe dir weh uns allen ..... 75
+    \clearpage 
+    \onecolumn 
+    \chapter*{\centering Literaturverzeichnis}
+\addcontentsline{toc}{chapter}{Literaturverzeichnis}
+\fancyhead{}
+\fancyhead[C]{\small RISM -\ Kunstsammlungen der Veste Coburg}
+
+
+  \textbf{AngS}\hspace{10pt}
+  Angermüller, Rudolph: Antonio Salieri. Sein Leben und seine weltlichen Werke unter besonderer Berücksichtigung seiner {\textquotedbl}großen{\textquotedbl} Opern. Teil 1, in: Schriften zur Musik, vol. 16; 2, München 1971 \newline 
+
+
+  \textbf{AngermüllerS 1976}\hspace{10pt}
+  Angermüller, Rudolph: Salieris Gesellschaftsmusik: (Bd. 17 = Studien zur italienisch-deutschen Musikgeschichte XI), in: Analecta musicologica (AnMl): Veröffentlichungen der Musikgeschichtlichen Abteilung des Deutschen Historischen Instituts in Rom, 17 (1976), p.146-193 \newline 
+
+
+  \textbf{AngermüllerS 2000}\hspace{10pt}
+  Angermüller, Rudolph: Antonio Salieri. Dokumente seines Lebens: unter Berücksichtigung von Musik, Literatur, Bildender Kunst, Architektur, Religion, Philosophie, Erziehung, Geschichte, Wissenschaft, Technik, Wirtschaft und tauglichem Leben seiner Zeit, Bad Honnef 2000 \newline 
+
+
+  \textbf{BPI}\hspace{10pt}
+  Biggi Parodi, Elena: Catalogo tematico delle composizioni teatrali di Antonio Salieri: gli autografi, in: Strumenti della ricerca musicale: collana della Società Italiana di Musicologia, vol. 8, Lucca 2005 \newline 
+
+
+  \textbf{BWV}\hspace{10pt}
+  Schmieder, Wolfgang: Thematisch-systematisches Verzeichnis der musikalischen Werke von Johann Sebastian Bach. Bach-Werke-Verzeichnis: 2., überarbeitete und erweiterte Auflage, Wiesbaden 1990 \newline 
+
+
+  \textbf{BachCatalog 1790}\hspace{10pt}
+  The Catalog of Carl Philipp Emanuel Bach's Estate: A Facsimile of the Edition by Schniebes, Hamburg, 1790, New York; London 1981 \newline 
+
+
+  \textbf{BöckingA 2006}\hspace{10pt}
+  Böcking, Silvia: Ich mag die Geister der Entfernten: Aus der Autographensammlung der Kunstsammlungen der Veste Coburg, Coburg 2006 \newline 
+
+
+  \textbf{DavidB 1961}\hspace{10pt}
+  David, Hans T.: A lesser secret of J. S. Bach Uncovered, in: Journal of the American Musicological Society: JAMS, 14 (1961), p.199-223 \newline 
+
+
+  \textbf{GroT}\hspace{10pt}
+  Gronefeld, Ingo: Flauto traverso und Flauto dolce in den Triosonaten des 18. Jahrhunderts (4 vol.): Ein thematisches Verzeichnis, Tutzing 2007- \newline 
+
+
+  \textbf{J}\hspace{10pt}
+  Jähns, Friedrich Wilhelm: Carl Maria von Weber in seinen Werken. Chronologisch-thematisches Verzeichnis seiner sämtlichen Compositionen, Berlin 1871 \newline 
+
+
+  \textbf{JansenR 1884}\hspace{10pt}
+  Jansen, Albert: Jean-Jaques Rousseau als Musiker, Berlin 1884 \newline 
+
+
+  \textbf{JohnsonB 1985}\hspace{10pt}
+  The Beethoven Sketchbooks, in: California Studies nineteenth-century-music, Berkeley 1985 \newline 
+
+
+  \textbf{KV}\hspace{10pt}
+  Köchel, Ludwig von: Chronologisch-thematisches Verzeichnis sämtlicher Tonwerke Wolfgang Amadé Mozarts (6th ed., bearbeitet von F. Giegling, A. Weinmann u. G. Sievers; Köchel-Verzeichnis), Wiesbaden 1964 \newline 
+
+
+  \textbf{KinB}\hspace{10pt}
+  Das Werk Beethovens. Thematisch-bibliographisches Verzeichnis seiner sämtlichen vollendeten Kompositionen, München 1955 \newline 
+
+
+  \textbf{KobayashiC 1988}\hspace{10pt}
+  Kobayashi, Yoshitake: Zur Chronologie der Spätwerke Johann Sebastian Bachs: Kompositions- und Aufführungstätigkeit von 1736 bis 1750, in: Bach-Jahrbuch, 74 (1988), p.7-72 \newline 
+
+
+  \textbf{KonradM 1992}\hspace{10pt}
+  Konrad, Ulrich: Mozarts Schaffensweise: Studien zu den Werkautographen, Skizzen und Entwürfen, in: Abhandlungen der Akademie der Wissenschaften in Göttingen, Philologisch-Historische Klasse, vol. 3/2011992 \newline 
+
+
+  \textbf{LauterwasserN 2013}\hspace{10pt}
+  Lauterwasser, Helmut: Neue Musik vom {\textquotedbl}Alten Fritz{\textquotedbl}: „Diese Noten haben Ihro Majestät der König Friederich von Preußen eigenhändig geschrieben.“, in: Concerto: Das Magazin für Alte Musik, 30 (2013), H. 247, p.18-20 \newline 
+
+
+  \textbf{LisztW 1970}\hspace{10pt}
+  Neue Ausgabe sämtlicher Werke, Budapest [u.a.] 1970- \newline 
+
+
+  \textbf{LvBWV}\hspace{10pt}
+  Ludwig van Beethoven. Thematisch-bibliographisches Werkverzeichnis, München 2014 \newline 
+
+
+  \textbf{MH}\hspace{10pt}
+  Johann Michael Haydn (1737-1806). A chronological thematic catalogue of his works, in: Thematic catalogue series, vol. 17, Stuyvesant (NY) 1993 \newline 
+
+
+  \textbf{NBA}\hspace{10pt}
+  Johann Sebastian Bach: Neue Ausgabe sämtlicher Werke, Kassel, Basel 1954- \newline 
+
+
+  \textbf{NMA}\hspace{10pt}
+  Wolfgang Amadeus Mozart: Neue Ausgabe sämtlicher Werke (ed. Internationale Stiftung Mozarteum Salzburg), Kassel etc. 1955- \newline 
+
+
+  \textbf{SaladinL 1948}\hspace{10pt}
+  Saladin, Josef Anton: Die Musikpflege am Stift St. Leodegar in Luzern, Stans 1948 \newline 
+
+
+  \textbf{Schmidt-GörgB 1961}\hspace{10pt}
+  L. van Beethoven: Werke: Neue Ausgabe sämtlicher Werke, München, Duisburg 1961- \newline 
+
+
+  \textbf{SchmidtB 1969}\hspace{10pt}
+  Schmidt, Hans: Verzeichnis der Skizzen Beethovens, in: Beethoven-Jahrbuch, 6 (1965/68, 1969), p.7-128, Bonn  \newline 
+
+
+  \textbf{SpiF}\hspace{10pt}
+  Spitta, Philipp: Musikalische Werke Friedrichs des Grossen, Leipzig 1889 \newline 
+
+
+  \textbf{TysonC 1975}\hspace{10pt}
+  Tyson, Alan: La Clemenza di Tito and its chronology, in: Musical Times, 116 (1975), p.221-227 \newline 
+
+
+  \textbf{WotG}\hspace{10pt}
+  Wotquenne, Alfred: Catalogue thématique des œuvres de Chr. W. v. Gluck (Neuauflage), Hildesheim 1967 \newline 
+
+
+  \textbf{ZirnbauerB 1950}\hspace{10pt}
+  Zirnbauer, Heinz: Coburger Urfassung der 151. Kantate Johann Sebastian Bachs, in: Coburg in Bayern: Festschrift der Stadt Coburg, (1950), p.56-57 \newline 
+
+
  \clearpage \onecolumn \ \vfill \center {\chancery Finis.}$ \vfill \thispagestyle{empty} \end{document}
