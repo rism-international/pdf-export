@@ -176,7 +176,7 @@ if opts[:clear]
   Dir.glob(File.join(temp_path, '*.code')).each { |file| File.delete(file) }
 end
 
-cmd = 'lualatex -interaction batchmode --enable-write18 -shell-escape example.tex'
+cmd = 'max_strings=1600000 hash_extra=1600000 lualatex -interaction batchmode --enable-write18 -shell-escape example.tex'
 system( cmd )
 # Run twice to have the correct TOC
 puts "Compiling the TOC ..."

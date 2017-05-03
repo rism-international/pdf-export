@@ -19,12 +19,13 @@ Installation
 
 Overall Requirements
 --------------------
-* Ruby 
+* Ruby (version >= 2.1) 
 * TeX Live 2016
-* Inkscape
-* Verovio notation engraving library
-Optional:
-* Nodejs (if compiling of the C++ executable of Verovio not possible)
+* Inkscape (version >= 0.91)
+* Verovio notation engraving library (binary executable)
+
+If compiling of the C++ executable of Verovio is not possible you can build the SVG images of the incipits with the Verovio javascript library and the calling nodejs script, see the verovio-node subfolder. For this it needs
+* Nodejs (version >= 6.10)
 
 Installation on Linux
 -----------------------
@@ -162,7 +163,6 @@ Indices can be build also by using the preprocessing and transforming via XSLT. 
 Additional indices could be:
 * Watermark
 * Shelfmark
-* Literature
 
 For implementation see the example code.
 
@@ -171,4 +171,11 @@ Localization
 
 If you like to modify the values of some fields (e.g. to have a special localized version), consider using the help of related software (e.g. Nokogiri with ruby).
 
+Performance-example
+------------
+This software is tested with a set of 20.100 records (query for 'bach'). With a slightly actual machine it takes
+* 4 minutes to create the latex file incl. localization
+* 120 minutes to build 20.700 SVG files with Verovio binary executable
+* 10 minutes to compile the luatex pdf.
 
+Result is a 142MB PDF-file with 5.700 pages.
