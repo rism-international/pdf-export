@@ -63,6 +63,11 @@
       <xsl:apply-templates select="marc:controlfield[@tag='001']"/>
       <xsl:apply-templates select="marc:datafield[@tag='852']"/>
       <xsl:apply-templates select="marc:datafield[@tag='773']"/>
+      <xsl:if test="marc:datafield[@tag='774']">
+        <entries before="\par ">
+          <xsl:apply-templates select="marc:datafield[@tag='774']"/>
+        </entries>
+      </xsl:if>
     </record>
   </xsl:template>
 
@@ -364,6 +369,13 @@
       <xsl:value-of select="marc:subfield[@code='w']"/>
     </collection-link>
   </xsl:template>
+  
+  <xsl:template match="marc:datafield[@tag='774']">
+    <entry-link>
+      <xsl:value-of select="marc:subfield[@code='w']"/>
+    </entry-link>
+  </xsl:template>
+
 
   <!-- This function is called by note fields and originaltitle --> 
   <xsl:template name="superscript">

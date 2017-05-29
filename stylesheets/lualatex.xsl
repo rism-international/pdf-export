@@ -118,6 +118,19 @@
 \newline \includesvg[width=209pt]{<xsl:value-of select="filename"/>}%</xsl:when>
 <xsl:when test="not(name(.)='verovio-code')">
   <xsl:choose>
+    <xsl:when test="name(.)='entries'">
+      <xsl:value-of select="concat($gVariables/*/var[@code='contains'], ' ')"/> 
+      <xsl:for-each select="entry-link">
+        <xsl:sort select="key('collection', .)/@position" data-type="number"/>
+        <xsl:variable name="coll" select="."/>
+        <xsl:for-each select="key('collection',$coll)">
+          <xsl:value-of select="@position"/>
+          </xsl:for-each>
+          <xsl:if test="position()!=last()">
+            <xsl:text>, </xsl:text>
+          </xsl:if> 
+      </xsl:for-each>
+    </xsl:when>
     <xsl:when test="not(name(.)='collection-link')">
       <!-- Escaping some latex entities & ~ % _ "(Quote) and muscat {{brk}} -->
       <xsl:variable name="note1">

@@ -10,4 +10,5 @@
   <var code="index_people">Index of personal names</var>
   <var code="index_cat">Literature</var>
   <var code="collection">Collection</var>
+  <var code="contains">Contains: </var>
 </variables>

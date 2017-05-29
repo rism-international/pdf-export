@@ -10,5 +10,6 @@
   <var code="index_people">Register der Personennamen</var>
   <var code="index_cat">Literaturverzeichnis</var>
   <var code="collection">Sammlung</var>
+  <var code="contains">Enthält: </var>
 
 </variables>
