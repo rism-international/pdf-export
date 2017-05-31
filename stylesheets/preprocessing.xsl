@@ -13,7 +13,7 @@
   <xsl:template match="/">
     <document>
       <xsl:apply-templates select="//marc:record">
-	<xsl:sort select="marc:datafield[@tag=100] = false()" lang="de"/>
+	      <xsl:sort select="marc:datafield[@tag=100] = false()" lang="de"/>
         <xsl:sort select="translate(translate(marc:datafield[@tag=100]/marc:subfield[@code='a'], concat('[]', $apos), ''), 'äöüšÄÖÜŠ', 'aousAOUS')" lang="de"/>
         <xsl:sort select="translate(translate(marc:datafield[@tag=240 or @tag=130]/marc:subfield[@code='a'], '[]',''), 'äöüšÄÖÜŠ', 'aousAOUS')" lang="de"/>
         <xsl:sort select="translate(marc:datafield[@tag=240 or @tag=130]/marc:subfield[@code='r'], 'CcDdEeFfGgAaBb', '0123456789ABCD')" lang="de"/>
@@ -44,6 +44,7 @@
       <xsl:apply-templates select="marc:datafield[@tag='245']"/>
       <xsl:apply-templates select="marc:datafield[@tag=300]/marc:subfield[@code=8]">
         <xsl:sort select="."/>
+        <xsl:with-param name="ms" select="marc:datafield[@tag='593']"/>
       </xsl:apply-templates>
       <xsl:apply-templates select="marc:datafield[@tag='031']">
         <xsl:with-param name="pos"><xsl:value-of select="position()"/></xsl:with-param>
@@ -167,14 +168,22 @@
   </xsl:template>
 
   <xsl:template match="marc:datafield[@tag=300]/marc:subfield[@code=8]">
+    <xsl:param name="ms"/>
     <xsl:for-each select=".">
       <xsl:sort select="." lang="de"/>
       <xsl:variable name="layer" select="."/>
       <layer>
         <xsl:attribute name="before"><xsl:value-of select="concat($par, '\textcolor{darkblue}{\ding{\numexpr181 + ', .,'}}')"/></xsl:attribute>
-      </layer>
+        </layer>
+        <xsl:for-each select="$ms">
+          <xsl:if test="marc:subfield[@code=8]=$layer">
+            <ms>
+              <xsl:value-of select="marc:subfield[@code='a']"/>
+            </ms>
+          </xsl:if>
+          </xsl:for-each>
       <xsl:for-each select="../../marc:datafield/marc:subfield[@code=8][.=$layer]">
-        <xsl:sort select="translate(../@tag, '3257', '1234')" order="ascending"/>
+        <xsl:sort select="translate(../@tag, '2357', '1234')" order="ascending"/>
         <xsl:call-template name="mat" select="../../marc:datafield/marc:subfield[@code=8][.=$layer]"/>
       </xsl:for-each>
     </xsl:for-each>
@@ -188,9 +197,6 @@
       <xsl:when test="../@tag=300">
         <xsl:call-template name="n300" select="../marc:datafield"/>
         </xsl:when>
-      <xsl:when test="../@tag=593">
-        <xsl:call-template name="copystatus" select="../marc:datafield"/>
-        </xsl:when> 
       <xsl:when test="../@tag=563">
         <xsl:call-template name="binding" select="../marc:datafield"/>
         </xsl:when> 
@@ -217,15 +223,8 @@
 
   <xsl:template name="date">
     <date>
-      <xsl:attribute name="before"><xsl:value-of select="concat('; ', $gVariables/*/var[@code='dating'])"/></xsl:attribute>
       <xsl:value-of select="../marc:subfield[@code='c']"/>
     </date>
-  </xsl:template>
-
-  <xsl:template name="copystatus">
-    <copystatus before="{$newline}">
-      <xsl:value-of select="../marc:subfield[@code='a']"/>
-    </copystatus>
   </xsl:template>
 
   <xsl:template name="binding">
@@ -237,7 +236,7 @@
 
   <xsl:template name="n300">
     <xsl:variable name="layer" select="../marc:subfield[@code=8]"/>
-    <score>
+    <score before="{$newline}">
       <xsl:value-of select="../marc:subfield[@code='a']"/>
     </score>
     <xsl:if test="../../marc:datafield[@tag='590']">
