@@ -76,6 +76,9 @@ n240a:
   Minuets: 
     - Menuett
     - Menuette
+  Ouvertures:
+    - Ouvertüre
+    - Ouvertüren
   Partsongs:
     - Chorsatz
     - Chorsätze
@@ -143,6 +146,7 @@ relator_codes:
   dte: Widmungsträger
   pbl: Verleger
   scr: Schreiber
+  cmp: Komponisten-Querverweis
 
 
 

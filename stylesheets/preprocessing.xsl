@@ -17,15 +17,12 @@
         <xsl:sort select="translate(translate(marc:datafield[@tag=100]/marc:subfield[@code='a'], concat('[]', $apos), ''), 'äöüšÄÖÜŠ', 'aousAOUS')" lang="de"/>
         <xsl:sort select="translate(translate(marc:datafield[@tag=240 or @tag=130]/marc:subfield[@code='a'], '[]',''), 'äöüšÄÖÜŠ', 'aousAOUS')" lang="de"/>
         <xsl:sort select="translate(marc:datafield[@tag=240 or @tag=130]/marc:subfield[@code='r'], 'CcDdEeFfGgAaBb', '0123456789ABCD')" lang="de"/>
-
-
 	      <!--
         <xsl:sort select="translate(translate(marc:datafield[@tag=100]/marc:subfield[@code='a'], concat('[]', $apos), ''), 'äöüšÄÖÜŠ', 'aousAOUS')" lang="de"/>
         <xsl:sort select="translate(translate(marc:datafield[@tag=240]/marc:subfield[@code='a'], '[]',''), 'äöüšÄÖÜŠ', 'aousAOUS')" lang="de"/>
 	<xsl:sort select="translate(translate(marc:datafield[@tag=130]/marc:subfield[@code='a'], '[]',''), 'äöüšÄÖÜŠ', 'aousAOUS')" lang="de"/>
 
 	      <xsl:sort select="marc:datafield[@tag=240 or @tag=130]/marc:subfield[@code='a']" lang="de"/>
-
 
 -->
      </xsl:apply-templates>
@@ -43,6 +40,7 @@
         <xsl:with-param name="pos"><xsl:value-of select="position()"/></xsl:with-param>
       </xsl:apply-templates>
       <xsl:apply-templates select="marc:datafield[@tag='240']"/>
+      <xsl:apply-templates select="marc:datafield[@tag='730']"/>
       <xsl:apply-templates select="marc:datafield[@tag='245']"/>
       <xsl:apply-templates select="marc:datafield[@tag=300]/marc:subfield[@code=8]">
         <xsl:sort select="."/>
@@ -88,11 +86,18 @@
         <xsl:attribute name="before"><xsl:value-of select="concat($par, '\vspace{16pt} \textcolor{darkblue}{\textbf{')"/></xsl:attribute>
       </xsl:if>
       <xsl:value-of select="marc:subfield[@code='a']"/>
-     </composer>
-      <life_date>
-        <xsl:attribute name="after">}}</xsl:attribute>
+    </composer>
+    <xsl:choose>
+    <xsl:when test="marc:subfield[@code='d']">
+      <life_date before=" (">
+        <xsl:attribute name="after">)}}</xsl:attribute>
       <xsl:value-of select="marc:subfield[@code='d']"/>
     </life_date>
+  </xsl:when>
+  <xsl:otherwise>
+    <life_date after="}}}}"/>
+  </xsl:otherwise>
+</xsl:choose>
     <id before="\hfillplus{{[" after="]}}"><xsl:value-of select="$pos"/></id>
   </xsl:template>
 
@@ -135,6 +140,22 @@
     </xsl:if>
   </xsl:template>
 
+  <xsl:template match="marc:datafield[@tag='730']">
+    <further_title>
+      <xsl:choose>
+        <xsl:when test="preceding-sibling::*[1]/@tag!=@tag">
+          <xsl:attribute name="before"><xsl:value-of select="concat($newline, $gVariables/*/var[@code='further_title'])"/></xsl:attribute>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:attribute name="before"><xsl:value-of select="'; '"/></xsl:attribute>
+        </xsl:otherwise>
+      </xsl:choose>
+      <xsl:value-of select="marc:subfield[@code='a']"/>
+      <xsl:if test="marc:subfield[@code='k']">. <xsl:value-of select="marc:subfield[@code='k']"/></xsl:if>
+      <xsl:if test="marc:subfield[@code='o']">. <xsl:value-of select="marc:subfield[@code='o']"/></xsl:if>
+    </further_title>
+  </xsl:template>
+
   <xsl:template match="marc:datafield[@tag='245']">
     <original_title>
       <xsl:attribute name="before"><xsl:value-of select="concat($par, '\begin{itshape}')"/></xsl:attribute>
@@ -153,7 +174,7 @@
         <xsl:attribute name="before"><xsl:value-of select="concat($par, '\textcolor{darkblue}{\ding{\numexpr181 + ', .,'}}')"/></xsl:attribute>
       </layer>
       <xsl:for-each select="../../marc:datafield/marc:subfield[@code=8][.=$layer]">
-        <xsl:sort select="translate(../@tag, '3527', '1234')" order="ascending"/>
+        <xsl:sort select="translate(../@tag, '3257', '1234')" order="ascending"/>
         <xsl:call-template name="mat" select="../../marc:datafield/marc:subfield[@code=8][.=$layer]"/>
       </xsl:for-each>
     </xsl:for-each>
@@ -169,6 +190,9 @@
         </xsl:when>
       <xsl:when test="../@tag=593">
         <xsl:call-template name="copystatus" select="../marc:datafield"/>
+        </xsl:when> 
+      <xsl:when test="../@tag=563">
+        <xsl:call-template name="binding" select="../marc:datafield"/>
         </xsl:when> 
       <xsl:when test="../@tag=592">
         <xsl:call-template name="watermark" select="../marc:datafield"/>
@@ -193,6 +217,7 @@
 
   <xsl:template name="date">
     <date>
+      <xsl:attribute name="before"><xsl:value-of select="concat('; ', $gVariables/*/var[@code='dating'])"/></xsl:attribute>
       <xsl:value-of select="../marc:subfield[@code='c']"/>
     </date>
   </xsl:template>
@@ -201,6 +226,13 @@
     <copystatus before="{$newline}">
       <xsl:value-of select="../marc:subfield[@code='a']"/>
     </copystatus>
+  </xsl:template>
+
+  <xsl:template name="binding">
+    <binding>
+      <xsl:attribute name="before"><xsl:value-of select="concat($newline, $gVariables/*/var[@code='binding'])"/></xsl:attribute>
+      <xsl:value-of select="../marc:subfield[@code='a']"/>
+    </binding>
   </xsl:template>
 
   <xsl:template name="n300">

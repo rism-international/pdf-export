@@ -11,4 +11,7 @@
   <var code="index_cat">Literature</var>
   <var code="collection">Collection</var>
   <var code="contains">Contains: </var>
+  <var code="further_title">Further title: </var>
+  <var code="binding">Binding note: </var>
+  <var code="dating">Date: </var>
 </variables>

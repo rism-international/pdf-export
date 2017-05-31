@@ -11,5 +11,7 @@
   <var code="index_cat">Literaturverzeichnis</var>
   <var code="collection">Sammlung</var>
   <var code="contains">Enthält: </var>
-
+  <var code="further_title">Weiterer Titel: </var>
+  <var code="binding">Einband: </var>
+  <var code="dating">Datierung: </var>
 </variables>

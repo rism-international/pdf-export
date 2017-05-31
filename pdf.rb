@@ -71,7 +71,7 @@ each_record(ifile) do |record|
           n.content = terms['n240r'][n.content]
     end
   end
-  record.xpath("//marc:datafield[@tag='240' or @tag='130']/marc:subfield").each do |n|
+  record.xpath("//marc:datafield[@tag='240' or @tag='130' or @tag='730']/marc:subfield").each do |n|
     if n.attribute("code").value == 'a'
       terms['n240a'].each do |k,v|
         if n.content.include?(k)
