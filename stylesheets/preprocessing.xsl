@@ -321,15 +321,23 @@
     </xsl:if>
   </xsl:template>
 
+  <xsl:template match="marc:datafield[@tag=510]">
+        <rismseries before="\newline "><xsl:value-of select="marc:subfield[@code='a']"/></rismseries>
+        <rismnumber><xsl:value-of select="marc:subfield[@code='c']"/></rismnumber>
+  </xsl:template>
+
+
   <xsl:template match="marc:datafield[@tag='500']">
     <xsl:choose>
       <xsl:when test="marc:subfield[@code=8]"/>
       <xsl:when test="not(marc:subfield[@code=8])">
+        <xsl:if test="not(contains(marc:subfield[@code='a'], 'digital_objects'))">
         <note><xsl:attribute name="before"><xsl:value-of select="$par"/></xsl:attribute>
           <xsl:call-template name="superscript">
             <xsl:with-param name="text" select="marc:subfield[@code='a']"/>
            </xsl:call-template>
-        </note>
+         </note>
+       </xsl:if>
       </xsl:when>
     </xsl:choose>
   </xsl:template>

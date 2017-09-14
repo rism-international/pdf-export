@@ -46,6 +46,9 @@ n240a:
   "Album leaves":
     - Albumblatt
     - Albumblätter
+  Arias:
+    - Arie
+    - Arien 
   Cantatas: 
     - Kantate
     - Kantaten
@@ -55,6 +58,9 @@ n240a:
   Contredanses: 
     - Kontertanz
     - Kontertänze
+  Duets:
+    - Duett
+    - Duette
   Fantasies: 
     - Phantasie
     - Phantasien
@@ -94,6 +100,12 @@ n240a:
   Quintets:
     - Quintett
     - Quintette
+  Requiems:
+    - Requiem
+    - Requien
+  Sacred songs:
+    - Geistliches Lied
+    - Geistliche Gesänge 
   Serenades:
     - Serenade
     - Serenaden

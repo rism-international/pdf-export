@@ -41,6 +41,9 @@ n240r:
 
 # Containing [singular form, plural form]
 n240a:
+  Arias: 
+    - Aria
+    - Arias
   Cantatas: 
     - Cantata
     - Cantatas

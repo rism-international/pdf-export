@@ -8,6 +8,8 @@
   <var code="toc">Inhaltsverzeichnis</var>
   <var code="index_title">Register der Titel und Texte</var>
   <var code="index_people">Register der Personennamen</var>
+  <var code="index_shelfmark">Signaturenregister</var>
+  <var code="index_watermark">Register der Wasserzeichen</var>
   <var code="index_cat">Literaturverzeichnis</var>
   <var code="collection">Sammlung</var>
   <var code="contains">Enthält: </var>

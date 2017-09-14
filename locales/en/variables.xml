@@ -8,6 +8,8 @@
   <var code="toc">Table of content</var>
   <var code="index_title">Index of title and text</var>
   <var code="index_people">Index of personal names</var>
+  <var code="index_shelfmark">Index of shelfmarks</var>
+  <var code="index_watermark">Index of watermarks</var>
   <var code="index_cat">Literature</var>
   <var code="collection">Collection</var>
   <var code="contains">Contains: </var>
