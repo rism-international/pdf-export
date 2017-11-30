@@ -59,6 +59,7 @@
  
       <xsl:apply-templates select="marc:datafield[@tag='691']"/>
       <xsl:apply-templates select="marc:datafield[@tag='852']/marc:subfield[@code='d']"/>
+      <xsl:apply-templates select="marc:datafield[@tag='510']"/>
       <xsl:apply-templates select="marc:controlfield[@tag='001']"/>
       <xsl:apply-templates select="marc:datafield[@tag='852']"/>
       <xsl:apply-templates select="marc:datafield[@tag='773']"/>
@@ -321,9 +322,14 @@
     </xsl:if>
   </xsl:template>
 
-  <xsl:template match="marc:datafield[@tag=510]">
-        <rismseries before="\newline "><xsl:value-of select="marc:subfield[@code='a']"/></rismseries>
-        <rismnumber><xsl:value-of select="marc:subfield[@code='c']"/></rismnumber>
+
+
+  <xsl:template match="marc:datafield[@tag='510']">
+    <rismseries>      
+      <xsl:attribute name="before"><xsl:value-of select="concat($newline, $gVariables/*/var[@code='series'])"/></xsl:attribute>
+      <xsl:value-of select="marc:subfield[@code='a']"/>
+    </rismseries>
+    <rismnumber><xsl:value-of select="marc:subfield[@code='c']"/></rismnumber>
   </xsl:template>
 
 
