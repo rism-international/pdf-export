@@ -132,7 +132,22 @@
       <xsl:if test="marc:subfield[@code='o']">. <xsl:value-of select="marc:subfield[@code='o']"/></xsl:if>
     </uniform_title>
     <xsl:if test="marc:subfield[@code='n']">
-      <work_catalog before=", "><xsl:value-of select="marc:subfield[@code='n']"/></work_catalog>
+      <work_catalog before=", ">
+        <xsl:for-each select="marc:subfield[@code='n']">
+          <xsl:choose>
+            <xsl:when test="position() = last()">
+              <xsl:call-template name="superscript">
+                <xsl:with-param name="text" select="concat(., '')"/>
+              </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:call-template name="superscript">
+                <xsl:with-param name="text" select="concat(., '; ')"/>
+              </xsl:call-template>
+          </xsl:otherwise>
+          </xsl:choose>
+        </xsl:for-each>
+      </work_catalog>
     </xsl:if>
     <xsl:if test="marc:subfield[@code='r']">
       <key before=" - "><xsl:value-of select="marc:subfield[@code='r']"/></key>
