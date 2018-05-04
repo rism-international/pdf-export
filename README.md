@@ -47,7 +47,7 @@ sudo apt install tex-common texlive-base texlive-binaries texlive-extra-utils te
 sudo apt install inkscape 
 ```
 4. Verovio (called from commandline)
-see: https://github.com/rism-ch/verovio/wiki/Building-instructions
+After downloading the Verovio source code build the executable, see: https://github.com/rism-ch/verovio/wiki/Building-instructions
 
 5. Set ulimit
 For using lualatex set new size of opening files is required:
