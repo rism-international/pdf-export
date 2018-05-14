@@ -48,6 +48,12 @@ sudo apt install inkscape
 ```
 4. Verovio (called from commandline)
 After downloading the Verovio source code build the executable, see: https://github.com/rism-ch/verovio/wiki/Building-instructions
+```bash
+$ cd tools
+$ cmake . -DNO_PAE_SUPPORT=OFF
+$ make
+$ sudo make install
+```
 
 5. Set ulimit
 For using lualatex set new size of opening files is required:
