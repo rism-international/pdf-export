@@ -33,7 +33,7 @@ Packages and required software:
 
 1. Ruby >= v2.1.1 
 ```bash
-sudo apt install ruby
+sudo apt install ruby ruby-dev
 ```
 2. TeX Live 2016 (Latex, LuaLaTex and all included packages)
 see: 
