@@ -1,8 +1,8 @@
 {
-  "name": "verovio-node",
+  "name": "tex-server",
   "version": "1.0.0",
-  "description": "Easy wrapper for standalone verovio calls",
-  "main": "pae.js",
+  "description": "Easy server for lualatex",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -26,6 +26,6 @@
   },
   "homepage": "https://github.com/rism-international/pdf-export#readme",
   "dependencies": {
-    "jsdom": "^10.0.0",
+    "express": "latest"
   }
 }
