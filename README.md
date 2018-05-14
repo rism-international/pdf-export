@@ -40,7 +40,7 @@ see:
 ```bash
 sudo add-apt-repository ppa:jonathonf/texlive-2016
 sudo apt update
-sudo apt install tex-common texlive-base texlive-binaries texlive-extra-utils texlive-font-utils texlive-fonts-recommended texlive-generic-recommended texlive-latex-base texlive-latex-extra texlive-latex-recommended texlive-pictures texlive-pstricks texlive-lang-german sed texlive-fonts-extra texlive-lang-greek texlive-xetex
+sudo apt install tex-common texlive-base texlive-binaries texlive-extra-utils texlive-font-utils texlive-fonts-recommended texlive-generic-recommended texlive-latex-base texlive-latex-extra texlive-latex-recommended texlive-pictures texlive-pstricks texlive-lang-german sed texlive-fonts-extra texlive-lang-greek texlive-xetex texlive-luatex
 ```
 3. Inkscape
 ```bash
