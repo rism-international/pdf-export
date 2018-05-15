@@ -199,7 +199,7 @@ if opts[:host]
   puts "Building latex on remote server"
   #TODO add this with net/http eg
   Dir.chdir prog_path
-  cmd = "curl -i -X POST -F \"data=@example/example.tex\" #{server}"
+  cmd = "curl -i -X POST -F \"data=@/tmp/example.tex\" #{server}"
   system( cmd )
 else
   cmd = 'max_strings=1600000 hash_extra=1600000 lualatex -interaction batchmode --enable-write18 -shell-escape example.tex'
