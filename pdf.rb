@@ -210,6 +210,6 @@ else
   if ofile != File.join(temp_path, "example.pdf")
     FileUtils.cp(File.join(temp_path, 'example.pdf'), File.join(File.join(prog_path, ofile)))
   end
+  puts "Ready!"
 end
 
-puts "Ready!"
