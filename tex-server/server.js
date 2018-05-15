@@ -27,10 +27,11 @@ app.post('/tex', (req, res) => {
           if (err) {
           }
           console.log(stdout);
+          fs.createReadStream('/tmp/example.pdf').pipe(fs.createWriteStream('/var/www/example.pdf'));
           console.log("Completed!");
-          res.setHeader('Content-type', 'application/pdf');
-          var pdf = fs.readFileSync('/tmp/example.pdf')
-          res.write(pdf);
+          //res.setHeader('Content-type', 'application/pdf');
+          //var pdf = fs.readFileSync('/tmp/example.pdf')
+          res.write("Download completed PDF at http://lab.rism.info/example.pdf");
           res.end();
         });
     });
