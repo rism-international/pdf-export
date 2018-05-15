@@ -1,6 +1,7 @@
 // use:  curl -i -X POST -F "data=@example/example.tex" http://localhost:3000/raw
 // for params: curl -i -X POST -F "data=@example/example.tex" -F "filename=abc" http://localhost:3000/raw
 // see: https://www.w3schools.com/nodejs/nodejs_uploadfiles.asp
+//TODO adjust request timeout
 
 global.__base = __dirname + '/';
 var port = 33123
@@ -15,7 +16,7 @@ var filePath = '/tmp/x';
 var lualatex = 'cd /tmp; max_strings=1600000 hash_extra=1600000 lualatex -interaction batchmode --enable-write18 -shell-escape /tmp/example.tex; max_strings=1600000 hash_extra=1600000 lualatex -interaction batchmode --enable-write18 -shell-escape /tmp/example.tex; cd -';
 
 app.post('/tex', (req, res) => {
-  console.log("Starting latex generation....");
+  console.log("Starting LaTeX generation....");
   //Removing old images
   exec("rm /tmp/*.svg", (err, stdout, stderr) => {
     if (err) throw err;
@@ -42,5 +43,5 @@ app.post('/tex', (req, res) => {
 });
 
 app.listen(port);
-console.log("Welcome to TEX-Server!");
+console.log("Welcome to TeX-Server!");
 console.log(`API is running on port ${port}`);

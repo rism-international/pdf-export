@@ -106,16 +106,16 @@ npm install
 ```
 * Enjoy!
 
-TEX-Server
+TeX-Server
 ======
-It's possible to execute all textprocessing on a remote host. To start latex server on the remote host execute 
+It's possible to execute all textprocessing on a remote host. To start LaTeX server on the remote host execute 
 ```bash
  tex-server/nodejs server.js
 ```
 
-The remote server will listening on \:33123/tex for incoming requests then
+The remote server will listening on \:33123/tex for incoming requests then.
 
-On the client with using the -h flag you can define the remote server; it returns a http-link with the download pdf, eg:
+On the client with using the -h flag you can define the remote server;  it returns a http-response with a link for the pdf document, eg:
 ```bash
  ruby pdf.rb --lang="de" --infile="example/example.xml" --title="Kunstsammlungen der Veste Coburg" --font="serif" -h "http://example.org:33123/tex"
 ```
