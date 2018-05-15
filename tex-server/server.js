@@ -3,6 +3,7 @@
 // see: https://www.w3schools.com/nodejs/nodejs_uploadfiles.asp
 
 global.__base = __dirname + '/';
+var port = 33123
 var express = require('express');
 var app = express();
 var fs = require('fs');
@@ -10,21 +11,23 @@ var formidable = require('formidable');
 const exec = require('child_process').exec;
 console.log(__base);
 var filePath = '/tmp/x';
-var command = 'ls -ali /tmp/x';
+var lualatex = 'cd /tmp; max_strings=1600000 hash_extra=1600000 lualatex -interaction batchmode --enable-write18 -shell-escape /tmp/example.tex; cd -';
+//var command = 'ls -ali /tmp/x';
 
-app.post('/raw', (req, res) => {
+app.post('/tex', (req, res) => {
+  console.log("Starting latex generation....");
   var form = new formidable.IncomingForm();
   form.parse(req, function (err, fields, files) {
     var oldpath = files.data.path;
-    console.log(fields);
-    var newpath = '/tmp/x';
+    var newpath = '/tmp/example.tex';
     //var newpath = fields.filename;
     fs.rename(oldpath, newpath, function (err) {
       if (err) throw err;
-      exec(command, (err, stdout, stderr) => {
+      exec(lualatex, (err, stdout, stderr) => {
           if (err) {
           }
           console.log(stdout);
+          console.log("Completed!");
           res.write(stdout);
           res.end();
         });
@@ -32,5 +35,6 @@ app.post('/raw', (req, res) => {
   });
 });
 
-app.listen(3000);
-console.log('API is running on port 3000');
+app.listen(port);
+console.log("Welcome to TEX-Server!");
+console.log(`API is running on port ${port}`);

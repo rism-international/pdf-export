@@ -16,6 +16,7 @@ opts = Trollop::options do
 opt :lang, "Language option (currently support for english & german)", :short => '-l', :default => "en"
 opt :font, "Select serif or sans font", :short => '-f', :default => "serif"
 opt :clear, "Clearing temporary files before executing", :short => '-c', :type => :boolean, :default => false
+opt :host, "Executing the lualatex on remote server host", :short => '-h', :type => :string
 opt :title, "Defines the title of the catalog", :short => '-t', :default => "RISM"
 opt :outfile, "Output-Filename", :type => :string, :default => "/tmp/example.pdf", :short => '-o'
 opt :infile, "Input-Filename as MarcXML", :type => :string, :short => '-i'
@@ -193,11 +194,20 @@ if opts[:clear]
   Dir.glob(File.join(temp_path, '*.code')).each { |file| File.delete(file) }
 end
 
-cmd = 'max_strings=1600000 hash_extra=1600000 lualatex -interaction batchmode --enable-write18 -shell-escape example.tex'
-system( cmd )
-# Run twice to have the correct TOC
-puts "Compiling the TOC ..."
-system( cmd )
+if opts[:host]
+  server = opts[:host]
+  puts "Building latex on remote server"
+  #TODO add this with net/http eg
+  Dir.chdir prog_path
+  cmd = "curl -i -X POST -F \"data=@example/example.tex\" #{server}"
+  system( cmd )
+else
+  cmd = 'max_strings=1600000 hash_extra=1600000 lualatex -interaction batchmode --enable-write18 -shell-escape example.tex'
+  system( cmd )
+  # Run twice to have the correct TOC
+  puts "Compiling the TOC ..."
+  system( cmd )
+end
 
 if ofile != File.join(temp_path, "example.pdf")
   FileUtils.cp(File.join(temp_path, 'example.pdf'), File.join(File.join(prog_path, ofile)))
