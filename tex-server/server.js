@@ -1,51 +1,35 @@
+// use:  curl -i -X POST -F "data=@example/example.tex" http://localhost:3000/raw
+// for params: curl -i -X POST -F "data=@example/example.tex" -F "filename=abc" http://localhost:3000/raw
+// see: https://www.w3schools.com/nodejs/nodejs_uploadfiles.asp
+
 global.__base = __dirname + '/';
 var express = require('express');
 var app = express();
 var fs = require('fs');
+var formidable = require('formidable');
 const exec = require('child_process').exec;
 console.log(__base);
 var filePath = '/tmp/x';
 var command = 'ls -ali /tmp/x';
 
-// USE: curl -i -X POST --data-binary @file http://localhost:3000/raw 
-
-function shellcommand(command, res, filePath, targetSize){
-  function fileSizeEquals(filePath, targetSize) {
-    var timer = setTimeout(function() {
-      var stats = fs.statSync(filePath);
-      var fileSize = stats.size;
-      if (fileSize.toString() === targetSize.toString()){
-        console.log("The file was saved!");
-        exec(command, (err, stdout, stderr) => {
+app.post('/raw', (req, res) => {
+  var form = new formidable.IncomingForm();
+  form.parse(req, function (err, fields, files) {
+    var oldpath = files.data.path;
+    console.log(fields);
+    var newpath = '/tmp/x';
+    //var newpath = fields.filename;
+    fs.rename(oldpath, newpath, function (err) {
+      if (err) throw err;
+      exec(command, (err, stdout, stderr) => {
           if (err) {
           }
           console.log(stdout);
-          clearTimeout(timer);
-          res.end(stdout);
+          res.write(stdout);
+          res.end();
         });
-      }
-      else{fileSizeEquals(filePath, targetSize);}
-    }, 1000
-  )};
-  fileSizeEquals(filePath, targetSize);
-}
-
-app.post('/raw', (req, res) => {
-  if (fs.existsSync(filePath)) {
-    fs.unlinkSync(filePath);
-  };
-  req.on('data', (data) => 
-    {
-      targetSize = req.headers['content-length'];
-      fs.appendFile(filePath, data, function(err) {
-        if(err) {
-          return console.log(err);
-        }
-      }); 
     });
-  req.on('end', () => {
-      shellcommand(command, res, filePath, targetSize);
-  })
+  });
 });
 
 app.listen(3000);

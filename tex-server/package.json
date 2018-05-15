@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/rism-international/pdf-export#readme",
   "dependencies": {
-    "express": "latest"
+    "express": "latest",
+    "formidable": "latest"
   }
 }
