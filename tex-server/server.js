@@ -31,7 +31,7 @@ app.post('/tex', (req, res) => {
           console.log("Completed!");
           //res.setHeader('Content-type', 'application/pdf');
           //var pdf = fs.readFileSync('/tmp/example.pdf')
-          res.write("Download completed PDF at http://lab.rism.info/example.pdf");
+          res.write("Download completed PDF at http://lab.rism.info/example.pdf   ");
           res.end();
         });
     });
