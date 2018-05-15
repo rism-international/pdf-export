@@ -7,25 +7,27 @@ console.log(__base);
 var filePath = '/tmp/x';
 var command = 'ls -ali /tmp/x';
 
+// USE: curl -i -X POST --data-binary @file http://localhost:3000/raw 
+
 function shellcommand(command, res, filePath, targetSize){
   function fileSizeEquals(filePath, targetSize) {
     var timer = setTimeout(function() {
       var stats = fs.statSync(filePath);
       var fileSize = stats.size;
       if (fileSize.toString() === targetSize.toString()){
+        console.log("The file was saved!");
         exec(command, (err, stdout, stderr) => {
           if (err) {
           }
           console.log(stdout);
+          clearTimeout(timer);
+          res.end(stdout);
         });
-        clearTimeout(timer);
-        res.end('Success!');
-        return true;
       }
-      else{
-        fileSizeEquals(filePath, targetSize);
-      }}, 1000)};
-    fileSizeEquals(filePath, targetSize);
+      else{fileSizeEquals(filePath, targetSize);}
+    }, 1000
+  )};
+  fileSizeEquals(filePath, targetSize);
 }
 
 app.post('/raw', (req, res) => {
@@ -41,7 +43,6 @@ app.post('/raw', (req, res) => {
         }
       }); 
     });
-  console.log("The file was saved!");
   req.on('end', () => {
       shellcommand(command, res, filePath, targetSize);
   })
