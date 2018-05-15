@@ -28,7 +28,9 @@ app.post('/tex', (req, res) => {
           }
           console.log(stdout);
           console.log("Completed!");
-          res.write(stdout);
+          res.setHeader('Content-type', 'application/pdf');
+          var pdf = fs.readFileSync('/tmp/example.pdf')
+          res.write(pdf);
           res.end();
         });
     });
