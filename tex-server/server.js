@@ -11,16 +11,19 @@ var formidable = require('formidable');
 const exec = require('child_process').exec;
 console.log(__base);
 var filePath = '/tmp/x';
-var lualatex = 'cd /tmp; max_strings=1600000 hash_extra=1600000 lualatex -interaction batchmode --enable-write18 -shell-escape /tmp/example.tex; cd -';
-//var command = 'ls -ali /tmp/x';
+// Running twice because of TOC
+var lualatex = 'cd /tmp; max_strings=1600000 hash_extra=1600000 lualatex -interaction batchmode --enable-write18 -shell-escape /tmp/example.tex; max_strings=1600000 hash_extra=1600000 lualatex -interaction batchmode --enable-write18 -shell-escape /tmp/example.tex; cd -';
 
 app.post('/tex', (req, res) => {
   console.log("Starting latex generation....");
+  //Removing old images
+  exec("rm /tmp/*.svg", (err, stdout, stderr) => {
+    if (err) throw err;
+  });
   var form = new formidable.IncomingForm();
   form.parse(req, function (err, fields, files) {
     var oldpath = files.data.path;
     var newpath = '/tmp/example.tex';
-    //var newpath = fields.filename;
     fs.rename(oldpath, newpath, function (err) {
       if (err) throw err;
       exec(lualatex, (err, stdout, stderr) => {
