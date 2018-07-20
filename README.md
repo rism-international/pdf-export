@@ -95,9 +95,11 @@ git clone https://github.com/rism-international/pdf-export.git
 cd pdf-export
 bundle install
 ```
-If you need nodejs support for Verovio execute in the verovio-node subfolder:
+If you need nodejs support for Verovio execute in the **verovio-node subfolder**:
 ```bash
+cd verovio-node
 npm install
+cd ..
 ```
 
 * Test: ...test if everything works
