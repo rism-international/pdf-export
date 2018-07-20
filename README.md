@@ -62,8 +62,8 @@ ulimit –n 64000
 ```
 Installation on Windows 10
 --------------------------
-1. Install Ruby (2.3 version)
- Use the http://rubyinstaller.org/downloads/ 
+1. Install Ruby (2.3 version)  
+ Use the http://rubyinstaller.org/downloads/   
  *IMPORTANT: select "add to path" during installation.*
 
 After this open a command line window and execute:
