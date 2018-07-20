@@ -19,7 +19,7 @@ Installation
 
 Overall Requirements
 --------------------
-* Ruby (version >= 2.1) 
+* Ruby (version >= 2.1 <= 2.4) 
 * TeX Live 2016
 * Inkscape (version >= 0.91)
 * Verovio notation engraving library (binary executable)
@@ -62,7 +62,7 @@ ulimit –n 64000
 ```
 Installation on Windows 10
 --------------------------
-1. Install Ruby
+1. Install Ruby (2.3 version)
  Use the http://rubyinstaller.org/downloads/ 
  *IMPORTANT: select "add to path" during installation.*
 
