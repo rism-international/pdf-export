@@ -32,11 +32,13 @@
 \usepackage{graphicx}
 <xsl:choose>
   <xsl:when test="$platform='linux-gnu'">
-\usepackage[inkscape={/usr/bin/inkscape -z -C }]{svg}
+%\usepackage[inkscape={/usr/bin/inkscape -z -C }]{svg}
+%\usepackage{svg}
+%\svgsetup{inkscapeopt="-z -C"}
   </xsl:when>
   <xsl:when test="$platform='mingw32'">
-\usepackage{svg}
-\setsvg{inkscape={"C:/Program Files/Inkscape/inkscape.exe"= -z -C}}
+%\usepackage{svg}
+%\setsvg{inkscape={"C:/Program Files/Inkscape/inkscape.exe"= -z -C}}
   </xsl:when>
 </xsl:choose>
 \usepackage{import}
@@ -58,6 +60,18 @@
 \displaywidowpenalty = 10000
 \tolerance=500
 \pagestyle{fancy}
+\usepackage{float}
+\newcommand{\executeiffilenewer}[3]{%
+\ifnum\pdfstrcmp{\pdffilemoddate{#1}}%
+{\pdffilemoddate{#2}}>0%
+{\immediate\write18{#3}}\fi%
+}
+\newcommand{\includesvg}[1]{%
+\executeiffilenewer{#1.svg}{#1.pdf}%
+{inkscape -z -C --file=#1.svg %
+--export-pdf=#1.pdf --export-latex}%
+\input{#1.pdf_tex}%
+}
 \begin{titlepage}
 \title{<xsl:value-of select="$gVariables/*/var[@code='title']"/> \\ 
 \vspace{10 mm} \large <xsl:value-of select="$title"/>
@@ -106,7 +120,7 @@
 \end{filecontents*}
 <xsl:choose>
   <xsl:when test="$platform='linux-gnu'">
-\ShellEscape{ if [ ! -f <xsl:value-of select="filename"/>.svg ]; then verovio --spacing-non-linear=0.54 -w 1500 --spacing-system=0.5 --adjust-page-height -b 0 <xsl:value-of select="filename"/>.code; fi } <!-- 16.8cm, 25cm: 173pt -->
+\ShellEscape{ if [ ! -f <xsl:value-of select="filename"/>.svg ]; then verovio --spacing-non-linear=0.54 --page-width 1500 --spacing-system=0.5 --adjust-page-height <xsl:value-of select="filename"/>.code; fi } <!-- 16.8cm, 25cm: 173pt -->
   </xsl:when>
   <xsl:when test="$platform='mingw32'">
 \ShellEscape{ <xsl:value-of select="concat('If not exist ', filename, '.svg ', 'node ', $verovio_node_path, ' ', filename, '.code')"/> }
@@ -115,7 +129,10 @@
     <xsl:message terminate="yes">ERROR Unsupported OS <xsl:value-of select="$platform"/>! Please implement the correct verovio call in lualatex.xsl below line 118 or take the java-jar version of verovio</xsl:message>
   </xsl:otherwise>
 </xsl:choose>
-\newline \includesvg[width=209pt]{<xsl:value-of select="filename"/>}%</xsl:when>
+\begin{figure}[H]
+\centering
+\def\svgwidth{209pt}\includesvg{"<xsl:value-of select="filename"/>"}
+\end{figure}%</xsl:when>
 <xsl:when test="not(name(.)='verovio-code')">
   <xsl:choose>
     <xsl:when test="name(.)='entries'">
