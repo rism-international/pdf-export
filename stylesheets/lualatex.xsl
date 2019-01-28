@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="1.0" xmlns:zs="http://www.loc.gov/zing/srw/" xmlns:marc="http://www.loc.gov/MARC21/slim" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" exclude-result-prefixes="marc">
-  <xsl:output method="text" indent="no" encoding="UTF-8" omit-xml-declaration="yes" />
+  <xsl:output method="text" indent="no" encoding="UTF-8" omit-xml-declaration="yes"/>
   <xsl:key name="collection" match="record" use="@rismid"/>
   <xsl:param name="varFile"/>
   <xsl:param name="title"/>
@@ -32,13 +32,22 @@
 \usepackage{graphicx}
 <xsl:choose>
   <xsl:when test="$platform='linux-gnu'">
-%\usepackage[inkscape={/usr/bin/inkscape -z -C }]{svg}
-%\usepackage{svg}
-%\svgsetup{inkscapeopt="-z -C"}
+\usepackage{float}
+\newcommand{\executeiffilenewer}[3]{%
+\ifnum\pdfstrcmp{\pdffilemoddate{#1}}%
+{\pdffilemoddate{#2}} \gt 0
+{\immediate\write18{#3}}\fi%
+}
+\newcommand{\includesvg}[1]{%
+\executeiffilenewer{#1.svg}{#1.pdf}%
+{inkscape -z -C --file=#1.svg %
+--export-pdf=#1.pdf --export-latex}%
+\input{#1.pdf_tex}%
+}
   </xsl:when>
   <xsl:when test="$platform='mingw32'">
-%\usepackage{svg}
-%\setsvg{inkscape={"C:/Program Files/Inkscape/inkscape.exe"= -z -C}}
+\usepackage{svg}
+\setsvg{inkscape={"C:/Program Files/Inkscape/inkscape.exe"= -z -C}}
   </xsl:when>
 </xsl:choose>
 \usepackage{import}
@@ -60,18 +69,6 @@
 \displaywidowpenalty = 10000
 \tolerance=500
 \pagestyle{fancy}
-\usepackage{float}
-\newcommand{\executeiffilenewer}[3]{%
-\ifnum\pdfstrcmp{\pdffilemoddate{#1}}%
-{\pdffilemoddate{#2}}>0%
-{\immediate\write18{#3}}\fi%
-}
-\newcommand{\includesvg}[1]{%
-\executeiffilenewer{#1.svg}{#1.pdf}%
-{inkscape -z -C --file=#1.svg %
---export-pdf=#1.pdf --export-latex}%
-\input{#1.pdf_tex}%
-}
 \begin{titlepage}
 \title{<xsl:value-of select="$gVariables/*/var[@code='title']"/> \\ 
 \vspace{10 mm} \large <xsl:value-of select="$title"/>
