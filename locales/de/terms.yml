@@ -159,6 +159,9 @@ relator_codes:
   pbl: Verleger
   scr: Schreiber
   cmp: Komponisten-Querverweis
+  evp: Aufführungsort
+  trl: Übersetzer
+  prt: Drucker
 
 
 
