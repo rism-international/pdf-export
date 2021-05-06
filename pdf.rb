@@ -177,7 +177,7 @@ latex_file.write(latex.children.to_s)
 latex_file.write(regis.children.to_s)
 latex_file.write(titles.children.to_s)
 latex_file.write(shelfmark.children.to_s)
-latex_file.write(watermark.children.to_s)
+#latex_file.write(watermark.children.to_s)
 latex_file.write(cat.children.to_s)
 
 #Finishing

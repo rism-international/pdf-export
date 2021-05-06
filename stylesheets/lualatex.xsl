@@ -115,7 +115,8 @@
     <xsl:message terminate="yes">ERROR Unsupported OS <xsl:value-of select="$platform"/>! Please implement the correct verovio call in lualatex.xsl below line 118 or take the java-jar version of verovio</xsl:message>
   </xsl:otherwise>
 </xsl:choose>
-\newline \includesvg[width=209pt]{<xsl:value-of select="filename"/>}%</xsl:when>
+\newline \includesvg[width=209pt]{<xsl:value-of select="filename"/>}
+</xsl:when>
 <xsl:when test="not(name(.)='verovio-code')">
   <xsl:choose>
     <xsl:when test="name(.)='entries'">

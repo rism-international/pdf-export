@@ -325,7 +325,12 @@
       <inc_key before=", "><xsl:value-of select="marc:subfield[@code='r']"/></inc_key>
     </xsl:if>
     <xsl:if test="marc:subfield[@code='t']"> 
-      <text before="\newline \begin{{footnotesize}} " after=" \end{{footnotesize}}" ><xsl:value-of select="marc:subfield[@code='t']"/></text>
+    
+      <xsl:for-each select="marc:subfield[@code='t']">
+    
+        <text before="\newline \begin{{footnotesize}} " after=" \end{{footnotesize}}" ><xsl:value-of select="."/></text>
+      </xsl:for-each>
+    
     </xsl:if>
     <xsl:if test="marc:subfield[@code='p']">
       <verovio-code>
